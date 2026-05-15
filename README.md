@@ -38,6 +38,12 @@ git pull origin develop
 git switch -c feature/브랜치이름
 ```
 
+이미 작업 브랜치가 생성되어 있는 경우에는 새로 만들지 않고 해당 브랜치로 이동합니다.
+
+```bash
+git switch feature/브랜치이름
+```
+
 3. 파일을 수정한 뒤 변경 사항을 확인합니다.
 
 ```bash
@@ -198,3 +204,4 @@ compare: develop
 ```text
 feature/* -> develop -> main
 ```
+
