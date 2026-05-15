@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>동양미래대학교 도서관</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=IBM+Plex+Sans+KR:wght@300;400;500;600&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="css/index.css">
+    </head>
+
+    <body>
+        <!-- HEADER -->
+        <header>
+            <div class="header-inner">
+                <a href="#" style="display:flex;align-items:center;gap:0;text-decoration:none;">
+                    <img src="images/logo.jpg" alt="동양미래대학교" class="logo-img">
+                    <span class="logo-lib-label">도서관</span>
+                </a>
+                <div class="header-utils">
+                    <a href="#">처음방문자</a>
+                    <span class="sep">|</span>
+                    <a href="#">ENG</a>
+                    <button class="btn-login">LOGIN</button>
+                    <button class="icon-btn" aria-label="검색">
+                        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <circle cx="11" cy="11" r="8"/>
+                            <path d="m21 21-4.35-4.35"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <nav class="main-nav">
+                <div class="nav-inner">
+                    <div class="nav-item">
+                        <a href="#">자료이용</a>
+                        <div class="drop">
+                            <a href="#">통합 자료 검색</a>
+                            <a href="#">도서 대출 · 반납</a>
+                            <a href="#">전자책 · 전자저널</a>
+                            <a href="#">상호대차 신청</a>
+                            <a href="#">도서 구입 신청</a>
+                            <a href="#">신착 도서 안내</a>
+                        </div>
+                    </div>
+                    <div class="nav-item">
+                        <a href="#">추천 도서</a>
+                        <div class="drop">
+                            <a href="#">금주의 추천 도서</a>
+                            <a href="#">장르별 추천</a>
+                            <a href="#">사서 추천 도서</a>
+                            <a href="#">인기 도서 Top 10</a>
+                            <a href="#">베스트 대출</a>
+                        </div>
+                    </div>
+                    <div class="nav-item">
+                        <a href="#">시설이용</a>
+                        <div class="drop">
+                            <a href="#">열람실 좌석 예약</a>
+                            <a href="#">그룹 스터디룸</a>
+                            <a href="#">복합기 · 인쇄</a>
+                            <a href="#">층별 안내도</a>
+                            <a href="#">시설 예약 현황</a>
+                        </div>
+                    </div>
+                    <div class="nav-item">
+                        <a href="#">커뮤니티</a>
+                        <div class="drop">
+                            <a href="#">공지사항</a>
+                            <a href="#">행사 · 교육일정</a>
+                            <a href="#">문의 · 1:1 상담</a>
+                            <a href="#">서평 게시판</a>
+                        </div>
+                    </div>
+                    <div class="nav-item">
+                        <a href="#" class="active">나의공간</a>
+                        <div class="drop-wide">
+                            <div class="drop-wide-col">
+                                <div class="drop-col-title">내정보</div>
+                                <a href="#">내서재</a>
+                                <a href="#">개인공지</a>
+                                <a href="#">이용자정보 관리</a>
+                                <a href="#">연회비 · 이용증</a>
+                            </div>
+                            <div class="drop-wide-col">
+                                <div class="drop-col-title">이용현황</div>
+                                <a href="#">자료대출 · 예약 현황</a>
+                                <a href="#">자료구입 신청 · 현황</a>
+                                <a href="#">상호대차 · 원문복사 신청현황</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <!-- HERO -->
+        <section class="hero">
+            <div class="hero-slide on" id="sl0">
+                <img src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=1600&q=80" alt="">
+                <div class="hero-grad"></div>
+            </div>
+            <div class="hero-slide" id="sl1">
+                <img src="https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=1600&q=80" alt="">
+                <div class="hero-grad"></div>
+            </div>
+            <div class="hero-slide" id="sl2">
+                <img src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da?w=1600&q=80" alt="">
+                <div class="hero-grad"></div>
+            </div>
+            <div class="hero-search-zone">
+                <div style="width:100%;max-width:760px;padding:0 1rem;">
+                    <div class="search-tabs">
+                        <button class="stab on">통합검색</button>
+                        <button class="stab">도서</button>
+                        <button class="stab">논문 · 학술지</button>
+                        <button class="stab">전자자료</button>
+                    </div>
+                    <div class="search-box">
+                        <input class="search-input" type="text" placeholder="검색어를 입력하세요.">
+                        <button class="s-sub-btn">상세검색</button>
+                        <button class="s-sub-btn">전자자료</button>
+                        <button class="s-main-btn">
+                            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                                <circle cx="11" cy="11" r="8"/>
+                                <path d="m21 21-4.35-4.35"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-dots">
+                <button class="hdot on" data-i="0"></button>
+                <button class="hdot" data-i="1"></button>
+                <button class="hdot" data-i="2"></button>
+            </div>
+        </section>
+
+        <!-- QUICK -->
+        <section class="quick">
+            <div class="quick-inner">
+                <div class="qi">
+                    <div class="qi-icon">
+                        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                            <circle cx="9" cy="7" r="4"/>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                        </svg>
+                    </div>
+                    <div class="qi-label">이용자별<br>안내</div>
+                </div>
+                <div class="qi">
+                    <div class="qi-icon">
+                        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24">
+                            <rect x="2" y="3" width="20" height="14" rx="0"/>
+                            <path d="M8 21h8M12 17v4"/>
+                        </svg>
+                    </div>
+                    <div class="qi-label">연회비 /<br>이용증</div>
+                </div>
+                <div class="qi">
+                    <div class="qi-icon">
+                        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24">
+                            <rect x="3" y="4" width="18" height="18" rx="0"/>
+                            <line x1="16" y1="2" x2="16" y2="6"/>
+                            <line x1="8" y1="2" x2="8" y2="6"/>
+                            <line x1="3" y1="10" x2="21" y2="10"/>
+                        </svg>
+                    </div>
+                    <div class="qi-label">좌석 /<br>시설예약</div>
+                </div>
+                <div class="qi">
+                    <div class="qi-icon">
+                        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24">
+                            <circle cx="11" cy="11" r="8"/>
+                            <path d="m21 21-4.35-4.35"/>
+                        </svg>
+                    </div>
+                    <div class="qi-label">학술정보<br>큐레이션</div>
+                </div>
+                <div class="qi">
+                    <div class="qi-icon">
+                        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24">
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                        </svg>
+                    </div>
+                    <div class="qi-label">1:1<br>문의</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- NOTICE (박스 없이 리스트만) -->
+        <div class="notice-wrap">
+            <div class="notice-inner">
+                <div class="notice-col">
+                    <div class="notice-col-head">
+                        <span class="nc-title">공지사항</span>
+                        <a class="nc-more" href="#">전체보기 &rsaquo;</a>
+                    </div>
+                    <div class="notice-list">
+                        <div class="notice-row">
+                            <span class="n-type nt-n">공지</span>
+                            <span class="n-txt">2025학년도 1학기 도서관 이용 안내 및 대출 기간 변경 공지</span>
+                            <span class="n-date">03.02</span>
+                        </div>
+                        <div class="notice-row">
+                            <span class="n-type nt-e">행사</span>
+                            <span class="n-txt">독서의 달 특별 이벤트 — 서평 공모전 참가자 모집</span>
+                            <span class="n-date">03.10</span>
+                        </div>
+                        <div class="notice-row">
+                            <span class="n-type nt-x">신착</span>
+                            <span class="n-txt">5월 신착 도서 목록 안내 (250권 신규 입고)</span>
+                            <span class="n-date">05.05</span>
+                        </div>
+                        <div class="notice-row">
+                            <span class="n-type nt-n">공지</span>
+                            <span class="n-txt">열람실 리모델링으로 인한 3층 임시 폐쇄 안내 (5/20~5/25)</span>
+                            <span class="n-date">05.15</span>
+                        </div>
+                        <div class="notice-row">
+                            <span class="n-type nt-e">행사</span>
+                            <span class="n-txt">신입생 도서관 오리엔테이션 — 5월 신청 접수 중</span>
+                            <span class="n-date">05.12</span>
+                        </div>
+                        <div class="notice-row">
+                            <span class="n-type nt-x">신착</span>
+                            <span class="n-txt">JSTOR · ScienceDirect DB 신규 구독 서비스 안내</span>
+                            <span class="n-date">05.08</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="notice-col">
+                    <div class="notice-col-head">
+                        <span class="nc-title">교육일정</span>
+                        <a class="nc-more" href="#">전체보기 &rsaquo;</a>
+                    </div>
+                    <div class="sched-list">
+                        <div class="sched-row">
+                            <div class="sched-box">
+                                <span class="mo">MAY</span>
+                                <span class="dy">15</span>
+                            </div>
+                            <div>
+                                <div class="sn">신입생을 위한 도서관 이용 안내 특강</div>
+                                <div class="st">10:00 ~ 11:00 · 2층 세미나실</div>
+                            </div>
+                        </div>
+                        <div class="sched-row">
+                            <div class="sched-box">
+                                <span class="mo">MAY</span>
+                                <span class="dy">17</span>
+                            </div>
+                            <div>
+                                <div class="sn">논문 작성을 위한 정보검색 교육</div>
+                                <div class="st">14:00 ~ 15:30 · 전자정보실</div>
+                            </div>
+                        </div>
+                        <div class="sched-row">
+                            <div class="sched-box">
+                                <span class="mo">MAY</span>
+                                <span class="dy">22</span>
+                            </div>
+                            <div>
+                                <div class="sn">서평 공모전 수상작 낭독 행사</div>
+                                <div class="st">15:00 ~ 17:00 · 1층 로비</div>
+                            </div>
+                        </div>
+                        <div class="sched-row">
+                            <div class="sched-box">
+                                <span class="mo">MAY</span>
+                                <span class="dy">29</span>
+                            </div>
+                            <div>
+                                <div class="sn">ChatGPT와 학술 연구 활용법 특강</div>
+                                <div class="st">10:00 ~ 12:00 · 전자정보실</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- COLLECTION BANNERS -->
+        <div class="coll-wrap">
+            <div class="coll-inner">
+                <div class="sec-hd" style="border-bottom:2px solid var(--text);">
+                    <span class="sec-title">특별 컬렉션</span>
+                </div>
+                <div class="coll-grid" style="margin-top:1.1rem;">
+                    <div class="coll-card">
+                        <img src="https://images.unsplash.com/photo-1519682337058-a94d519337bc?w=400&q=80" alt="전자책">
+                        <div class="coll-ov">
+                            <div class="coll-tag">E-Resource</div>
+                            <div class="coll-name">전자책 · E-Book</div>
+                            <div class="coll-desc">소장 구독 중인 전자책 및 이러닝 콘텐츠</div>
+                        </div>
+                    </div>
+                    <div class="coll-card">
+                        <img src="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=400&q=80" alt="학술정보">
+                        <div class="coll-ov">
+                            <div class="coll-tag">Curation</div>
+                            <div class="coll-name">학술정보 큐레이션</div>
+                            <div class="coll-desc">분야별 추천 학술자료 및 DB</div>
+                        </div>
+                    </div>
+                    <div class="coll-card">
+                        <img src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?w=400&q=80" alt="귀중서고">
+                        <div class="coll-ov">
+                            <div class="coll-tag">Archive</div>
+                            <div class="coll-name">귀중서고 견학</div>
+                            <div class="coll-desc">숨겨진 희귀 자료를 만나보세요</div>
+                        </div>
+                    </div>
+                    <div class="coll-card">
+                        <img src="https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=400&q=80" alt="신착도서">
+                        <div class="coll-ov">
+                            <div class="coll-tag">New Arrival</div>
+                            <div class="coll-name">이달의 신착 도서</div>
+                            <div class="coll-desc">5월 신규 입고 250권</div>
+                        </div>
+                    </div>
+                    <div class="coll-card">
+                        <img src="https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?w=400&q=80" alt="논문">
+                        <div class="coll-ov">
+                            <div class="coll-tag">Research</div>
+                            <div class="coll-name">학위논문 컬렉션</div>
+                            <div class="coll-desc">동양미래대 졸업 학위논문 아카이브</div>
+                        </div>
+                    </div>
+                    <div class="coll-card">
+                        <img src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=400&q=80" alt="기부">
+                        <div class="coll-ov">
+                            <div class="coll-tag">Community</div>
+                            <div class="coll-name">기부 · 기증 도서</div>
+                            <<div class="coll-desc">도서관 기부/기증 통합 안내</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- BOOKS -->
+        <div class="books-wrap">
+            <div class="books-inner">
+                <div class="books-left">
+                    <div class="books-tab-row">
+                        <div class="btabs">
+                            <button class="btab on" data-t="new">신착도서</button>
+                            <button class="btab" data-t="popular">인기도서</button>
+                            <button class="btab" data-t="best">베스트대출</button>
+                        </div>
+                        <a class="sec-more" href="#">전체보기 +</a>
+                    </div>
+                    <div class="books-grid" id="bGrid"></div>
+                </div>
+                <div class="yt-panel">
+                    <div class="yt-head">
+                        <svg width="20" height="14" viewBox="0 0 20 14"><rect width="20" height="14" fill="#FF0000"/><path d="M8 4l5 3-5 3V4z" fill="white"/></svg>
+                        Youtube
+                    </div>
+                    <div class="yt-thumb">
+                        <img src="https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=600&q=80" alt="yt">
+                        <div class="yt-play">
+                            <div class="yt-btn">
+                                <div class="yt-tri"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="yt-cap">
+                        동양미래대학교 도서관 공식 채널
+                        <div class="yt-cap-sub">도서관 이용 팁 · 행사 영상 · 학습법</div>
+                    </div>
+                    <div class="hours-box">
+                        <div class="hours-top">
+                            <div class="open-circle">OPEN</div>
+                            <div class="ht">
+                                <div class="hl">오늘 (목) 운영시간</div>
+                                <div class="hv">09:00 — 21:00</div>
+                            </div>
+                        </div>
+                        <div class="h-rows">
+                            <div class="h-row">
+                                <span class="hd">월 — 금</span>
+                                <span class="hv">09:00 — 21:00</span>
+                            </div>
+                            <div class="h-row">
+                                <span class="hd">토요일</span>
+                                <span class="hv">09:00 — 17:00</span>
+                            </div>
+                            <div class="h-row">
+                                <span class="hd">일 · 공휴일</span>
+                                <span class="hc">휴관</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- WEEK BOOKS -->
+        <div class="week-wrap">
+            <div class="week-inner">
+                <div class="sec-hd">
+                    <span class="sec-title">금주의 추천 도서</span>
+                    <a class="sec-more" href="#">전체 추천 목록 &rsaquo;</a>
+                </div>
+                <div class="week-grid" style="margin-top:1.1rem;">
+                    <div class="wk-main">
+                        <div class="wk-top">
+                            <img class="wk-cover" id="wc0" src="" alt="도둑맞은 집중력" style="background:linear-gradient(160deg,#163d73,#1e5fa8)">
+                            <div class="wk-meta">
+                                <div class="wk-badge">이번 주 추천 #1</div>
+                                <div class="wk-title">도둑맞은 집중력</div>
+                                <div class="wk-author">요한 하리 (Johann Hari)</div>
+                                <div class="wk-tags">
+                                    <span class="wk-tag">사회과학</span>
+                                    <span class="wk-tag">자기계발</span>
+                                    <span class="wk-tag">미디어비평</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="wk-body">
+                            <p class="wk-desc">스마트폰과 SNS가 지배하는 시대, 우리의 집중력은 왜 무너졌을까? 
+                                세계 정상의 전문가들을 직접 인터뷰하며 집중력 위기의 진짜 원인을 파헤친 화제의 책. 
+                                디지털 사회를 살아가는 모든 대학생에게 사서가 직접 추천하는 필독서입니다.
+                            </p>
+                            <div class="wk-foot">
+                                <div class="avail">
+                                    <div class="avail-dot"></div>
+                                    대출 가능 · 3권 보유
+                                </div>
+                                <button class="btn-borrow">대출 예약</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="wk-side">
+                        <div class="wk-side-top">
+                            <img class="wk-side-cover" id="wc1" src="" alt="파친코" style="background:linear-gradient(160deg,#5c2a0a,#a84e1a)">
+                            <div>
+                                <div class="wk-side-rank">이번 주 2위</div>
+                                <div class="wk-side-title">파친코</div>
+                                <div class="wk-side-author">이민진 (Min Jin Lee)</div>
+                            </div>
+                        </div>
+                        <div class="wk-side-body">
+                            <p class="wk-side-desc">4대에 걸친 재일 조선인 가족의 파란만장한 역사를 담은 대서사 소설. 정체성과 생존에 관한 이야기.</p>
+                            <div class="wk-tags2">
+                                <span class="wtag">소설</span>
+                                <span class="wtag">역사</span>
+                            </div>
+                        </div>
+                        <div class="wk-side-foot">
+                            <span class="wk-avail">대출 가능 · 2권</span>
+                            <button class="btn-res">예약</button>
+                        </div>
+                        <div class="wk-side-body">
+                            <p class="wk-side-desc">4대에 걸친 재일 조선인 가족의 파란만장한 역사를 담은 대서사 소설. 정체성과 생존에 관한 이야기.</p>
+                            <div class="wk-tags2">
+                                <span class="wtag">소설</span>
+                                <span class="wtag">역사</span>
+                            </div>
+                        </div>
+                        <div class="wk-side-foot">
+                            <span class="wk-avail">대출 가능 · 2권</span>
+                            <button class="btn-res">예약</button>
+                        </div>
+                    </div>
+                    <div class="wk-side">
+                        <div class="wk-side-top">
+                            <img class="wk-side-cover" id="wc2" src="" alt="사피엔스" style="background:linear-gradient(160deg,#0a3d2a,#186b45)">
+                            <div>
+                                <div class="wk-side-rank">이번 주 3위</div>
+                                <div class="wk-side-title">사피엔스</div>
+                                <div class="wk-side-author">유발 하라리 (Yuval Noah Harari)</div>
+                            </div>
+                        </div>
+                        <div class="wk-side-body">
+                            <p class="wk-side-desc">인류 역사 전체를 꿰뚫는 거대한 서사. 호모 사피엔스가 어떻게 지구를 지배했는지 탐구한 세계적 베스트셀러.</p>
+                            <div class="wk-tags2">
+                                <span class="wtag">역사</span>
+                                <span class="wtag">인문</span>
+                            </div>
+                        </div>
+                        <div class="wk-side-foot">
+                            <span class="wk-avail">대출 가능 · 5권</span>
+                            <button class="btn-res">예약</button>
+                        </div>
+                        <div class="wk-side-body">
+                            <p class="wk-side-desc">인류 역사 전체를 꿰뚫는 거대한 서사. 호모 사피엔스가 어떻게 지구를 지배했는지 탐구한 세계적 베스트셀러.</p>
+                            <div class="wk-tags2">
+                                <span class="wtag">역사</span>
+                                <span class="wtag">인문</span>
+                            </div>
+                        </div>
+                        <div class="wk-side-foot">
+                            <span class="wk-avail">대출 가능 · 5권</span>
+                            <button class="btn-res">예약</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- GENRE -->
+        <div class="genre-wrap">
+            <div class="genre-inner">
+                <div class="sec-hd">
+                    <span class="sec-title">관심 분야별 추천</span>
+                    <a class="sec-more" href="#">더 많은 추천 &rsaquo;</a>
+                </div>
+                <div class="genre-filter" id="gTabs" style="margin-top:1rem;">
+                    <button class="gtab on" data-g="all">전체</button>
+                    <button class="gtab" data-g="novel">소설 · 문학</button>
+                    <button class="gtab" data-g="self">자기계발</button>
+                    <button class="gtab" data-g="biz">경영 · 경제</button>
+                    <button class="gtab" data-g="sci">과학 · 기술</button>
+                    <button class="gtab" data-g="art">예술 · 디자인</button>
+                    <button class="gtab" data-g="hist">역사 · 인문</button>
+                    <button class="gtab" data-g="it">IT · 공학</button>
+                </div>
+                <div class="genre-grid" id="gGrid"></div>
+            </div>
+        </div>
+
+        <!-- BANNER -->
+        <div class="banner">
+            <div class="banner-inner">
+                <div>
+                    <div class="banner-sub">Reading Challenge 2025</div>
+                    <div class="banner-h">올해 목표 독서량,<br><em>도서관과 함께</em> 달성하세요</div>
+                </div>
+                <button class="btn-banner">독서 기록 시작하기</button>
+            </div>
+        </div>
+
+    <!-- FOOTER -->
+        <footer>
+            <div class="footer-inner">
+                <div class="footer-top">
+                    <div>
+                        <div class="f-name">동양미래대학교 학술정보관</div>
+                        <div class="f-addr">서울특별시 구로구 경인로 445<br>TEL: 02-2610-1700 · FAX: 02-2610-1709<br>lib@dongyang.ac.kr</div>
+                    </div>
+                    <div>
+                        <div class="f-col-tit">이용 안내</div>
+                        <ul class="f-links">
+                            <li><a href="#">대출 · 반납 안내</a></li>
+                            <li><a href="#">열람실 이용 안내</a></li>
+                            <li><a href="#">복사 · 인쇄 안내</a></li>
+                            <li><a href="#">자료 기증 안내</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <div class="f-col-tit">온라인 서비스</div>
+                        <ul class="f-links">
+                            <li><a href="#">통합 자료 검색</a></li>
+                            <li><a href="#">전자책 · 전자저널</a></li>
+                            <li><a href="#">도서 구입 신청</a></li>
+                            <li><a href="#">상호대차 신청</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <div class="f-col-tit">도서관 소개</div>
+                        <ul class="f-links">
+                            <li><a href="#">도서관 연혁</a></li>
+                            <li><a href="#">층별 안내도</a></li>
+                            <li><a href="#">오시는 길</a></li>
+                            <li><a href="#">개인정보처리방침</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <span>Copyright &copy; 2025 Dongyang Mirae University Library. All rights reserved.</span>
+                    <span>동양미래대학교 도서관</span>
+                </div>
+            </div>
+        </footer>
+
+        <script src="js/main.js"></script>
+    </body>
+</html>
