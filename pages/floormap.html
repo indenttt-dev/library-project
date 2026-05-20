@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>층별 안내도 — 동양미래대학교 도서관</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=IBM+Plex+Sans+KR:wght@300;400;500;600&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="../css/style.css">
+        <style>
+            .page-hero { background: var(--blue-dk); padding: 2.5rem 2rem; }
+            .page-hero-inner { max-width: 1280px; margin: 0 auto; }
+            .page-hero-title { font-size: 1.6rem; font-weight: 700; color: white; letter-spacing: -0.5px; margin-bottom: .35rem; }
+            .page-hero-bc { font-size: 12.5px; color: rgba(255,255,255,.45); display: flex; align-items: center; gap: 6px; }
+            .page-hero-bc a { color: rgba(255,255,255,.45); transition: color .2s; }
+            .page-hero-bc a:hover { color: rgba(255,255,255,.8); }
+
+            .page-content { max-width: 1280px; margin: 0 auto; padding: 2.5rem 2rem; }
+
+            /* 층 탭 — 세로 버튼 */
+            .floor-layout {
+                display: grid;
+                grid-template-columns: 110px 1fr;
+                gap: 1.75rem;
+                margin-top: 1.5rem;
+            }
+            .floor-tabs {
+                display: flex; flex-direction: column; gap: 4px;
+            }
+            .floor-tab-btn {
+                padding: 12px 0;
+                font-size: 14px; font-weight: 700;
+                color: var(--text2); border: 1px solid var(--border);
+                background: white; cursor: pointer; font-family: inherit;
+                transition: all .15s; letter-spacing: -0.2px;
+                text-align: center;
+            }
+            .floor-tab-btn:hover { border-color: var(--blue); color: var(--blue); background: var(--blue-lt); }
+            .floor-tab-btn.on { background: var(--blue-dk); border-color: var(--blue-dk); color: white; }
+            .floor-tab-btn .fl-num { display: block; font-size: 20px; font-weight: 700; line-height: 1.1; }
+            .floor-tab-btn .fl-label { display: block; font-size: 10px; font-weight: 500; margin-top: 2px; opacity: .75; }
+
+            /* 층 콘텐츠 */
+            .floor-content { border: 1px solid var(--border); background: white; }
+            .floor-panel { display: none; }
+            .floor-panel.on { display: block; }
+
+            .floor-content-header {
+                padding: 1.25rem 1.75rem;
+                border-bottom: 1px solid var(--border);
+                background: var(--bg);
+            }
+            .floor-content-header .fl-main-title {
+                font-size: 1.2rem; font-weight: 700; color: var(--text);
+                letter-spacing: -0.4px; margin-bottom: .3rem;
+            }
+            .floor-content-header .fl-subtitle {
+            font-size: 13px; color: var(--blue); font-weight: 600; letter-spacing: -0.1px;
+            }
+
+            .floor-body {
+                display: grid;
+                grid-template-columns: 1fr 340px;
+                gap: 0;
+            }
+            .floor-map-area {
+                padding: 1.75rem;
+                border-right: 1px solid var(--border);
+                display: flex; align-items: center; justify-content: center;
+                background: #fafafa; min-height: 320px;
+            }
+            .floor-map-img {
+                max-width: 100%; max-height: 380px;
+                object-fit: contain;
+                display: block;
+            }
+
+            .floor-info-area { padding: 1.75rem; }
+            .floor-desc {
+                font-size: 13.5px; color: var(--text2);
+                line-height: 1.85; margin-bottom: 1.25rem;
+                letter-spacing: -0.1px;
+            }
+            .floor-spaces { }
+            .floor-spaces-title {
+                font-size: 11px; font-weight: 700; text-transform: uppercase;
+                letter-spacing: 0.5px; color: var(--text3);
+                padding-bottom: .4rem; border-bottom: 1px solid var(--border); margin-bottom: .75rem;
+            }
+            .space-item {
+                padding: .55rem 0;
+                border-bottom: 1px solid #f0f0f0;
+                font-size: 13px;
+            }
+            .space-item:last-child { border-bottom: none; }
+            .space-name { font-weight: 600; color: var(--text); letter-spacing: -0.2px; }
+            .space-desc { color: var(--text3); font-size: 12px; margin-top: 2px; line-height: 1.5; }
+        </style>
+    </head>
+    <body>
+        <div id="header-placeholder"></div>
+        <div class="page-hero">
+            <div class="page-hero-inner">
+                <div class="page-hero-title">층별 안내도</div>
+                <div class="page-hero-bc">
+                    <a href="../index.html">홈</a><span>&rsaquo;</span>
+                    <span>시설이용</span><span>&rsaquo;</span>
+                    <span>층별 안내도</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="page-content">
+            <div class="sec-hd"><span class="sec-title">층별 안내도</span></div>
+            <div class="floor-layout">
+                <!-- 층 탭 버튼 -->
+                <div class="floor-tabs">
+                    <button class="floor-tab-btn" data-f="6" onclick="showFloor(6, this)">
+                        <span class="fl-num">6F</span><span class="fl-label">인문사회</span>
+                    </button>
+                    <button class="floor-tab-btn" data-f="5" onclick="showFloor(5, this)">
+                        <span class="fl-num">5F</span><span class="fl-label">미래나래</span>
+                    </button>
+                    <button class="floor-tab-btn" data-f="4" onclick="showFloor(4, this)">
+                        <span class="fl-num">4F</span><span class="fl-label">미래나래</span>
+                    </button>
+                    <button class="floor-tab-btn" data-f="3" onclick="showFloor(3, this)">
+                        <span class="fl-num">3F</span><span class="fl-label">과학기술</span>
+                    </button>
+                    <button class="floor-tab-btn" data-f="2" onclick="showFloor(2, this)">
+                        <span class="fl-num">2F</span><span class="fl-label">어문학</span>
+                    </button>
+                    <button class="floor-tab-btn on" data-f="1" onclick="showFloor(1, this)">
+                        <span class="fl-num">1F</span><span class="fl-label">D_Study</span>
+                    </button>
+                </div>
+
+                <!-- 층 콘텐츠 -->
+                <div class="floor-content">
+                    <!-- 1F -->
+                    <div class="floor-panel on" id="floor-1">
+                        <div class="floor-content-header">
+                            <div class="fl-main-title">1F · D_Study</div>
+                            <div class="fl-subtitle">도서관 1층 — 그룹스터디 공간</div>
+                        </div>
+                        <div class="floor-body">
+                            <div class="floor-map-area">
+                                <img class="floor-map-img" src="../images/floor_1f.png" alt="1층 도면">
+                            </div>
+                            <div class="floor-info-area">
+                                <p class="floor-desc">도서관 1층에 D_Study가 위치하고 있으며 본교 학생은 누구나 자유롭게 이용할 수 있습니다.</p>
+                                <div class="floor-spaces">
+                                    <div class="floor-spaces-title">주요 공간</div>
+                                    <div class="space-item">
+                                        <div class="space-name">D_Study (그룹스터디)</div>
+                                        <div class="space-desc">스터디룸 1~5호 · 그룹 학습 및 프로젝트 모임 공간</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 2F -->
+                    <div class="floor-panel" id="floor-2">
+                        <div class="floor-content-header">
+                            <div class="fl-main-title">2F · 어문학자료실</div>
+                            <div class="fl-subtitle">순수과학 · 예술 · 어학 · 문학 분야</div>
+                        </div>
+                        <div class="floor-body">
+                            <div class="floor-map-area">
+                                <img class="floor-map-img" src="../images/floor_2f.png" alt="2층 도면">
+                            </div>
+                            <div class="floor-info-area">
+                                <p class="floor-desc">어문학자료실은 도서관 2층에 위치하고 있으며 순수과학, 예술, 어학, 문학 분야의 단행본, 참고도서, 정기간행물과 신문 등을 소장하고 있습니다.</p>
+                                <div class="floor-spaces">
+                                    <div class="floor-spaces-title">주요 공간</div>
+                                    <div class="space-item">
+                                        <div class="space-name">순수과학 · 예술 · 어학 자료실</div>
+                                        <div class="space-desc">단행본 및 참고도서 열람 공간</div>
+                                    </div>
+                                    <div class="space-item">
+                                        <div class="space-name">문학 자료실</div>
+                                        <div class="space-desc">국내외 문학 단행본 소장</div>
+                                    </div>
+                                    <div class="space-item">
+                                        <div class="space-name">정기간행물 · 신문 코너</div>
+                                        <div class="space-desc">최신 정기간행물 및 신문 열람</div>
+                                    </div>
+                                    <div class="space-item">
+                                        <div class="space-name">스터디룸</div>
+                                        <div class="space-desc">스터디룸 1 · 2 · 3호 (예약 이용)</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 3F -->
+                    <div class="floor-panel" id="floor-3">
+                        <div class="floor-content-header">
+                        <div class="fl-main-title">3F · 과학기술자료실</div>
+                        <div class="fl-subtitle">공학 · 기술과학 · 전산 분야</div>
+                        </div>
+                        <div class="floor-body">
+                        <div class="floor-map-area">
+                            <img class="floor-map-img" src="../images/floor_3f.png" alt="3층 도면">
+                        </div>
+                        <div class="floor-info-area">
+                            <p class="floor-desc">과학기술자료실은 도서관 3층에 위치하고 있으며 기술과학분야의 단행본, 참고도서, 연속간행물 등을 소장하고 있습니다.</p>
+                            <div class="floor-spaces">
+                                <div class="floor-spaces-title">주요 공간</div>
+                                <div class="space-item">
+                                    <div class="space-name">공학 · 공업일반 자료실</div>
+                                    <div class="space-desc">기술과학 · 의학 · 농학 분야 도서</div>
+                                </div>
+                                <div class="space-item">
+                                    <div class="space-name">건축 · 기계 · 전기전자 자료실</div>
+                                    <div class="space-desc">전공 단행본 및 참고도서 소장</div>
+                                </div>
+                                <div class="space-item">
+                                    <div class="space-name">전산공학 자료실</div>
+                                    <div class="space-desc">컴퓨터 · 소프트웨어 분야 자료</div>
+                                </div>
+                                <div class="space-item">
+                                    <div class="space-name">스터디룸</div>
+                                    <div class="space-desc">스터디룸 1 · 2 · 3호 (예약 이용)</div>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+
+                    <!-- 4F -->
+                    <div class="floor-panel" id="floor-4">
+                        <div class="floor-content-header">
+                            <div class="fl-main-title">4F · 미래나래 — 온빛마루 · 너나마루 · 톡톡마루</div>
+                            <div class="fl-subtitle">학생 웰컴센터 · 테마 북 라이브러리</div>
+                        </div>
+                        <div class="floor-body">
+                            <div class="floor-map-area">
+                                <img class="floor-map-img" src="../images/floor_4f.png" alt="4층 도면">
+                            </div>
+                            <div class="floor-info-area">
+                                <p class="floor-desc">학생들을 맞이하는 웰컴센터, 웰컴 라운지, 오픈 미팅바, 디지털 충전 등이 준비되어 있습니다.</p>
+                                <div class="floor-spaces">
+                                    <div class="floor-spaces-title">주요 공간</div>
+                                    <div class="space-item">
+                                        <div class="space-name">온빛마루 Onbitmaru</div>
+                                        <div class="space-desc">다가오는 빛, 온누리를 밝히는 빛의 공간. 트렌드 정보와 동시대 이야기를 탐미할 수 있는 테마 북 라이브러리</div>
+                                    </div>
+                                    <div class="space-item">
+                                        <div class="space-name">톡톡마루 Toktokmaru</div>
+                                        <div class="space-desc">도서관을 방문하는 학생들이 '똑똑' 노크를 한다는 의미의 공간</div>
+                                    </div>
+                                    <div class="space-item">
+                                        <div class="space-name">너나마루</div>
+                                        <div class="space-desc">학생 커뮤니티 및 소통 공간</div>
+                                    </div>
+                                    <div class="space-item">
+                                        <div class="space-name">스터디룸</div>
+                                        <div class="space-desc">스터디룸 0 · 1 · 2 · 3 · 4호 (예약 이용)</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 5F -->
+                    <div class="floor-panel" id="floor-5">
+                        <div class="floor-content-header">
+                            <div class="fl-main-title">5F · 미래나래 — 별별마루 · 열린마루</div>
+                            <div class="fl-subtitle">미디어센터 · VR룸 · 오디토리움 · 데이터센터</div>
+                        </div>
+                        <div class="floor-body">
+                            <div class="floor-map-area">
+                                <img class="floor-map-img" src="../images/floor_5f.png" alt="5층 도면">
+                            </div>
+                            <div class="floor-info-area">
+                                <p class="floor-desc">도서관 5층에 위치하고 있으며 PC 28대, 노트북 전용좌석 15석, 신간도서, Byul Byul Play, 프린트 서비스를 이용할 수 있습니다.</p>
+                                <div class="floor-spaces">
+                                    <div class="floor-spaces-title">주요 공간</div>
+                                    <div class="space-item">
+                                        <div class="space-name">별별마루 Byulbyulmaru</div>
+                                        <div class="space-desc">별의 별 것을 다 할 수 있는 다목적 공간. 서비스데스크, 별별플레이, 오디토리움, 데이터센터 운영</div>
+                                    </div>
+                                    <div class="space-item">
+                                        <div class="space-name">열린마루 Yullinmaru</div>
+                                        <div class="space-desc">인터넷 · 미디어 정보 바다를 향해 열린 공간. 미디어센터, 스터디/미팅룸, VR룸 운영</div>
+                                    </div>
+                                    <div class="space-item">
+                                        <div class="space-name">오디토리움</div>
+                                        <div class="space-desc">소규모 강의, 자료를 활용한 소규모 학습 및 영화상영 가능</div>
+                                    </div>
+                                    <div class="space-item">
+                                        <div class="space-name">VR룸</div>
+                                        <div class="space-desc">가상현실 체험 및 eSports 이용 가능. 공연 등 다목적 용도 사용 가능</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 6F -->
+                    <div class="floor-panel" id="floor-6">
+                        <div class="floor-content-header">
+                            <div class="fl-main-title">6F · 인문사회자료실</div>
+                            <div class="fl-subtitle">철학 · 종교 · 역사 · 사회과학 분야</div>
+                        </div>
+                        <div class="floor-body">
+                            <div class="floor-map-area">
+                                <img class="floor-map-img" src="../images/floor_6f.png" alt="6층 도면">
+                            </div>
+                            <div class="floor-info-area">
+                                <p class="floor-desc">인문사회자료실은 도서관 6층에 위치하고 있으며 인문학 사회과학분야인 철학, 종교, 역사류 등 단행본 참고도서 연속간행물 논문집을 소장하고 있습니다.</p>
+                                <div class="floor-spaces">
+                                    <div class="floor-spaces-title">주요 공간</div>
+                                    <div class="space-item">
+                                        <div class="space-name">총류 · 철학 · 종교 자료실</div>
+                                        <div class="space-desc">철학, 종교 분야 단행본 및 참고도서</div>
+                                    </div>
+                                    <div class="space-item">
+                                        <div class="space-name">사회과학 자료실</div>
+                                        <div class="space-desc">역사, 사회과학 분야 자료 소장</div>
+                                    </div>
+                                    <div class="space-item">
+                                        <div class="space-name">논문 · 연속간행물 코너</div>
+                                        <div class="space-desc">학술논문집 및 연속간행물 열람</div>
+                                    </div>
+                                    <div class="space-item">
+                                        <div class="space-name">제3열람실</div>
+                                        <div class="space-desc">열람 및 개인학습 공간</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div><!-- /.floor-content -->
+            </div><!-- /.floor-layout -->
+        </div>
+
+        <div id="footer-placeholder"></div>
+        <script src="../js/main.js"></script>
+        <script>
+            renderHeader('시설이용');
+            renderFooter();
+
+            function showFloor(num, btn) {
+            document.querySelectorAll('.floor-tab-btn').forEach(b => b.classList.remove('on'));
+            document.querySelectorAll('.floor-panel').forEach(p => p.classList.remove('on'));
+            btn.classList.add('on');
+            document.getElementById('floor-' + num).classList.add('on');
+            }
+        </script>
+    </body>
+</html>

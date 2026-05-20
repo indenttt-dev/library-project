@@ -4,21 +4,116 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>마이페이지</title>
-        <link rel="stylesheet" href="../styles/mypage.css">
+        <title>나의 공간 — 동양미래대학교 도서관</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=IBM+Plex+Sans+KR:wght@300;400;500;600&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="../css/style.css">
+        <style>
+            /* 페이지 헤더 */
+            .page-hero { background: var(--blue-dk); padding: 2.5rem 2rem; }
+            .page-hero-inner { max-width: 1280px; margin: 0 auto; }
+            .page-hero-title { font-size: 1.6rem; font-weight: 700; color: white; letter-spacing: -0.5px; margin-bottom: .35rem; }
+            .page-hero-bc { font-size: 12.5px; color: rgba(255,255,255,.45); display: flex; align-items: center; gap: 6px; }
+            .page-hero-bc a { color: rgba(255,255,255,.45); transition: color .2s; }
+            .page-hero-bc a:hover { color: rgba(255,255,255,.8); }
+
+            /* 콘텐츠 영역 */
+            .page-content { max-width: 1280px; margin: 0 auto; padding: 2.5rem 2rem; }
+
+            /* ──────────────────────────────────────
+            이 파일 전용 스타일을 여기에 추가하세요.
+            공통 스타일(헤더/푸터/버튼/배지/탭/책카드/공지리스트)은
+            css/style.css 에 있습니다.
+            ────────────────────────────────────── */
+        </style>
     </head>
-    
     <body>
-        <header>
-            
-        </header>
-        <main>
-            <section>
 
-            </section>
-            <footer>
+        <div id="header-placeholder"></div>
 
-            </footer>
-        </main>
+        <div class="page-hero">
+            <div class="page-hero-inner">
+                <div class="page-hero-title">페이지 제목</div>
+                <div class="page-hero-bc">
+                    <a href="../index.html">홈</a>
+                    <span>&rsaquo;</span>
+                    <span>상위 메뉴</span>
+                    <span>&rsaquo;</span>
+                    <span>현재 페이지</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="page-content">
+
+            <!--
+                공통 컴포넌트 사용 예시 (css/style.css에 정의된 클래스):
+
+                [섹션 헤더]
+                <div class="sec-hd">
+                <span class="sec-title">섹션 제목</span>
+                <a class="sec-more" href="#">더보기 &rsaquo;</a>
+                </div>
+
+                [탭]
+                <div class="tab-row" id="myTabs">
+                <button class="tab-btn on" data-key="a">탭1</button>
+                <button class="tab-btn" data-key="b">탭2</button>
+                </div>
+
+                [공지 리스트]
+                <div class="notice-list">
+                <div class="notice-row">
+                    <span class="n-txt">공지 내용</span>
+                    <span class="n-date">2026.05.10</span>
+                </div>
+                </div>
+
+                [책 카드]
+                <div class="book-card">
+                <div class="book-cover">
+                    <img src="../images/book1.jpg" alt="책 제목">
+                </div>
+                <div class="book-info">
+                    <div class="book-title">책 제목</div>
+                    <div class="book-author">저자</div>
+                </div>
+                </div>
+
+                [버튼]
+                <button class="btn-primary">주요 버튼</button>
+                <button class="btn-outline">보조 버튼</button>
+
+                ※ 국내 도서 표지 삽입 방법:
+                images/ 폴더에 이미지 파일을 넣고
+                <img src="../images/파일명.jpg" alt="책제목"> 로 삽입하세요.
+                권장 크기: 160×230px (2:3 비율)
+            -->
+
+            <p style="color:var(--text3);font-size:14px;text-align:center;padding:4rem 0;">
+                이 파일을 복사해서 새 페이지를 작성하세요.
+            </p>
+
+        </div>
+
+        <div id="footer-placeholder"></div>
+
+        <script src="../js/main.js"></script>
+        <script>
+            /* activeNav: '자료이용' | '추천 도서' | '시설이용' | '커뮤니티' | '나의공간' */
+            renderHeader('커뮤니티');
+            renderFooter();
+
+            /* 탭 초기화 예시 */
+            // const panels = { a: 'tab-a', b: 'tab-b' };
+            // document.querySelectorAll('#myTabs .tab-btn').forEach(btn => {
+            //   btn.addEventListener('click', () => {
+            //     document.querySelectorAll('#myTabs .tab-btn').forEach(x => x.classList.remove('on'));
+            //     btn.classList.add('on');
+            //     Object.values(panels).forEach(id => document.getElementById(id).style.display = 'none');
+            //     document.getElementById(panels[btn.dataset.key]).style.display = 'block';
+            //   });
+            // });
+        </script>
     </body>
 </html>
