@@ -4,21 +4,454 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>시설 안내</title>
-        <link rel="stylesheet" href="../styles/facility.css">
+        <title>시설 예약 — 동양미래대학교 도서관</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=IBM+Plex+Sans+KR:wght@300;400;500;600&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="../css/style.css">
+        <style>
+            .page-hero { background: var(--blue-dk); padding: 2.5rem 2rem; }
+            .page-hero-inner { max-width: 1280px; margin: 0 auto; }
+            .page-hero-title { font-size: 1.6rem; font-weight: 700; color: white; letter-spacing: -0.5px; margin-bottom: .35rem; }
+            .page-hero-bc { font-size: 12.5px; color: rgba(255,255,255,.45); display: flex; align-items: center; gap: 6px; }
+            .page-hero-bc a { color: rgba(255,255,255,.45); transition: color .2s; }
+            .page-hero-bc a:hover { color: rgba(255,255,255,.8); }
+
+            .page-content { max-width: 1280px; margin: 0 auto; padding: 2.5rem 2rem; }
+
+            /* 예약 레이아웃 */
+            .reserve-layout {
+                display: grid;
+                grid-template-columns: 260px 1fr;
+                gap: 1.75rem;
+                margin-top: 1.5rem;
+            }
+
+            /* 왼쪽: 룸 선택 패널 */
+            .room-panel { }
+            .room-group-title {
+                font-size: 11px; font-weight: 700; text-transform: uppercase;
+                letter-spacing: 0.6px; color: var(--text3);
+                padding: 0.5rem 0; border-bottom: 1px solid var(--border);
+                margin-bottom: 0.5rem;
+            }
+            .room-btn {
+                display: block; width: 100%;
+                padding: 9px 12px; text-align: left;
+                font-size: 13.5px; font-weight: 500; color: var(--text2);
+                border: 1px solid transparent; background: none;
+                cursor: pointer; transition: all .15s;
+                letter-spacing: -0.2px; font-family: inherit;
+                margin-bottom: 3px;
+            }
+            .room-btn:hover { background: var(--blue-lt); color: var(--blue); }
+            .room-btn.selected { background: var(--blue-dk); color: white; border-color: var(--blue-dk); }
+            .room-group { margin-bottom: 1.25rem; }
+
+            /* 오른쪽: 예약 패널 */
+            .booking-panel {
+                border: 1px solid var(--border);
+                background: white;
+            }
+            .booking-header {
+                padding: 1.1rem 1.5rem;
+                border-bottom: 1px solid var(--border);
+                background: var(--bg);
+                display: flex; align-items: center; justify-content: space-between;
+            }
+            .booking-room-name { font-size: 16px; font-weight: 700; color: var(--text); letter-spacing: -0.3px; }
+            .booking-date-row {
+                padding: 1rem 1.5rem;
+                border-bottom: 1px solid var(--border);
+                display: flex; align-items: center; gap: 1rem;
+            }
+            .date-label { font-size: 13px; color: var(--text2); font-weight: 500; flex-shrink: 0; }
+            .date-input {
+                border: 1px solid var(--border); padding: 6px 12px;
+                font-size: 13.5px; font-family: inherit; color: var(--text);
+                outline: none; cursor: pointer;
+            }
+            .date-input:focus { border-color: var(--blue); }
+
+            /* 시간표 그리드 */
+            .timetable-wrap { padding: 1.25rem 1.5rem; overflow-x: auto; }
+            .timetable {
+                width: 100%; border-collapse: collapse;
+                min-width: 600px;
+            }
+            .timetable th {
+                padding: 8px 10px; font-size: 12px; font-weight: 700;
+                color: var(--text2); background: var(--bg);
+                border: 1px solid var(--border); text-align: center;
+                white-space: nowrap; letter-spacing: -0.1px;
+            }
+            .timetable td {
+                padding: 0; border: 1px solid var(--border);
+                text-align: center; height: 44px;
+            }
+            .slot-btn {
+                width: 100%; height: 100%;
+                font-size: 12px; font-weight: 500; font-family: inherit;
+                cursor: pointer; transition: all .15s; border: none;
+                background: white; color: var(--text2);
+            }
+            .slot-btn:hover { background: var(--blue-lt); color: var(--blue); }
+            .slot-btn.available { background: white; color: var(--text2); }
+            .slot-btn.selected  { background: var(--blue); color: white; }
+            .slot-btn.reserved  { background: var(--bg2); color: var(--text3); cursor: not-allowed; font-weight: 400; }
+
+            /* 범례 */
+            .legend {
+                padding: .75rem 1.5rem 1rem;
+                display: flex; gap: 1.25rem; align-items: center;
+            }
+            .legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--text2); }
+            .legend-dot { width: 14px; height: 14px; border: 1px solid var(--border); flex-shrink: 0; }
+            .legend-dot.ld-avail    { background: white; }
+            .legend-dot.ld-selected { background: var(--blue); border-color: var(--blue); }
+            .legend-dot.ld-reserved { background: var(--bg2); }
+
+            /* 신청 버튼 */
+            .booking-footer {
+                padding: 1rem 1.5rem;
+                border-top: 1px solid var(--border);
+                background: var(--bg);
+                display: flex; align-items: center; justify-content: space-between;
+            }
+            .selected-info { font-size: 13px; color: var(--text2); }
+            .selected-info strong { color: var(--blue); font-weight: 700; }
+
+            /* 신청내역 테이블 */
+            .history-table { width: 100%; border-collapse: collapse; margin-top: 1.25rem; font-size: 13.5px; }
+            .history-table thead th {
+                padding: .72rem 1rem; background: var(--bg);
+                border-top: 2px solid var(--text); border-bottom: 2px solid var(--text);
+                font-weight: 700; text-align: left; letter-spacing: -0.2px;
+            }
+            .history-table thead th.c { text-align: center; }
+            .history-table tbody td {
+                padding: .7rem 1rem; border-bottom: 1px solid #e8e8e8;
+                color: var(--text); letter-spacing: -0.15px;
+            }
+            .history-table tbody tr:last-child td { border-bottom: none; }
+            .status-badge { font-size: 11px; font-weight: 700; padding: 2px 8px; }
+            .sb-ok     { background: #E8F6EF; color: #107840; }
+            .sb-cancel { background: #FEF0F0; color: #a01010; }
+            .btn-cancel-sm {
+                font-size: 12px; padding: 4px 12px;
+                border: 1px solid var(--border); background: white;
+                color: var(--text2); cursor: pointer; font-family: inherit;
+                transition: all .15s;
+            }
+            .btn-cancel-sm:hover { border-color: #c00; color: #c00; }
+
+            /* 모달 */
+            .modal-overlay {
+                display: none; position: fixed; inset: 0;
+                background: rgba(0,0,0,.45); z-index: 1000;
+                align-items: center; justify-content: center;
+            }
+            .modal-overlay.show { display: flex; }
+            .modal {
+                background: white; padding: 2rem;
+                width: 400px; max-width: 90vw;
+                box-shadow: 0 8px 40px rgba(0,0,0,.2);
+            }
+            .modal-title { font-size: 16px; font-weight: 700; margin-bottom: 1.25rem; letter-spacing: -0.3px; }
+            .modal-info  { font-size: 13.5px; color: var(--text2); line-height: 1.9; margin-bottom: 1.5rem; }
+            .modal-info strong { color: var(--text); font-weight: 600; }
+            .modal-footer { display: flex; gap: 8px; justify-content: flex-end; }
+        </style>
     </head>
-    
+
     <body>
-        <header>
-            
-        </header>
-        <main>
-            <section>
+        <div id="header-placeholder"></div>
+        <div class="page-hero">
+            <div class="page-hero-inner">
+                <div class="page-hero-title">시설 예약</div>
+                <div class="page-hero-bc">
+                    <a href="../index.html">홈</a><span>&rsaquo;</span>
+                    <span>시설이용</span><span>&rsaquo;</span>
+                    <span>시설 예약</span>
+                </div>
+            </div>
+        </div>
 
-            </section>
-            <footer>
+        <div class="page-content">
 
-            </footer>
-        </main>
+            <div class="tab-row" id="facTabs">
+                <button class="tab-btn on"  data-key="reserve">시설 예약</button>
+                <button class="tab-btn"     data-key="history">신청내역</button>
+            </div>
+
+            <!-- ════════ 시설 예약 ════════ -->
+            <div id="tab-reserve">
+                <div class="reserve-layout">
+
+                    <!-- 룸 선택 -->
+                    <div class="room-panel">
+                        <div class="room-group">
+                            <div class="room-group-title">D_Study (그룹스터디) · 1F</div>
+                            <button class="room-btn selected" data-floor="1" data-room="1" onclick="selectRoom(this)">1층 스터디룸 1</button>
+                            <button class="room-btn" data-floor="1" data-room="2" onclick="selectRoom(this)">1층 스터디룸 2</button>
+                            <button class="room-btn" data-floor="1" data-room="3" onclick="selectRoom(this)">1층 스터디룸 3</button>
+                            <button class="room-btn" data-floor="1" data-room="4" onclick="selectRoom(this)">1층 스터디룸 4</button>
+                            <button class="room-btn" data-floor="1" data-room="5" onclick="selectRoom(this)">1층 스터디룸 5</button>
+                        </div>
+                        <div class="room-group">
+                            <div class="room-group-title">스터디룸 · 2F</div>
+                            <button class="room-btn" data-floor="2" data-room="1" onclick="selectRoom(this)">2층 스터디룸 1</button>
+                            <button class="room-btn" data-floor="2" data-room="2" onclick="selectRoom(this)">2층 스터디룸 2</button>
+                            <button class="room-btn" data-floor="2" data-room="3" onclick="selectRoom(this)">2층 스터디룸 3</button>
+                        </div>
+                        <div class="room-group">
+                            <div class="room-group-title">스터디룸 · 3F</div>
+                            <button class="room-btn" data-floor="3" data-room="1" onclick="selectRoom(this)">3층 스터디룸 1</button>
+                            <button class="room-btn" data-floor="3" data-room="2" onclick="selectRoom(this)">3층 스터디룸 2</button>
+                            <button class="room-btn" data-floor="3" data-room="3" onclick="selectRoom(this)">3층 스터디룸 3</button>
+                        </div>
+                        <div class="room-group">
+                            <div class="room-group-title">스터디룸 · 4F</div>
+                            <button class="room-btn" data-floor="4" data-room="0" onclick="selectRoom(this)">4층 스터디룸 0</button>
+                            <button class="room-btn" data-floor="4" data-room="1" onclick="selectRoom(this)">4층 스터디룸 1</button>
+                            <button class="room-btn" data-floor="4" data-room="2" onclick="selectRoom(this)">4층 스터디룸 2</button>
+                            <button class="room-btn" data-floor="4" data-room="3" onclick="selectRoom(this)">4층 스터디룸 3</button>
+                            <button class="room-btn" data-floor="4" data-room="4" onclick="selectRoom(this)">4층 스터디룸 4</button>
+                        </div>
+                        <div class="room-group">
+                            <div class="room-group-title">스터디룸 · 5F</div>
+                            <button class="room-btn" data-floor="5" data-room="1" onclick="selectRoom(this)">5층 스터디룸 1</button>
+                            <button class="room-btn" data-floor="5" data-room="2" onclick="selectRoom(this)">5층 스터디룸 2</button>
+                            <button class="room-btn" data-floor="5" data-room="3" onclick="selectRoom(this)">5층 스터디룸 3</button>
+                        </div>
+                    </div>
+
+                    <!-- 예약 패널 -->
+                    <div class="booking-panel">
+                        <div class="booking-header">
+                            <div class="booking-room-name" id="bookingRoomName">1층 스터디룸 1 (D_Study)</div>
+                            <div style="font-size:12px;color:var(--text3);">시간 슬롯을 선택 후 예약하세요</div>
+                        </div>
+                        <div class="booking-date-row">
+                            <div class="date-label">예약 날짜</div>
+                            <input class="date-input" type="date" id="bookingDate">
+                        </div>
+                        <div class="timetable-wrap">
+                        <table class="timetable" id="timetable">
+                            <thead id="ttHead"></thead>
+                            <tbody id="ttBody"></tbody>
+                        </table>
+                        </div>
+                        <div class="legend">
+                            <div class="legend-item"><div class="legend-dot ld-avail"></div>예약 가능</div>
+                            <div class="legend-item"><div class="legend-dot ld-selected"></div>선택됨</div>
+                            <div class="legend-item"><div class="legend-dot ld-reserved"></div>예약됨</div>
+                        </div>
+                        <div class="booking-footer">
+                            <div class="selected-info" id="selInfo">선택된 시간대 없음</div>
+                            <button class="btn-primary" onclick="openModal()">예약 신청</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ════════ 신청내역 ════════ -->
+            <div id="tab-history" style="display:none;">
+                <table class="history-table" id="historyTable">
+                    <thead>
+                        <tr>
+                            <th class="c" style="width:50px;">번호</th>
+                            <th>시설명</th>
+                            <th class="c" style="width:110px;">예약일</th>
+                            <th class="c" style="width:150px;">예약 시간</th>
+                            <th class="c" style="width:80px;">상태</th>
+                            <th class="c" style="width:80px;">관리</th>
+                        </tr>
+                    </thead>
+                    <tbody id="historyTbody">
+                        <tr><td colspan="6" style="text-align:center;padding:2.5rem;color:var(--text3);font-size:13.5px;">신청 내역이 없습니다.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 예약 확인 모달 -->
+        <div class="modal-overlay" id="modalOverlay">
+            <div class="modal">
+                <div class="modal-title">예약 신청 확인</div>
+                <div class="modal-info" id="modalInfo"></div>
+                <div class="modal-footer">
+                    <button class="btn-outline" onclick="closeModal()">취소</button>
+                    <button class="btn-primary" onclick="confirmReserve()">예약 신청</button>
+                </div>
+            </div>
+        </div>
+        <div id="footer-placeholder"></div>
+        <script src="../js/main.js"></script>
+        <script>
+            renderHeader('시설이용');
+            renderFooter();
+
+            /* ── 탭 전환 ── */
+            document.querySelectorAll('#facTabs .tab-btn').forEach(btn =>
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('#facTabs .tab-btn').forEach(x => x.classList.remove('on'));
+                btn.classList.add('on');
+                document.getElementById('tab-reserve').style.display = btn.dataset.key === 'reserve' ? 'block' : 'none';
+                document.getElementById('tab-history').style.display  = btn.dataset.key === 'history'  ? 'block' : 'none';
+            })
+            );
+
+            /* ── 상태 ── */
+            const TIMES = [
+            '09:00~10:00','10:00~11:00','11:00~12:00','12:00~13:00',
+            '13:00~14:00','14:00~15:00','15:00~16:00','16:00~17:00','17:00~18:00'
+            ];
+
+            let currentRoom = { floor:1, room:1, name:'1층 스터디룸 1 (D_Study)' };
+            let selectedSlots = new Set(); /* "날짜|시간" */
+            let reservedSlots = {}; /* key: "floor|room|날짜|시간" */
+            let historyList   = [];
+            let historySeq    = 1;
+
+            /* 오늘 날짜로 초기화 */
+            const today = new Date();
+            const todayStr = today.toISOString().split('T')[0];
+            document.getElementById('bookingDate').value = todayStr;
+            document.getElementById('bookingDate').min   = todayStr;
+
+            /* ── 룸 선택 ── */
+            function selectRoom(btn) {
+            document.querySelectorAll('.room-btn').forEach(b => b.classList.remove('selected'));
+            btn.classList.add('selected');
+            const floor = +btn.dataset.floor;
+            const room  = +btn.dataset.room;
+            const floorLabel = floor === 1 ? '(D_Study)' : '';
+            currentRoom = { floor, room, name: `${floor}층 스터디룸 ${room} ${floorLabel}`.trim() };
+            document.getElementById('bookingRoomName').textContent = currentRoom.name;
+            selectedSlots.clear();
+            renderTimetable();
+            updateSelInfo();
+            }
+
+            /* ── 시간표 렌더링 ── */
+            function renderTimetable() {
+            const date = document.getElementById('bookingDate').value;
+            const head = document.getElementById('ttHead');
+            const body = document.getElementById('ttBody');
+
+            head.innerHTML = `<tr><th style="width:50px;">구분</th>${TIMES.map(t=>`<th>${t}</th>`).join('')}</tr>`;
+
+            const key   = r => `${currentRoom.floor}|${currentRoom.room}|${date}|${r}`;
+            const selKey = r => `${date}|${r}`;
+
+            body.innerHTML = `
+                <tr>
+                <td style="background:var(--bg);font-size:12px;font-weight:700;color:var(--text2);padding:0 8px;">예약</td>
+                ${TIMES.map(t => {
+                    const reserved = reservedSlots[key(t)];
+                    const selected = selectedSlots.has(selKey(t));
+                    const cls = reserved ? 'reserved' : selected ? 'selected' : 'available';
+                    const txt = reserved ? '예약됨' : selected ? '선택됨' : '가능';
+                    return `<td><button class="slot-btn ${cls}" onclick="toggleSlot('${t}')" ${reserved?'disabled':''}>${txt}</button></td>`;
+                }).join('')}
+                </tr>`;
+            }
+
+            document.getElementById('bookingDate').addEventListener('change', () => {
+            selectedSlots.clear();
+            renderTimetable();
+            updateSelInfo();
+            });
+
+            /* ── 슬롯 토글 ── */
+            function toggleSlot(time) {
+            const date = document.getElementById('bookingDate').value;
+            const k = `${date}|${time}`;
+            if (selectedSlots.has(k)) selectedSlots.delete(k);
+            else selectedSlots.add(k);
+            renderTimetable();
+            updateSelInfo();
+            }
+
+            function updateSelInfo() {
+            const el = document.getElementById('selInfo');
+            if (selectedSlots.size === 0) {
+                el.innerHTML = '선택된 시간대 없음';
+            } else {
+                const date = document.getElementById('bookingDate').value;
+                const times = [...selectedSlots].map(k => k.replace(date+'|','')).join(', ');
+                el.innerHTML = `<strong>${currentRoom.name}</strong> · ${date} · ${times}`;
+            }
+            }
+
+            /* ── 모달 ── */
+            function openModal() {
+            if (selectedSlots.size === 0) { alert('예약할 시간대를 선택하세요.'); return; }
+            const date  = document.getElementById('bookingDate').value;
+            const times = [...selectedSlots].map(k=>k.replace(date+'|','')).join(', ');
+            document.getElementById('modalInfo').innerHTML =
+                `<strong>시설명</strong> &nbsp; ${currentRoom.name}<br>
+                <strong>예약일</strong> &nbsp; ${date}<br>
+                <strong>시간</strong> &nbsp;&nbsp;&nbsp; ${times}`;
+            document.getElementById('modalOverlay').classList.add('show');
+            }
+            function closeModal() { document.getElementById('modalOverlay').classList.remove('show'); }
+
+            function confirmReserve() {
+            const date  = document.getElementById('bookingDate').value;
+            const times = [...selectedSlots].map(k=>k.replace(date+'|',''));
+            /* 예약됨으로 등록 */
+            times.forEach(t => {
+                reservedSlots[`${currentRoom.floor}|${currentRoom.room}|${date}|${t}`] = true;
+            });
+            /* 내역 추가 */
+            historyList.unshift({
+                no: historySeq++,
+                name: currentRoom.name,
+                date,
+                times: times.join(', '),
+                status: '예약완료',
+            });
+            renderHistory();
+            selectedSlots.clear();
+            renderTimetable();
+            updateSelInfo();
+            closeModal();
+            alert('예약이 완료되었습니다.');
+            }
+
+            function renderHistory() {
+            const tbody = document.getElementById('historyTbody');
+            if (historyList.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:2.5rem;color:var(--text3);font-size:13.5px;">신청 내역이 없습니다.</td></tr>';
+                return;
+            }
+            tbody.innerHTML = historyList.map(h => `
+                <tr>
+                <td style="text-align:center;color:var(--text3)">${h.no}</td>
+                <td>${h.name}</td>
+                <td style="text-align:center">${h.date}</td>
+                <td style="text-align:center">${h.times}</td>
+                <td style="text-align:center"><span class="status-badge ${h.status==='예약완료'?'sb-ok':'sb-cancel'}">${h.status}</span></td>
+                <td style="text-align:center">${h.status==='예약완료'?`<button class="btn-cancel-sm" onclick="cancelReserve(${h.no})">취소</button>`:'-'}</td>
+                </tr>`).join('');
+            }
+
+            function cancelReserve(no) {
+            if (!confirm('예약을 취소하시겠습니까?')) return;
+            const h = historyList.find(x=>x.no===no);
+            if (!h) return;
+            h.status = '취소됨';
+            /* reservedSlots에서 제거 */
+            h.times.split(', ').forEach(t => {
+                const rk = `${currentRoom.floor}|${currentRoom.room}|${h.date}|${t}`;
+                delete reservedSlots[rk];
+            });
+            renderHistory();
+            renderTimetable();
+            }
+
+            renderTimetable();
+        </script>
     </body>
 </html>
