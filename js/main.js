@@ -89,7 +89,6 @@ function renderHeader(activeNav) {
           <span class="logo-lib-label">도서관</span>
         </a>
         <div class="header-utils">
-          <a href="#">ENG</a>
           <button class="btn-login">LOGIN</button>
           <button class="icon-btn" aria-label="검색">
             <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">

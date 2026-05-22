@@ -1,312 +1,316 @@
 <!DOCTYPE html>
-
 <html lang="ko">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>커뮤니티 — 동양미래대학교 도서관</title>
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=IBM+Plex+Sans+KR:wght@300;400;500;600&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="../css/style.css">
-        <style>
-            /* ── 페이지 헤더 ── */
-            .page-hero { background: var(--blue-dk); padding: 2.5rem 2rem; }
-            .page-hero-inner { max-width: 1280px; margin: 0 auto; }
-            .page-hero-title { font-size: 1.6rem; font-weight: 700; color: white; letter-spacing: -0.5px; margin-bottom: .35rem; }
-            .page-hero-bc { font-size: 12.5px; color: rgba(255,255,255,.45); display: flex; align-items: center; gap: 6px; }
-            .page-hero-bc a { color: rgba(255,255,255,.45); transition: color .2s; }
-            .page-hero-bc a:hover { color: rgba(255,255,255,.8); }
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>커뮤니티 — 동양미래대학교 도서관</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=IBM+Plex+Sans+KR:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<style>
+/* ── 페이지 헤더 ── */
+.page-hero { background: var(--blue-dk); padding: 2.5rem 2rem; }
+.page-hero-inner { max-width: 1280px; margin: 0 auto; }
+.page-hero-title { font-size: 1.6rem; font-weight: 700; color: white; letter-spacing: -0.5px; margin-bottom: .35rem; }
+.page-hero-bc { font-size: 12.5px; color: rgba(255,255,255,.45); display: flex; align-items: center; gap: 6px; }
+.page-hero-bc a { color: rgba(255,255,255,.45); transition: color .2s; }
+.page-hero-bc a:hover { color: rgba(255,255,255,.8); }
 
-            .page-content { max-width: 1280px; margin: 0 auto; padding: 2.5rem 2rem; }
+.page-content { max-width: 1280px; margin: 0 auto; padding: 2.5rem 2rem; }
 
-            /* ── 탭 (style.css의 .tab-row / .tab-btn 공용) ── */
+/* ── 탭 (style.css의 .tab-row / .tab-btn 공용) ── */
 
-            /* ── 공지사항 테이블 ── */
-            .notice-table {
-                width: 100%; border-collapse: collapse;
-                margin-top: 1.25rem; font-size: 13.5px;
-            }
-            .notice-table thead th {
-                padding: 0.75rem 1rem;
-                background: var(--bg);
-                border-top: 2px solid var(--text);
-                border-bottom: 2px solid var(--text);
-                font-weight: 700; color: var(--text);
-                text-align: left; letter-spacing: -0.2px;
-            }
-            .notice-table thead th.center { text-align: center; }
-            .notice-table tbody td {
-                padding: 0.72rem 1rem;
-                border-bottom: 1px solid #e8e8e8;
-                color: var(--text); letter-spacing: -0.15px;
-            }
-            .notice-table tbody tr:last-child td { border-bottom: none; }
-            .notice-table tbody tr:hover td { background: var(--bg); cursor: pointer; }
-            .notice-table .td-no   { width: 70px; text-align: center; color: var(--text3); font-size: 12.5px; }
-            .notice-table .td-date { width: 110px; text-align: center; color: var(--text3); font-size: 12.5px; }
-            .notice-table .td-title { }
-            .notice-table .td-title:hover { color: var(--blue); }
+/* ── 공지사항 테이블 ── */
+.notice-table {
+  width: 100%; border-collapse: collapse;
+  margin-top: 1.25rem; font-size: 13.5px;
+}
+.notice-table thead th {
+  padding: 0.75rem 1rem;
+  background: var(--bg);
+  border-top: 2px solid var(--text);
+  border-bottom: 2px solid var(--text);
+  font-weight: 700; color: var(--text);
+  text-align: left; letter-spacing: -0.2px;
+}
+.notice-table thead th.center { text-align: center; }
+.notice-table tbody td {
+  padding: 0.72rem 1rem;
+  border-bottom: 1px solid #e8e8e8;
+  color: var(--text); letter-spacing: -0.15px;
+}
+.notice-table tbody tr:last-child td { border-bottom: none; }
+.notice-table tbody tr:hover td { background: var(--bg); cursor: pointer; }
+.notice-table .td-no   { width: 70px; text-align: center; color: var(--text3); font-size: 12.5px; }
+.notice-table .td-date { width: 110px; text-align: center; color: var(--text3); font-size: 12.5px; }
+.notice-table .td-title { }
+.notice-table .td-title:hover { color: var(--blue); }
 
-            /* ── 페이지네이션 ── */
-            .pagination {
-                display: flex; justify-content: center;
-                align-items: center; gap: 4px; margin-top: 1.75rem;
-            }
-            .pag-btn {
-                width: 34px; height: 34px;
-                border: 1px solid var(--border); background: white;
-                font-size: 13.5px; color: var(--text2);
-                display: flex; align-items: center; justify-content: center;
-                cursor: pointer; font-family: inherit;
-                transition: all .15s; font-weight: 500;
-            }
-            .pag-btn.on { background: var(--blue-dk); border-color: var(--blue-dk); color: white; font-weight: 700; }
-            .pag-btn:hover:not(.on) { border-color: var(--blue); color: var(--blue); }
-            .pag-arrow { font-size: 15px; color: var(--text3); }
+/* ── 페이지네이션 ── */
+.pagination {
+  display: flex; justify-content: center;
+  align-items: center; gap: 4px; margin-top: 1.75rem;
+}
+.pag-btn {
+  width: 34px; height: 34px;
+  border: 1px solid var(--border); background: white;
+  font-size: 13.5px; color: var(--text2);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; font-family: inherit;
+  transition: all .15s; font-weight: 500;
+}
+.pag-btn.on { background: var(--blue-dk); border-color: var(--blue-dk); color: white; font-weight: 700; }
+.pag-btn:hover:not(.on) { border-color: var(--blue); color: var(--blue); }
+.pag-arrow { font-size: 15px; color: var(--text3); }
 
-            /* ── F&Q 아코디언 ── */
-            .faq-list { margin-top: 1.25rem; }
-            .faq-item {
-                border-bottom: 1px solid #e8e8e8;
-            }
-            .faq-item:first-child { border-top: 2px solid var(--text); }
-            .faq-q {
-                display: flex; align-items: center; justify-content: space-between;
-                padding: 1.1rem 0.5rem;
-                cursor: pointer;
-                user-select: none;
-                transition: color .15s;
-                gap: 1rem;
-            }
-            .faq-q:hover { color: var(--blue); }
-            .faq-q-text {
-                font-size: 14.5px; font-weight: 600;
-                color: inherit; letter-spacing: -0.3px; line-height: 1.45;
-                display: flex; align-items: flex-start; gap: 0.75rem;
-            }
-            .faq-q-icon {
-                flex-shrink: 0;
-                font-size: 14px; font-weight: 700;
-                color: var(--blue); width: 20px;
-            }
-            .faq-arrow {
-                flex-shrink: 0;
-                width: 20px; height: 20px;
-                display: flex; align-items: center; justify-content: center;
-                color: var(--text3); transition: transform .25s;
-            }
-            .faq-item.open .faq-arrow { transform: rotate(180deg); color: var(--blue); }
-            .faq-a {
-                display: none;
-                padding: 0 0.5rem 1.1rem 2.5rem;
-                font-size: 13.5px; color: var(--text2);
-                line-height: 1.8; letter-spacing: -0.15px;
-                background: var(--bg);
-                border-left: 3px solid var(--blue);
-                margin-left: 0.5rem;
-            }
-            .faq-item.open .faq-a { display: block; }
-        </style>
-    </head>
+/* ── F&Q 아코디언 ── */
+.faq-list { margin-top: 1.25rem; }
+.faq-item {
+  border-bottom: 1px solid #e8e8e8;
+}
+.faq-item:first-child { border-top: 2px solid var(--text); }
+.faq-q {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.1rem 0.5rem;
+  cursor: pointer;
+  user-select: none;
+  transition: color .15s;
+  gap: 1rem;
+}
+.faq-q:hover { color: var(--blue); }
+.faq-q-text {
+  font-size: 14.5px; font-weight: 600;
+  color: inherit; letter-spacing: -0.3px; line-height: 1.45;
+  display: flex; align-items: flex-start; gap: 0.75rem;
+}
+.faq-q-icon {
+  flex-shrink: 0;
+  font-size: 14px; font-weight: 700;
+  color: var(--blue); width: 20px;
+}
+.faq-arrow {
+  flex-shrink: 0;
+  width: 20px; height: 20px;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--text3); transition: transform .25s;
+}
+.faq-item.open .faq-arrow { transform: rotate(180deg); color: var(--blue); }
+.faq-a {
+  display: none;
+  padding: 0 0.5rem 1.1rem 2.5rem;
+  font-size: 13.5px; color: var(--text2);
+  line-height: 1.8; letter-spacing: -0.15px;
+  background: var(--bg);
+  border-left: 3px solid var(--blue);
+  margin-left: 0.5rem;
+}
+.faq-item.open .faq-a { display: block; }
+</style>
+</head>
+<body>
 
-    <body>
-        <div id="header-placeholder"></div>
-        <div class="page-hero">
-            <div class="page-hero-inner">
-                <div class="page-hero-title">커뮤니티</div>
-                <div class="page-hero-bc">
-                    <a href="../index.html">홈</a>
-                    <span>&rsaquo;</span>
-                    <span>커뮤니티</span>
-                </div>
-            </div>
+<div id="header-placeholder"></div>
+
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <div class="page-hero-title">커뮤니티</div>
+    <div class="page-hero-bc">
+      <a href="../index.html">홈</a>
+      <span>&rsaquo;</span>
+      <span>커뮤니티</span>
+    </div>
+  </div>
+</div>
+
+<div class="page-content">
+
+  <!-- 탭 -->
+  <div class="tab-row" id="commTabs">
+    <button class="tab-btn on" data-key="notice">공지사항</button>
+    <button class="tab-btn" data-key="faq">F&amp;Q</button>
+  </div>
+
+  <!-- ════════════════════════════════
+       공지사항
+  ════════════════════════════════ -->
+  <div id="tab-notice">
+    <table class="notice-table" id="noticeTable">
+      <thead>
+        <tr>
+          <th class="td-no center">번호</th>
+          <th class="td-title">제목</th>
+          <th class="td-date center">날짜</th>
+        </tr>
+      </thead>
+      <tbody id="noticeTbody"></tbody>
+    </table>
+
+    <div class="pagination" id="pagination"></div>
+  </div>
+
+  <!-- ════════════════════════════════
+       F&Q
+  ════════════════════════════════ -->
+  <div id="tab-faq" style="display:none;">
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <div class="faq-q">
+          <div class="faq-q-text"><span class="faq-q-icon">Q.</span>연체료는 얼마인가요?</div>
+          <div class="faq-arrow">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
         </div>
+        <div class="faq-a">우리대학 도서관은 연체료가 없습니다. 다만, 연체일 수 만큼 대출이 불가합니다.</div>
+      </div>
 
-        <div class="page-content">
-            <!-- 탭 -->
-            <div class="tab-row" id="commTabs">
-                <button class="tab-btn on" data-key="notice">공지사항</button>
-                <button class="tab-btn" data-key="faq">F&amp;Q</button>
-                </div>
-
-            <!-- ════════════════════════════════
-                공지사항
-            ════════════════════════════════ -->
-            <div id="tab-notice">
-                <table class="notice-table" id="noticeTable">
-                <thead>
-                    <tr>
-                    <th class="td-no center">번호</th>
-                    <th class="td-title">제목</th>
-                    <th class="td-date center">날짜</th>
-                    </tr>
-                </thead>
-                <tbody id="noticeTbody"></tbody>
-                </table>
-
-                <div class="pagination" id="pagination"></div>
-            </div>
-
-            <!-- ════════════════════════════════
-                F&Q
-            ════════════════════════════════ -->
-            <div id="tab-faq" style="display:none;">
-                <div class="faq-list">
-                    <div class="faq-item">
-                        <div class="faq-q">
-                            <div class="faq-q-text"><span class="faq-q-icon">Q.</span>연체료는 얼마인가요?</div>
-                            <div class="faq-arrow">
-                                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
-                            </div>
-                        </div>
-                        <div class="faq-a">우리대학 도서관은 연체료가 없습니다. 다만, 연체일 수 만큼 대출이 불가합니다.</div>
-                    </div>
-
-                    <div class="faq-item">
-                        <div class="faq-q">
-                            <div class="faq-q-text"><span class="faq-q-icon">Q.</span>대출은 어디서, 어떻게 할 수 있나요?</div>
-                            <div class="faq-arrow">
-                                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
-                            </div>
-                        </div>
-                        <div class="faq-a">어문학자료실(2층), 과학기술자료실(3층), 인문사회자료실(6층)에서 필요한 도서를 선택하여 대출실(4층) 카운터에서 대출·반납이 가능합니다.</div>
-                    </div>
-
-                    <div class="faq-item">
-                        <div class="faq-q">
-                            <div class="faq-q-text"><span class="faq-q-icon">Q.</span>도서관에 있는 모든 책을 대출할 수 있나요?</div>
-                            <div class="faq-arrow">
-                                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
-                            </div>
-                        </div>
-                        <div class="faq-a">도서관 자료 중, 귀중도서, 참고도서(예: 사전, 지도, 연감 등), 정기간행물, 비도서자료, 지정도서, 기타 대출이 부적당하다고 인정되는 자료 외에는 대출이 가능합니다.</div>
-                    </div>
-
-                    <div class="faq-item">
-                        <div class="faq-q">
-                            <div class="faq-q-text"><span class="faq-q-icon">Q.</span>외부인도 도서관을 이용할 수 있나요?</div>
-                            <div class="faq-arrow">
-                                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
-                            </div>
-                        </div>
-                        <div class="faq-a">우리대학 재학생들의 학습증진을 위하여 지역주민 및 외부이용자는 이용할 수 없습니다.</div>
-                    </div>
-
-                    <div class="faq-item">
-                        <div class="faq-q">
-                            <div class="faq-q-text"><span class="faq-q-icon">Q.</span>대출한 자료를 분실, 훼손한 경우에는 어떻게 해야 하나요?</div>
-                            <div class="faq-arrow">
-                                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
-                            </div>
-                        </div>
-                        <div class="faq-a">대출한 책을 분실하였을 경우에는 동일도서(서명, 출판년, 저자, 판사항 동일)를 구입해서 반납해야 합니다. 반납 시에 연체된 일자만큼 연체 규정을 적용하여 대출정지 됩니다. 만약 분실된 도서가 절판·품절 등으로 구입할 수 없을 경우 도서관 4층 대출실로 문의하시기 바랍니다.</div>
-                    </div>
-
-                    <div class="faq-item">
-                        <div class="faq-q">
-                            <div class="faq-q-text"><span class="faq-q-icon">Q.</span>대출 연장은 직접 책을 가져와야 하나요?</div>
-                            <div class="faq-arrow">
-                                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
-                            </div>
-                        </div>
-                        <div class="faq-a">도서관 4층 대출실과, 도서관 홈페이지 'MY LIBRARY → 서비스신청결과 → 대출/예약 조회'에서 연장 가능합니다. 반납일이 경과 되었을 경우에는 반납 후 연체일 만큼 대출 중지가 되오니 참고하시기 바랍니다.</div>
-                    </div>
-                </div>
-            </div>
+      <div class="faq-item">
+        <div class="faq-q">
+          <div class="faq-q-text"><span class="faq-q-icon">Q.</span>대출은 어디서, 어떻게 할 수 있나요?</div>
+          <div class="faq-arrow">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
         </div>
+        <div class="faq-a">어문학자료실(2층), 과학기술자료실(3층), 인문사회자료실(6층)에서 필요한 도서를 선택하여 대출실(4층) 카운터에서 대출·반납이 가능합니다.</div>
+      </div>
 
-        <div id="footer-placeholder"></div>
+      <div class="faq-item">
+        <div class="faq-q">
+          <div class="faq-q-text"><span class="faq-q-icon">Q.</span>도서관에 있는 모든 책을 대출할 수 있나요?</div>
+          <div class="faq-arrow">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+        </div>
+        <div class="faq-a">도서관 자료 중, 귀중도서, 참고도서(예: 사전, 지도, 연감 등), 정기간행물, 비도서자료, 지정도서, 기타 대출이 부적당하다고 인정되는 자료 외에는 대출이 가능합니다.</div>
+      </div>
 
-        <script src="../js/main.js"></script>
-        <script>
-            renderHeader('커뮤니티');
-            renderFooter();
+      <div class="faq-item">
+        <div class="faq-q">
+          <div class="faq-q-text"><span class="faq-q-icon">Q.</span>외부인도 도서관을 이용할 수 있나요?</div>
+          <div class="faq-arrow">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+        </div>
+        <div class="faq-a">우리대학 재학생들의 학습증진을 위하여 지역주민 및 외부이용자는 이용할 수 없습니다.</div>
+      </div>
 
-            /* URL hash로 탭 자동 이동 (#notice 또는 #faq) */
-            (function() {
-            const hash = location.hash.replace('#', '');
-            if (hash === 'faq' || hash === 'notice') {
-                const btn = document.querySelector(`#commTabs .tab-btn[data-key="${hash}"]`);
-                if (btn) btn.click();
-            }
-            })();
+      <div class="faq-item">
+        <div class="faq-q">
+          <div class="faq-q-text"><span class="faq-q-icon">Q.</span>대출한 자료를 분실, 훼손한 경우에는 어떻게 해야 하나요?</div>
+          <div class="faq-arrow">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+        </div>
+        <div class="faq-a">대출한 책을 분실하였을 경우에는 동일도서(서명, 출판년, 저자, 판사항 동일)를 구입해서 반납해야 합니다. 반납 시에 연체된 일자만큼 연체 규정을 적용하여 대출정지 됩니다. 만약 분실된 도서가 절판·품절 등으로 구입할 수 없을 경우 도서관 4층 대출실로 문의하시기 바랍니다.</div>
+      </div>
 
-            /* ── 탭 전환 ── */
-            document.querySelectorAll('#commTabs .tab-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('#commTabs .tab-btn').forEach(x => x.classList.remove('on'));
-                btn.classList.add('on');
-                document.getElementById('tab-notice').style.display = btn.dataset.key === 'notice' ? 'block' : 'none';
-                document.getElementById('tab-faq').style.display    = btn.dataset.key === 'faq'    ? 'block' : 'none';
-            });
-            });
+      <div class="faq-item">
+        <div class="faq-q">
+          <div class="faq-q-text"><span class="faq-q-icon">Q.</span>대출 연장은 직접 책을 가져와야 하나요?</div>
+          <div class="faq-arrow">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+        </div>
+        <div class="faq-a">도서관 4층 대출실과, 도서관 홈페이지 'MY LIBRARY → 서비스신청결과 → 대출/예약 조회'에서 연장 가능합니다. 반납일이 경과 되었을 경우에는 반납 후 연체일 만큼 대출 중지가 되오니 참고하시기 바랍니다.</div>
+      </div>
 
-            /* ── 공지사항 데이터 ── */
-            const NOTICES = [
-            { no: 21, title: '도서관 정기 휴관일 안내',                                                     date: '2026.05.10' },
-            { no: 20, title: '[5/31(일) 토익 정기 시험] 대비 무료 특강 안내',                               date: '2026.05.08' },
-            { no: 19, title: '도서관 24시간 개방 이용자 유의사항 안내',                                      date: '2026.04.22' },
-            { no: 18, title: '2026-1학기 중간고사 기간 도서관 1층 D-Study 24시간 개방 안내',                date: '2026.04.10' },
-            { no: 17, title: '넷플릭스 이용 안내',                                                           date: '2026.03.18' },
-            { no: 16, title: '토익 특강 안내, 3/27(금) 14시',                                               date: '2026.03.14' },
-            { no: 15, title: '전자책 서비스 일시 중지 안내',                                                  date: '2026.02.28' },
-            { no: 14, title: '도서관 설날 연휴 임시 휴관 안내',                                              date: '2026.01.20' },
-            { no: 13, title: '2025학년도 희망도서 신청 마감 안내',                                           date: '2025.12.10' },
-            { no: 12, title: '[모집 조기 마감]_[양식] 도서관 근로학생 지원서',                               date: '2025.11.25' },
-            { no: 11, title: '동계방학 기간 도서관 이용시간 안내',                                           date: '2025.11.20' },
-            { no: 10, title: '도서관 이용시간 안내',                                                         date: '2025.11.10' },
-            { no: 9,  title: '도서관 24시간 개방 이용자 유의사항 안내',                                      date: '2025.10.28' },
-            { no: 8,  title: '2025학년도 2학기 기말고사 기간 도서관 1층 D-Study 24시간 개방 안내',          date: '2025.10.15' },
-            { no: 7,  title: '[잉글리쉬앤] 토익 대비 특강 안내',                                            date: '2025.09.30' },
-            { no: 6,  title: '2025학년도 2학기 중간고사 기간 도서관 1층 D-Study 24시간 개방 안내',          date: '2025.09.20' },
-            { no: 5,  title: '추석 연휴 도서관 휴관 안내',                                                   date: '2025.09.05' },
-            { no: 4,  title: '도서 대출 일시 중지 안내',                                                     date: '2025.08.20' },
-            { no: 3,  title: '하계방학 기간중 도서관 이용시간 안내',                                         date: '2025.07.01' },
-            { no: 2,  title: '2025학년도 독서를 활용한 인문학 프로그램 독후감 공모전 수상자 발표',            date: '2025.06.15' },
-            ];
+    </div>
+  </div>
 
-            const PER_PAGE = 10;
-            let curPage = 1;
-            const totalPages = Math.ceil(NOTICES.length / PER_PAGE);
+</div>
 
-            function renderNotices(page) {
-            curPage = page;
-            const start  = (page - 1) * PER_PAGE;
-            const slice  = NOTICES.slice(start, start + PER_PAGE);
-            const tbody  = document.getElementById('noticeTbody');
-            tbody.innerHTML = slice.map(n => `
-                <tr>
-                <td class="td-no">${n.no}</td>
-                <td class="td-title">${n.title}</td>
-                <td class="td-date">${n.date}</td>
-                </tr>
-            `).join('');
-            renderPagination();
-            }
+<div id="footer-placeholder"></div>
 
-            function renderPagination() {
-            const pg = document.getElementById('pagination');
-            let html = `<button class="pag-btn pag-arrow" onclick="if(curPage>1)renderNotices(curPage-1)">&#8249;</button>`;
-            for (let i = 1; i <= totalPages; i++) {
-                html += `<button class="pag-btn ${i === curPage ? 'on' : ''}" onclick="renderNotices(${i})">${i}</button>`;
-            }
-            html += `<button class="pag-btn pag-arrow" onclick="if(curPage<${totalPages})renderNotices(curPage+1)">&#8250;</button>`;
-            pg.innerHTML = html;
-            }
+<script src="../js/main.js"></script>
+<script>
+renderHeader('커뮤니티');
+renderFooter();
 
-            renderNotices(1);
+/* URL hash로 탭 자동 이동 (#notice 또는 #faq) */
+(function() {
+  const hash = location.hash.replace('#', '');
+  if (hash === 'faq' || hash === 'notice') {
+    const btn = document.querySelector(`#commTabs .tab-btn[data-key="${hash}"]`);
+    if (btn) btn.click();
+  }
+})();
 
-            /* ── F&Q 아코디언 ── */
-            document.querySelectorAll('.faq-q').forEach(q => {
-            q.addEventListener('click', () => {
-                const item = q.closest('.faq-item');
-                const isOpen = item.classList.contains('open');
-                /* 다른 항목 모두 닫기 */
-                document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
-                /* 클릭한 항목 토글 */
-                if (!isOpen) item.classList.add('open');
-            });
-            });
-        </script>
-    </body>
+/* ── 탭 전환 ── */
+document.querySelectorAll('#commTabs .tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('#commTabs .tab-btn').forEach(x => x.classList.remove('on'));
+    btn.classList.add('on');
+    document.getElementById('tab-notice').style.display = btn.dataset.key === 'notice' ? 'block' : 'none';
+    document.getElementById('tab-faq').style.display    = btn.dataset.key === 'faq'    ? 'block' : 'none';
+  });
+});
+
+/* ── 공지사항 데이터 ── */
+const NOTICES = [
+  { no: 21, title: '도서관 정기 휴관일 안내',                                                     date: '2026.05.10' },
+  { no: 20, title: '[5/31(일) 토익 정기 시험] 대비 무료 특강 안내',                               date: '2026.05.08' },
+  { no: 19, title: '도서관 24시간 개방 이용자 유의사항 안내',                                      date: '2026.04.22' },
+  { no: 18, title: '2026-1학기 중간고사 기간 도서관 1층 D-Study 24시간 개방 안내',                date: '2026.04.10' },
+  { no: 17, title: '넷플릭스 이용 안내',                                                           date: '2026.03.18' },
+  { no: 16, title: '토익 특강 안내, 3/27(금) 14시',                                               date: '2026.03.14' },
+  { no: 15, title: '전자책 서비스 일시 중지 안내',                                                  date: '2026.02.28' },
+  { no: 14, title: '도서관 설날 연휴 임시 휴관 안내',                                              date: '2026.01.20' },
+  { no: 13, title: '2025학년도 희망도서 신청 마감 안내',                                           date: '2025.12.10' },
+  { no: 12, title: '[모집 조기 마감]_[양식] 도서관 근로학생 지원서',                               date: '2025.11.25' },
+  { no: 11, title: '동계방학 기간 도서관 이용시간 안내',                                           date: '2025.11.20' },
+  { no: 10, title: '도서관 이용시간 안내',                                                         date: '2025.11.10' },
+  { no: 9,  title: '도서관 24시간 개방 이용자 유의사항 안내',                                      date: '2025.10.28' },
+  { no: 8,  title: '2025학년도 2학기 기말고사 기간 도서관 1층 D-Study 24시간 개방 안내',          date: '2025.10.15' },
+  { no: 7,  title: '[잉글리쉬앤] 토익 대비 특강 안내',                                            date: '2025.09.30' },
+  { no: 6,  title: '2025학년도 2학기 중간고사 기간 도서관 1층 D-Study 24시간 개방 안내',          date: '2025.09.20' },
+  { no: 5,  title: '추석 연휴 도서관 휴관 안내',                                                   date: '2025.09.05' },
+  { no: 4,  title: '도서 대출 일시 중지 안내',                                                     date: '2025.08.20' },
+  { no: 3,  title: '하계방학 기간중 도서관 이용시간 안내',                                         date: '2025.07.01' },
+  { no: 2,  title: '2025학년도 독서를 활용한 인문학 프로그램 독후감 공모전 수상자 발표',            date: '2025.06.15' },
+];
+
+const PER_PAGE = 10;
+let curPage = 1;
+const totalPages = Math.ceil(NOTICES.length / PER_PAGE);
+
+function renderNotices(page) {
+  curPage = page;
+  const start  = (page - 1) * PER_PAGE;
+  const slice  = NOTICES.slice(start, start + PER_PAGE);
+  const tbody  = document.getElementById('noticeTbody');
+  tbody.innerHTML = slice.map(n => `
+    <tr>
+      <td class="td-no">${n.no}</td>
+      <td class="td-title">${n.title}</td>
+      <td class="td-date">${n.date}</td>
+    </tr>
+  `).join('');
+  renderPagination();
+}
+
+function renderPagination() {
+  const pg = document.getElementById('pagination');
+  let html = `<button class="pag-btn pag-arrow" onclick="if(curPage>1)renderNotices(curPage-1)">&#8249;</button>`;
+  for (let i = 1; i <= totalPages; i++) {
+    html += `<button class="pag-btn ${i === curPage ? 'on' : ''}" onclick="renderNotices(${i})">${i}</button>`;
+  }
+  html += `<button class="pag-btn pag-arrow" onclick="if(curPage<${totalPages})renderNotices(curPage+1)">&#8250;</button>`;
+  pg.innerHTML = html;
+}
+
+renderNotices(1);
+
+/* ── F&Q 아코디언 ── */
+document.querySelectorAll('.faq-q').forEach(q => {
+  q.addEventListener('click', () => {
+    const item = q.closest('.faq-item');
+    const isOpen = item.classList.contains('open');
+    /* 다른 항목 모두 닫기 */
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    /* 클릭한 항목 토글 */
+    if (!isOpen) item.classList.add('open');
+  });
+});
+</script>
+</body>
 </html>

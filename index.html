@@ -1,564 +1,579 @@
 <!DOCTYPE html>
-
 <html lang="ko">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>동양미래대학교 도서관</title>
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=IBM+Plex+Sans+KR:wght@300;400;500;600&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="css/style.css">
-        <style>
-            /* ── HERO ── */
-            .hero {
-            position: relative; height: 560px;
-            overflow: hidden; background: #0a1a30;
-            }
-            .hero-slide { position: absolute; inset: 0; opacity: 0; transition: opacity 1.2s; }
-            .hero-slide.on { opacity: 1; }
-            .hero-slide img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.4); }
-            .hero-grad {
-                position: absolute; inset: 0;
-                background: linear-gradient(to right, rgba(13,78,155,.5) 0%, transparent 65%);
-            }
-            .hero-search-zone {
-                position: absolute; bottom: 0; left: 0; right: 0;
-                display: flex; flex-direction: column;
-                align-items: center; padding-bottom: 3.5rem; z-index: 2;
-            }
-            .search-box {
-                display: flex; width: 100%; max-width: 760px;
-                padding: 0 1rem;
-                box-shadow: 0 6px 32px rgba(0,0,0,.3);
-            }
-            .search-input {
-                flex: 1; height: 56px; border: none; outline: none;
-                padding: 0 1.5rem; font-size: 15px; font-family: inherit; color: var(--text);
-                background: white;
-            }
-            .search-input::placeholder { color: #bbb; }
-            .s-sub-btn {
-                height: 56px; padding: 0 1.25rem;
-                background: #333; color: rgba(255,255,255,.8);
-                font-size: 13.5px; font-weight: 500;
-                border-left: 1px solid rgba(255,255,255,.08);
-                transition: background .2s;
-            }
-            .s-sub-btn:hover { background: #222; }
-            .s-main-btn {
-                height: 56px; padding: 0 1.5rem;
-                background: var(--blue); color: white; font-size: 15px; font-weight: 600;
-                display: flex; align-items: center; gap: 8px; transition: background .2s;
-            }
-            .s-main-btn:hover { background: var(--blue-dk); }
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>동양미래대학교 도서관</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=IBM+Plex+Sans+KR:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<style>
+/* ── HERO ── */
+.hero {
+  position: relative; height: 560px;
+  overflow: hidden; background: #0a1a30;
+}
+.hero-slide { position: absolute; inset: 0; opacity: 0; transition: opacity 1.2s; }
+.hero-slide.on { opacity: 1; }
+.hero-slide img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.4); }
+.hero-grad {
+  position: absolute; inset: 0;
+  background: linear-gradient(to right, rgba(13,78,155,.5) 0%, transparent 65%);
+}
+.hero-search-zone {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  display: flex; flex-direction: column;
+  align-items: center; padding-bottom: 3.5rem; z-index: 2;
+}
+.search-box {
+  display: flex; width: 100%; max-width: 760px;
+  padding: 0 1rem;
+  box-shadow: 0 6px 32px rgba(0,0,0,.3);
+}
+.search-input {
+  flex: 1; height: 56px; border: none; outline: none;
+  padding: 0 1.5rem; font-size: 15px; font-family: inherit; color: var(--text);
+  background: white;
+}
+.search-input::placeholder { color: #bbb; }
+.s-sub-btn {
+  height: 56px; padding: 0 1.25rem;
+  background: #333; color: rgba(255,255,255,.8);
+  font-size: 13.5px; font-weight: 500;
+  border-left: 1px solid rgba(255,255,255,.08);
+  transition: background .2s;
+}
+.s-sub-btn:hover { background: #222; }
+.s-main-btn {
+  height: 56px; padding: 0 1.5rem;
+  background: var(--blue); color: white; font-size: 15px; font-weight: 600;
+  display: flex; align-items: center; gap: 8px; transition: background .2s;
+}
+.s-main-btn:hover { background: var(--blue-dk); }
 
-            /* 슬라이드 도트 — 원형, 색상만 변경 */
-            .hero-dots {
-                position: absolute; bottom: 1.25rem; left: 50%;
-                transform: translateX(-50%); display: flex; gap: 8px; z-index: 3;
-            }
-            .hdot {
-                width: 8px; height: 8px;
-                border-radius: 50%;            /* 원형 */
-                background: rgba(255,255,255,.35);
-                border: none; padding: 0;
-                transition: background .3s;   /* 크기 변화 없음, 색만 변경 */
-            }
-            .hdot.on { background: white; } /* 흰색으로만 변경 */
+/* 슬라이드 도트 — 원형, 색상만 변경 */
+.hero-dots {
+  position: absolute; bottom: 1.25rem; left: 50%;
+  transform: translateX(-50%); display: flex; gap: 8px; z-index: 3;
+}
+.hdot {
+  width: 8px; height: 8px;
+  border-radius: 50%;            /* 원형 */
+  background: rgba(255,255,255,.35);
+  border: none; padding: 0;
+  transition: background .3s;   /* 크기 변화 없음, 색만 변경 */
+}
+.hdot.on { background: white; } /* 흰색으로만 변경 */
 
-            /* ── QUICK MENU (5개, justify) ── */
-            .quick { background: white; border-bottom: 1px solid var(--border); }
-            .quick-inner {
-                max-width: 1280px; margin: 0 auto; padding: 1rem 2rem;
-                display: flex; justify-content: space-around;  /* 여백 균등 */
-            }
-            .qi {
-                display: flex; flex-direction: column; align-items: center;
-                gap: 9px; padding: 1.1rem 2rem;
-                cursor: pointer; transition: background .15s;
-            }
-            .qi:hover { background: var(--blue-lt); }
-            .qi-icon {
-                width: 50px; height: 50px;
-                border: 1px solid var(--border); background: var(--bg);
-                display: flex; align-items: center; justify-content: center;
-                transition: all .15s;
-            }
-            .qi:hover .qi-icon { border-color: #a8d1f0; background: #dceefa; }
-            .qi-icon svg { color: #555; transition: color .15s; }
-            .qi:hover .qi-icon svg { color: var(--blue); }
-            .qi-label { font-size: 12px; color: var(--text2); text-align: center; line-height: 1.45; font-weight: 500; letter-spacing: -0.2px; }
+/* ── QUICK MENU (5개, justify) ── */
+.quick { background: white; border-bottom: 1px solid var(--border); }
+.quick-inner {
+  max-width: 1280px; margin: 0 auto; padding: 1rem 2rem;
+  display: flex; justify-content: space-around;  /* 여백 균등 */
+}
+.qi {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 9px; padding: 1.1rem 2rem;
+  cursor: pointer; transition: background .15s;
+}
+.qi:hover { background: var(--blue-lt); }
+.qi-icon {
+  width: 50px; height: 50px;
+  border: 1px solid var(--border); background: var(--bg);
+  display: flex; align-items: center; justify-content: center;
+  transition: all .15s;
+}
+.qi:hover .qi-icon { border-color: #a8d1f0; background: #dceefa; }
+.qi-icon svg { color: #555; transition: color .15s; }
+.qi:hover .qi-icon svg { color: var(--blue); }
+.qi-label { font-size: 12px; color: var(--text2); text-align: center; line-height: 1.45; font-weight: 500; letter-spacing: -0.2px; }
 
-            /* ── NOTICE (배지 없이 텍스트만) ── */
-            .notice-wrap { background: var(--bg); padding: 2.75rem 2rem; }
-            .notice-inner { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
-            .notice-col-head {
-                display: flex; align-items: center; justify-content: space-between;
-                padding-bottom: 0.6rem; border-bottom: 2px solid var(--text); margin-bottom: 0;
-            }
-            .nc-title { font-size: 15px; font-weight: 700; letter-spacing: -0.3px; }
-            .nc-more  { font-size: 12px; color: var(--text3); transition: color .2s; }
-            .nc-more:hover { color: var(--blue); }
+/* ── NOTICE (배지 없이 텍스트만) ── */
+.notice-wrap { background: var(--bg); padding: 2.75rem 2rem; }
+.notice-inner { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
+.notice-col-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding-bottom: 0.6rem; border-bottom: 2px solid var(--text); margin-bottom: 0;
+}
+.nc-title { font-size: 15px; font-weight: 700; letter-spacing: -0.3px; }
+.nc-more  { font-size: 12px; color: var(--text3); transition: color .2s; }
+.nc-more:hover { color: var(--blue); }
 
-            /* 운영시간 테이블 */
-            .hours-table { width: 100%; border-collapse: collapse; margin-top: 0; }
-            .hours-table tr { border-bottom: 1px solid #e8e8e8; }
-            .hours-table tr:last-child { border-bottom: none; }
-            .hours-table td { padding: 0.62rem 0; font-size: 13.5px; }
-            .hours-table td:first-child { color: var(--text2); font-weight: 500; width: 55%; }
-            .hours-table td:last-child  { color: var(--text); font-weight: 500; }
-            .hours-table .closed td:last-child { color: var(--text3); font-weight: 400; }
-            .hours-note { font-size: 12px; color: var(--text3); margin-top: 0.75rem; line-height: 1.6; }
+/* 운영시간 테이블 */
+.hours-table { width: 100%; border-collapse: collapse; margin-top: 0; }
+.hours-table tr { border-bottom: 1px solid #e8e8e8; }
+.hours-table tr:last-child { border-bottom: none; }
+.hours-table td { padding: 0.62rem 0; font-size: 13.5px; }
+.hours-table td:first-child { color: var(--text2); font-weight: 500; width: 55%; }
+.hours-table td:last-child  { color: var(--text); font-weight: 500; }
+.hours-table .closed td:last-child { color: var(--text3); font-weight: 400; }
+.hours-note { font-size: 12px; color: var(--text3); margin-top: 0.75rem; line-height: 1.6; }
 
-            /* ── COLLECTION ── */
-            .coll-wrap { padding: 2.75rem 2rem; background: white; }
-            .coll-inner { max-width: 1280px; margin: 0 auto; }
-            .coll-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 1rem; margin-top: 1.1rem; }
-            .coll-card { position: relative; overflow: hidden; aspect-ratio: 3/4; cursor: pointer; background: #ccc; }
-            .coll-card img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s; }
-            .coll-card:hover img { transform: scale(1.05); }
-            .coll-ov {
-                position: absolute; inset: 0;
-                background: linear-gradient(to top, rgba(0,0,0,.82) 0%, rgba(0,0,0,.05) 55%, transparent 100%);
-                display: flex; flex-direction: column; justify-content: flex-end; padding: 0.9rem;
-            }
-            .coll-tag  { font-size: 9.5px; font-weight: 700; letter-spacing: .8px; text-transform: uppercase; color: #5BBCE4; margin-bottom: 3px; }
-            .coll-name { font-size: 14px; font-weight: 700; color: white; line-height: 1.3; letter-spacing: -0.2px; }
-            .coll-desc { font-size: 11px; color: rgba(255,255,255,.55); margin-top: 2px; line-height: 1.45; }
+/* ── COLLECTION ── */
+.coll-wrap { padding: 2.75rem 2rem; background: white; }
+.coll-inner { max-width: 1280px; margin: 0 auto; }
+.coll-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 1rem; margin-top: 1.1rem; }
+.coll-card { position: relative; overflow: hidden; aspect-ratio: 3/4; cursor: pointer; background: #ccc; }
+.coll-card img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s; }
+.coll-card:hover img { transform: scale(1.05); }
+.coll-ov {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,.82) 0%, rgba(0,0,0,.05) 55%, transparent 100%);
+  display: flex; flex-direction: column; justify-content: flex-end; padding: 0.9rem;
+}
+.coll-tag  { font-size: 9.5px; font-weight: 700; letter-spacing: .8px; text-transform: uppercase; color: #5BBCE4; margin-bottom: 3px; }
+.coll-name { font-size: 14px; font-weight: 700; color: white; line-height: 1.3; letter-spacing: -0.2px; }
+.coll-desc { font-size: 11px; color: rgba(255,255,255,.55); margin-top: 2px; line-height: 1.45; }
 
-            /* ── BOOKS ── */
-            .books-wrap { padding: 2.75rem 2rem; background: var(--bg); }
-            .books-inner { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: 1fr 310px; gap: 1.5rem; }
-            .books-tab-row {
-                display: flex; align-items: flex-end; justify-content: space-between;
-                border-bottom: 2px solid var(--text); margin-bottom: 1.25rem;
-            }
-            .btabs { display: flex; }
-            .btab {
-                padding: 7px 16px; font-size: 14.5px; font-weight: 500; color: var(--text3);
-                border-bottom: 2.5px solid transparent; margin-bottom: -2px;
-                transition: all .2s; letter-spacing: -0.2px;
-            }
-            .btab.on { color: var(--text); border-bottom-color: #c00; font-weight: 700; }
-            .btab:hover { color: var(--text); }
-            .books-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1rem; }
+/* ── BOOKS ── */
+.books-wrap { padding: 2.75rem 2rem; background: var(--bg); }
+.books-inner { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: 1fr 310px; gap: 1.5rem; }
+.books-tab-row {
+  display: flex; align-items: flex-end; justify-content: space-between;
+  border-bottom: 2px solid var(--text); margin-bottom: 1.25rem;
+}
+.btabs { display: flex; }
+.btab {
+  padding: 7px 16px; font-size: 14.5px; font-weight: 500; color: var(--text3);
+  border-bottom: 2.5px solid transparent; margin-bottom: -2px;
+  transition: all .2s; letter-spacing: -0.2px;
+}
+.btab.on { color: var(--text); border-bottom-color: #c00; font-weight: 700; }
+.btab:hover { color: var(--text); }
+.books-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1rem; }
 
-            /* 유튜브 패널 (iframe 사용) */
-            .yt-panel { background: white; border: 1px solid var(--border); }
-            .yt-head {
-                padding: .85rem 1.1rem; border-bottom: 1px solid var(--border);
-                font-size: 14.5px; font-weight: 700; color: var(--text);
-                letter-spacing: -0.3px; display: flex; align-items: center; gap: 7px;
-            }
-            .yt-iframe-wrap {
-                position: relative; width: 100%; aspect-ratio: 16/9; background: #000;
-            }
-            .yt-iframe-wrap iframe {
-                position: absolute; inset: 0; width: 100%; height: 100%; border: none;
-            }
-            .yt-cap { padding: .85rem 1.1rem; font-size: 12.5px; font-weight: 500; color: var(--text); letter-spacing: -0.2px; }
-            .yt-cap-sub { font-size: 11.5px; color: var(--text3); margin-top: 2px; }
+/* 유튜브 패널 (iframe 사용) */
+.yt-panel { background: white; border: 1px solid var(--border); }
+.yt-head {
+  padding: .85rem 1.1rem; border-bottom: 1px solid var(--border);
+  font-size: 14.5px; font-weight: 700; color: var(--text);
+  letter-spacing: -0.3px; display: flex; align-items: center; gap: 7px;
+}
+.yt-iframe-wrap {
+  position: relative; width: 100%; aspect-ratio: 16/9; background: #000;
+}
+.yt-iframe-wrap iframe {
+  position: absolute; inset: 0; width: 100%; height: 100%; border: none;
+}
+.yt-cap { padding: .85rem 1.1rem; font-size: 12.5px; font-weight: 500; color: var(--text); letter-spacing: -0.2px; }
+.yt-cap-sub { font-size: 11.5px; color: var(--text3); margin-top: 2px; }
 
-            /* ── WEEK BOOKS ── */
-            .week-wrap { padding: 2.75rem 2rem; background: white; }
-            .week-inner { max-width: 1280px; margin: 0 auto; }
-            .week-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 1.25rem; margin-top: 1.1rem; }
+/* ── WEEK BOOKS ── */
+.week-wrap { padding: 2.75rem 2rem; background: white; }
+.week-inner { max-width: 1280px; margin: 0 auto; }
+.week-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 1.25rem; margin-top: 1.1rem; }
 
-            .wk-main { border: 1px solid var(--border); transition: box-shadow .25s; }
-            .wk-main:hover { box-shadow: 0 4px 20px rgba(0,0,0,.08); }
-            .wk-top { background: var(--blue-dk); padding: 1.5rem; display: flex; gap: 1.25rem; }
-            .wk-cover { width: 88px; height: 126px; flex-shrink: 0; box-shadow: 3px 5px 16px rgba(0,0,0,.4); object-fit: cover; background: #1a5aa8; }
-            .wk-meta { flex: 1; min-width: 0; }
-            .wk-badge { display: inline-block; background: rgba(255,255,255,.13); border: 1px solid rgba(255,255,255,.18); color: rgba(255,255,255,.88); font-size: 10px; font-weight: 700; padding: 2px 8px; margin-bottom: .55rem; }
-            .wk-title  { font-size: 16px; font-weight: 700; color: white; margin-bottom: .2rem; line-height: 1.35; letter-spacing: -0.3px; }
-            .wk-author { font-size: 12.5px; color: rgba(255,255,255,.5); margin-bottom: .65rem; }
-            .wk-tags   { display: flex; flex-wrap: wrap; gap: 4px; }
-            .wk-tag    { font-size: 11px; padding: 2px 7px; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.12); color: rgba(255,255,255,.6); }
-            .wk-body   { padding: 1.1rem 1.4rem; }
-            .wk-desc   { font-size: 13.5px; color: var(--text2); line-height: 1.75; margin-bottom: 1rem; letter-spacing: -0.1px; }
-            .wk-foot   { display: flex; align-items: center; justify-content: space-between; padding-top: .9rem; border-top: 1px solid var(--border); }
-            .avail     { display: flex; align-items: center; gap: 5px; font-size: 12.5px; color: #107840; font-weight: 600; }
-            .avail-dot { width: 6px; height: 6px; background: #2db665; }
+.wk-main { border: 1px solid var(--border); transition: box-shadow .25s; }
+.wk-main:hover { box-shadow: 0 4px 20px rgba(0,0,0,.08); }
+.wk-top { background: var(--blue-dk); padding: 1.5rem; display: flex; gap: 1.25rem; }
+.wk-cover { width: 88px; height: 126px; flex-shrink: 0; box-shadow: 3px 5px 16px rgba(0,0,0,.4); object-fit: cover; background: #1a5aa8; }
+.wk-meta { flex: 1; min-width: 0; }
+.wk-badge { display: inline-block; background: rgba(255,255,255,.13); border: 1px solid rgba(255,255,255,.18); color: rgba(255,255,255,.88); font-size: 10px; font-weight: 700; padding: 2px 8px; margin-bottom: .55rem; }
+.wk-title  { font-size: 16px; font-weight: 700; color: white; margin-bottom: .2rem; line-height: 1.35; letter-spacing: -0.3px; }
+.wk-author { font-size: 12.5px; color: rgba(255,255,255,.5); margin-bottom: .65rem; }
+.wk-tags   { display: flex; flex-wrap: wrap; gap: 4px; }
+.wk-tag    { font-size: 11px; padding: 2px 7px; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.12); color: rgba(255,255,255,.6); }
+.wk-body   { padding: 1.1rem 1.4rem; }
+.wk-desc   { font-size: 13.5px; color: var(--text2); line-height: 1.75; margin-bottom: 1rem; letter-spacing: -0.1px; }
+.wk-foot   { display: flex; align-items: center; justify-content: space-between; padding-top: .9rem; border-top: 1px solid var(--border); }
+.avail     { display: flex; align-items: center; gap: 5px; font-size: 12.5px; color: #107840; font-weight: 600; }
+.avail-dot { width: 6px; height: 6px; background: #2db665; }
 
-            /* 사이드 카드 — 대출 예약 버튼 크기 btn-primary와 동일하게 통일 */
-            .wk-side { border: 1px solid var(--border); display: flex; flex-direction: column; transition: box-shadow .25s; }
-            .wk-side:hover { box-shadow: 0 4px 20px rgba(0,0,0,.08); }
-            .wk-side-top { padding: 1.1rem; display: flex; gap: .85rem; border-bottom: 1px solid var(--border); align-items: flex-start; }
-            .wk-side-cover { width: 60px; height: 86px; flex-shrink: 0; object-fit: cover; background: #ddd; box-shadow: 2px 3px 8px rgba(0,0,0,.16); }
-            .wk-side-rank  { font-size: 11px; color: var(--blue); font-weight: 700; margin-bottom: 3px; }
-            .wk-side-title { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 2px; line-height: 1.35; letter-spacing: -0.2px; }
-            .wk-side-author { font-size: 11.5px; color: var(--text3); }
-            .wk-side-body { padding: .9rem 1.1rem; flex: 1; }
-            .wk-side-desc { font-size: 12.5px; color: var(--text2); line-height: 1.7; margin-bottom: .6rem; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; letter-spacing: -0.1px; }
-            .wk-tags2  { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: .6rem; }
-            .wtag      { font-size: 11px; padding: 2px 7px; border: 1px solid var(--blue-bd); color: var(--blue); background: var(--blue-lt); }
-            .wk-side-foot { padding: .75rem 1.1rem; border-top: 1px solid var(--border); background: #fafafa; display: flex; align-items: center; justify-content: space-between; }
-            .wk-avail  { font-size: 11.5px; color: var(--text3); }
+/* 사이드 카드 — 대출 예약 버튼 크기 btn-primary와 동일하게 통일 */
+.wk-side { border: 1px solid var(--border); display: flex; flex-direction: column; transition: box-shadow .25s; }
+.wk-side:hover { box-shadow: 0 4px 20px rgba(0,0,0,.08); }
+.wk-side-top { padding: 1.1rem; display: flex; gap: .85rem; border-bottom: 1px solid var(--border); align-items: flex-start; }
+.wk-side-cover { width: 60px; height: 86px; flex-shrink: 0; object-fit: cover; background: #ddd; box-shadow: 2px 3px 8px rgba(0,0,0,.16); }
+.wk-side-rank  { font-size: 11px; color: var(--blue); font-weight: 700; margin-bottom: 3px; }
+.wk-side-title { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 2px; line-height: 1.35; letter-spacing: -0.2px; }
+.wk-side-author { font-size: 11.5px; color: var(--text3); }
+.wk-side-body { padding: .9rem 1.1rem; flex: 1; }
+.wk-side-desc { font-size: 12.5px; color: var(--text2); line-height: 1.7; margin-bottom: .6rem; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; letter-spacing: -0.1px; }
+.wk-tags2  { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: .6rem; }
+.wtag      { font-size: 11px; padding: 2px 7px; border: 1px solid var(--blue-bd); color: var(--blue); background: var(--blue-lt); }
+.wk-side-foot { padding: .75rem 1.1rem; border-top: 1px solid var(--border); background: #fafafa; display: flex; align-items: center; justify-content: space-between; }
+.wk-avail  { font-size: 11.5px; color: var(--text3); }
 
-            /* ── GENRE ── */
-            .genre-wrap  { padding: 2.75rem 2rem; background: var(--bg); }
-            .genre-inner { max-width: 1280px; margin: 0 auto; }
-            .genre-filter { display: flex; flex-wrap: wrap; gap: 6px; margin: 1rem 0 1.5rem; }
-            .gtab { padding: 5px 14px; border: 1px solid var(--border); background: white; color: var(--text2); font-size: 13.5px; font-weight: 500; transition: all .15s; letter-spacing: -0.2px; }
-            .gtab.on { background: var(--blue-dk); border-color: var(--blue-dk); color: white; }
-            .gtab:hover:not(.on) { border-color: var(--blue); color: var(--blue); }
-            .genre-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 1rem; }
+/* ── GENRE ── */
+.genre-wrap  { padding: 2.75rem 2rem; background: var(--bg); }
+.genre-inner { max-width: 1280px; margin: 0 auto; }
+.genre-filter { display: flex; flex-wrap: wrap; gap: 6px; margin: 1rem 0 1.5rem; }
+.gtab { padding: 5px 14px; border: 1px solid var(--border); background: white; color: var(--text2); font-size: 13.5px; font-weight: 500; transition: all .15s; letter-spacing: -0.2px; }
+.gtab.on { background: var(--blue-dk); border-color: var(--blue-dk); color: white; }
+.gtab:hover:not(.on) { border-color: var(--blue); color: var(--blue); }
+.genre-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 1rem; }
 
-            /* ── BANNER ── */
-            .banner { background: var(--blue-dk); padding: 2.25rem 2rem; }
-            .banner-inner { max-width: 1280px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 2rem; }
-            .banner-sub { font-size: 11px; color: rgba(255,255,255,.4); letter-spacing: 1px; text-transform: uppercase; margin-bottom: .35rem; }
-            .banner-h   { font-size: 1.45rem; font-weight: 700; color: white; letter-spacing: -0.5px; line-height: 1.3; }
-            .banner-h em { font-style: normal; color: #5BBCE4; }
-            /* 개관시간 모달 */
-            #hoursModal {
-                display: none;
-                position: fixed;
-                inset: 0;
-                z-index: 1000;
-                background: rgba(0,0,0,.55);
-                align-items: center;
-                justify-content: center;
-            }
-            #hoursModal.show { display: flex; }
+/* ── BANNER ── */
+.banner { background: var(--blue-dk); padding: 2.25rem 2rem; }
+.banner-inner { max-width: 1280px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 2rem; }
+.banner-sub { font-size: 11px; color: rgba(255,255,255,.4); letter-spacing: 1px; text-transform: uppercase; margin-bottom: .35rem; }
+.banner-h   { font-size: 1.45rem; font-weight: 700; color: white; letter-spacing: -0.5px; line-height: 1.3; }
+.banner-h em { font-style: normal; color: #5BBCE4; }
+/* 개관시간 모달 */
+#hoursModal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(0,0,0,.55);
+  align-items: center;
+  justify-content: center;
+}
+#hoursModal.show { display: flex; }
 
-            /* qi를 a태그로도 쓸 수 있게 */
-            a.qi { text-decoration: none; }
-        </style>
-    </head>
-    <body>
-        <div id="header-placeholder"></div>
-        <!-- HERO -->
-        <section class="hero">
-            <div class="hero-slide on"><img src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=1600&q=80" alt=""><div class="hero-grad"></div></div>
-            <div class="hero-slide"><img src="https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=1600&q=80" alt=""><div class="hero-grad"></div></div>
-            <div class="hero-slide"><img src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da?w=1600&q=80" alt=""><div class="hero-grad"></div></div>
+/* qi를 a태그로도 쓸 수 있게 */
+a.qi { text-decoration: none; }
+</style>
+</head>
+<body>
 
-            <div class="hero-search-zone">
-                <div class="search-box">
-                    <input class="search-input" type="text" placeholder="검색어를 입력하세요.">
-                    <button class="s-sub-btn">상세검색</button>
-                    <button class="s-sub-btn">전자자료</button>
-                    <button class="s-main-btn">
-                        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-                    </button>
-                </div>
-            </div>
+<div id="header-placeholder"></div>
 
-            <!-- 원형 도트, 크기 고정, 색상만 변경 -->
-            <div class="hero-dots">
-                <button class="hdot on" data-i="0"></button>
-                <button class="hdot" data-i="1"></button>
-                <button class="hdot" data-i="2"></button>
-            </div>
-        </section>
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-slide on"><img src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=1600&q=80" alt=""><div class="hero-grad"></div></div>
+  <div class="hero-slide"><img src="https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=1600&q=80" alt=""><div class="hero-grad"></div></div>
+  <div class="hero-slide"><img src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da?w=1600&q=80" alt=""><div class="hero-grad"></div></div>
 
-        <!-- QUICK MENU (5개) -->
-        <section class="quick">
-            <div class="quick-inner">
+  <div class="hero-search-zone">
+    <div class="search-box">
+      <input class="search-input" type="text" placeholder="검색어를 입력하세요.">
+      <button class="s-sub-btn">상세검색</button>
+      <button class="s-sub-btn">전자자료</button>
+      <button class="s-main-btn">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      </button>
+    </div>
+  </div>
 
-                <!-- 좌석/시설예약 → facility.html -->
-                <a class="qi" href="pages/facility.html">
-                    <div class="qi-icon"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="0"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
-                    <div class="qi-label">좌석 /<br>시설예약</div>
-                </a>
+  <!-- 원형 도트, 크기 고정, 색상만 변경 -->
+  <div class="hero-dots">
+    <button class="hdot on" data-i="0"></button>
+    <button class="hdot" data-i="1"></button>
+    <button class="hdot" data-i="2"></button>
+  </div>
+</section>
 
-                <!-- 개관시간 → 모달 -->
-                <div class="qi" onclick="document.getElementById('hoursModal').classList.add('show')">
-                    <div class="qi-icon"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
-                    <div class="qi-label">개관<br>시간</div>
-                </div>
+<!-- QUICK MENU (5개) -->
+<section class="quick">
+  <div class="quick-inner">
 
-                <!-- 추천학술정보 → DBpia -->
-                <a class="qi" href="https://www.dbpia.co.kr" target="_blank" rel="noopener">
-                    <div class="qi-icon"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
-                    <div class="qi-label">추천학술<br>정보</div>
-                </a>
+    <!-- 좌석/시설예약 → facility.html -->
+    <a class="qi" href="pages/facility.html">
+      <div class="qi-icon"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="0"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+      <div class="qi-label">좌석 /<br>시설예약</div>
+    </a>
 
-                <!-- 컬렉션/아카이빙 -->
-                <div class="qi">
-                    <div class="qi-icon"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><polyline points="21 8 21 21 3 21 3 8"/><rect x="1" y="3" width="22" height="5" rx="0"/><line x1="10" y1="12" x2="14" y2="12"/></svg></div>
-                    <div class="qi-label">컬렉션 /<br>아카이빙</div>
-                </div>
+    <!-- 개관시간 → 모달 -->
+    <div class="qi" onclick="document.getElementById('hoursModal').classList.add('show')">
+      <div class="qi-icon"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+      <div class="qi-label">개관<br>시간</div>
+    </div>
 
-                <!-- 문의 → community.html#faq -->
-                <a class="qi" href="pages/community.html#faq">
-                    <div class="qi-icon"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
-                    <div class="qi-label">문의</div>
-                </a>
+    <!-- 추천학술정보 → DBpia -->
+    <a class="qi" href="https://www.dbpia.co.kr" target="_blank" rel="noopener">
+      <div class="qi-icon"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
+      <div class="qi-label">추천학술<br>정보</div>
+    </a>
 
-            </div>
-        </section>
+    <!-- 컬렉션/아카이빙 → reading.html -->
+    <a class="qi" href="pages/reading.html">
+      <div class="qi-icon"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><polyline points="21 8 21 21 3 21 3 8"/><rect x="1" y="3" width="22" height="5" rx="0"/><line x1="10" y1="12" x2="14" y2="12"/></svg></div>
+      <div class="qi-label">컬렉션 /<br>아카이빙</div>
+    </a>
 
-        <!-- 개관시간 모달 -->
-        <div id="hoursModal">
-            <div style="
-                background:#1055b5; color:white;
-                width:min(720px,95vw); max-height:90vh; overflow-y:auto;
-                padding:2.5rem 2.5rem 2rem; position:relative;">
+    <!-- 문의 → community.html#faq -->
+    <a class="qi" href="pages/community.html#faq">
+      <div class="qi-icon"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+      <div class="qi-label">문의</div>
+    </a>
 
-                <!-- 닫기 -->
-                <button onclick="document.getElementById('hoursModal').classList.remove('show')" style="
-                    position:absolute; top:1.25rem; right:1.5rem;
-                    background:none; border:none; color:white; font-size:28px;
-                    cursor:pointer; line-height:1;">&times;
-                </button>
+  </div>
+</section>
 
-                <h2 style="font-size:1.75rem; font-weight:700; margin-bottom:1.75rem; letter-spacing:-.5px;">이용시간</h2>
+<!-- 개관시간 모달 -->
+<div id="hoursModal">
+  <div style="
+    background:#1055b5; color:white;
+    width:min(720px,95vw); max-height:90vh; overflow-y:auto;
+    padding:2.5rem 2.5rem 2rem; position:relative;">
 
-                <!-- D_Study -->
-                <div style="border:1.5px solid rgba(255,255,255,.35); padding:1.5rem 2rem; margin-bottom:1rem;">
-                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; align-items:center;">
-                        <div style="font-size:1.1rem; font-weight:700;">D_Study</div>
-                        <div style="font-size:1rem; font-weight:600; line-height:1.9;">
-                            [평일] 09:00 ~ 21:00<br>
-                            [토, 공휴일] 09:00 ~ 18:00
-                        </div>
-                    </div>
-                </div>
+    <!-- 닫기 -->
+    <button onclick="document.getElementById('hoursModal').classList.remove('show')" style="
+      position:absolute; top:1.25rem; right:1.5rem;
+      background:none; border:none; color:white; font-size:28px;
+      cursor:pointer; line-height:1;">&times;</button>
 
-                    <!-- 자료실·대출실 등 -->
-                <div style="border:1.5px solid rgba(255,255,255,.35); padding:1.5rem 2rem; margin-bottom:1.5rem;">
-                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; align-items:center;">
-                        <div style="font-size:1rem; font-weight:700; line-height:2;">
-                            4층 대출실<br>
-                            미래나래(4F, 5F)<br>
-                            과학기술자료실<br>
-                            어문학자료실<br>
-                            인문사회자료실
-                        </div>
-                        <div style="font-size:1rem; font-weight:600; line-height:1.9;">
-                            [평일] 09:00 ~ 21:00<br>
-                            [토, 공휴일] 휴관
-                        </div>
-                    </div>
-                </div>
+    <h2 style="font-size:1.75rem; font-weight:700; margin-bottom:1.75rem; letter-spacing:-.5px;">이용시간</h2>
 
-                <!-- 동영상 (나중에 mp4 파일 교체) -->
-                <div style="margin-bottom:1.25rem;">
-                    <video id="hoursVideo" controls style="width:100%; display:block; background:#000;">
-                        <source src="images/video.mp4" type="video/mp4">
-                        <!-- 영상 파일을 images/hours_video.mp4 로 넣어주세요 -->
-                    </video>
-                    <p style="font-size:12px; color:rgba(255,255,255,.55); margin-top:.5rem; text-align:center;">
-                    </p>
-                </div>
-            </div>
+    <!-- D_Study -->
+    <div style="border:1.5px solid rgba(255,255,255,.35); padding:1.5rem 2rem; margin-bottom:1rem;">
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; align-items:center;">
+        <div style="font-size:1.1rem; font-weight:700;">D_Study</div>
+        <div style="font-size:1rem; font-weight:600; line-height:1.9;">
+          [평일] 09:00 ~ 21:00<br>
+          [토, 공휴일] 09:00 ~ 18:00
         </div>
+      </div>
+    </div>
 
-        <!-- 공지사항 + 운영시간 (배지 없이 텍스트만) -->
-        <div class="notice-wrap">
-            <div class="notice-inner">
-                <!-- 공지사항: 배지 없이 제목만 -->
-                <div>
-                    <div class="notice-col-head">
-                        <span class="nc-title">공지사항</span>
-                        <a class="nc-more" href="pages/community.html">전체보기 &rsaquo;</a>
-                    </div>
-                    <div class="notice-list">
-                        <a class="notice-row" href="pages/community.html"><span class="n-txt">도서관 정기 휴관일 안내</span><span class="n-date">2026.05.10</span></a>
-                        <a class="notice-row" href="pages/community.html"><span class="n-txt">[5/31(일) 토익 정기 시험] 대비 무료 특강 안내</span><span class="n-date">2026.05.08</span></a>
-                        <a class="notice-row" href="pages/community.html"><span class="n-txt">도서관 24시간 개방 이용자 유의사항 안내</span><span class="n-date">2026.04.22</span></a>
-                        <a class="notice-row" href="pages/community.html"><span class="n-txt">2026-1학기 중간고사 기간 도서관 1층 D-Study 24시간 개방 안내</span><span class="n-date">2026.04.10</span></a>
-                        <a class="notice-row" href="pages/community.html"><span class="n-txt">넷플릭스 이용 안내</span><span class="n-date">2026.03.18</span></a>
-                        <a class="notice-row" href="pages/community.html"><span class="n-txt">토익 특강 안내, 3/27(금) 14시</span><span class="n-date">2026.03.14</span></a>
-                    </div>
-                </div>
-
-                <!-- 운영시간 -->
-                <div>
-                    <div class="notice-col-head">
-                        <span class="nc-title">운영시간</span>
-                    </div>
-                    <table class="hours-table">
-                        <tr><td>자료실 (1F~3F)</td><td>평일 09:00 ~ 21:00</td></tr>
-                        <tr><td></td><td>토요일 09:00 ~ 17:00</td></tr>
-                        <tr class="closed"><td></td><td>일요일 · 공휴일 휴관</td></tr>
-                        <tr><td>열람실 (4F)</td><td>평일 06:00 ~ 24:00</td></tr>
-                        <tr><td></td><td>토요일 06:00 ~ 24:00</td></tr>
-                        <tr><td></td><td>일요일 06:00 ~ 24:00</td></tr>
-                        <tr class="closed"><td></td><td>공휴일 휴관</td></tr>
-                        <tr><td>무인 반납기</td><td>24시간 이용 가능</td></tr>
-                    </table>
-                    <p class="hours-note">※ 방학 및 시험 기간 운영시간은 별도 공지를 확인하세요.</p>
-                </div>
-            </div>
+    <!-- 자료실·대출실 등 -->
+    <div style="border:1.5px solid rgba(255,255,255,.35); padding:1.5rem 2rem; margin-bottom:1.5rem;">
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; align-items:center;">
+        <div style="font-size:1rem; font-weight:700; line-height:2;">
+          4층 대출실<br>
+          미래나래(4F, 5F)<br>
+          과학기술자료실<br>
+          어문학자료실<br>
+          인문사회자료실
         </div>
-
-        <!-- 특별 컬렉션 -->
-        <div class="coll-wrap">
-            <div class="coll-inner">
-                <div class="sec-hd"><span class="sec-title">특별 컬렉션</span></div>
-                <div class="coll-grid">
-                    <div class="coll-card"><img src="https://images.unsplash.com/photo-1519682337058-a94d519337bc?w=400&q=80" alt="전자책"><div class="coll-ov"><div class="coll-tag">E-Resource</div><div class="coll-name">전자책 · E-Book</div><div class="coll-desc">소장 구독 중인 전자책 및 이러닝 콘텐츠</div></div></div>
-                    <div class="coll-card"><img src="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=400&q=80" alt="학술정보"><div class="coll-ov"><div class="coll-tag">Curation</div><div class="coll-name">학술정보 큐레이션</div><div class="coll-desc">분야별 추천 학술자료 및 DB</div></div></div>
-                    <div class="coll-card"><img src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?w=400&q=80" alt="귀중서고"><div class="coll-ov"><div class="coll-tag">Archive</div><div class="coll-name">귀중서고 견학</div><div class="coll-desc">숨겨진 희귀 자료를 만나보세요</div></div></div>
-                    <div class="coll-card"><img src="https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=400&q=80" alt="신착도서"><div class="coll-ov"><div class="coll-tag">New Arrival</div><div class="coll-name">이달의 신착 도서</div><div class="coll-desc">5월 신규 입고 250권</div></div></div>
-                    <div class="coll-card"><img src="https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?w=400&q=80" alt="논문"><div class="coll-ov"><div class="coll-tag">Research</div><div class="coll-name">학위논문 컬렉션</div><div class="coll-desc">동양미래대 졸업 학위논문 아카이브</div></div></div>
-                    <div class="coll-card"><img src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=400&q=80" alt="기부"><div class="coll-ov"><div class="coll-tag">Community</div><div class="coll-name">기부 · 기증 도서</div><div class="coll-desc">도서관 기부/기증 통합 안내</div></div></div>
-                </div>
-            </div>
+        <div style="font-size:1rem; font-weight:600; line-height:1.9;">
+          [평일] 09:00 ~ 21:00<br>
+          [토, 공휴일] 휴관
         </div>
+      </div>
+    </div>
 
-        <!-- 신착/인기/베스트 + 유튜브 -->
-        <div class="books-wrap">
-            <div class="books-inner">
-                <div>
-                    <div class="books-tab-row">
-                        <div class="btabs">
-                            <button class="btab on" data-t="new">신착도서</button>
-                            <button class="btab" data-t="popular">인기도서</button>
-                            <button class="btab" data-t="best">베스트대출</button>
-                        </div>
-                        <a class="sec-more" href="pages/recommend.html">전체보기 +</a>
-                    </div>
-                    <div class="books-grid" id="bGrid"></div>
-                </div>
+    <!-- 동영상 (나중에 mp4 파일 교체) -->
+    <div style="margin-bottom:1.25rem;">
+      <video id="hoursVideo" controls style="width:100%; display:block; background:#000;">
+        <source src="images/hours_video.mp4" type="video/mp4">
+        <!-- 영상 파일을 images/hours_video.mp4 로 넣어주세요 -->
+      </video>
+      <p style="font-size:12px; color:rgba(255,255,255,.55); margin-top:.5rem; text-align:center;">
+        * 동영상은 images/hours_video.mp4 파일을 교체하면 적용됩니다.
+      </p>
+    </div>
 
-                <!-- 유튜브: iframe 실제 영상 -->
-                <div class="yt-panel">
-                    <div class="yt-head">
-                        <svg width="20" height="14" viewBox="0 0 20 14"><rect width="20" height="14" fill="#FF0000"/><path d="M8 4l5 3-5 3V4z" fill="white"/></svg>
-                        Youtube
-                    </div>
-                    <div class="yt-iframe-wrap">
-                        <iframe
-                            src="https://www.youtube-nocookie.com/embed/da22FRL6U88?rel=0&modestbranding=1"
-                            title="동양미래대학교 도서관"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowfullscreen>
-                        </iframe>
-                    </div>
-                    <div class="yt-cap">
-                        동양미래대학교 도서관 공식 채널
-                        <div class="yt-cap-sub">도서관 이용 팁 · 행사 영상 · 학습법</div>
-                    </div>
-                </div>
-            </div>
+    <a href="#" style="
+      display:inline-flex; align-items:center; gap:6px;
+      color:#f5c842; font-size:14px; font-weight:700; text-decoration:none;">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24" style="color:#f5c842">
+        <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+      </svg>
+      이용시간 바로가기
+      <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
+      </svg>
+    </a>
+  </div>
+</div>
+
+<!-- 공지사항 + 운영시간 (배지 없이 텍스트만) -->
+<div class="notice-wrap">
+  <div class="notice-inner">
+    <!-- 공지사항: 배지 없이 제목만 -->
+    <div>
+      <div class="notice-col-head">
+        <span class="nc-title">공지사항</span>
+        <a class="nc-more" href="pages/community.html">전체보기 &rsaquo;</a>
+      </div>
+      <div class="notice-list">
+        <a class="notice-row" href="pages/community.html"><span class="n-txt">도서관 정기 휴관일 안내</span><span class="n-date">2026.05.10</span></a>
+        <a class="notice-row" href="pages/community.html"><span class="n-txt">[5/31(일) 토익 정기 시험] 대비 무료 특강 안내</span><span class="n-date">2026.05.08</span></a>
+        <a class="notice-row" href="pages/community.html"><span class="n-txt">도서관 24시간 개방 이용자 유의사항 안내</span><span class="n-date">2026.04.22</span></a>
+        <a class="notice-row" href="pages/community.html"><span class="n-txt">2026-1학기 중간고사 기간 도서관 1층 D-Study 24시간 개방 안내</span><span class="n-date">2026.04.10</span></a>
+        <a class="notice-row" href="pages/community.html"><span class="n-txt">넷플릭스 이용 안내</span><span class="n-date">2026.03.18</span></a>
+        <a class="notice-row" href="pages/community.html"><span class="n-txt">토익 특강 안내, 3/27(금) 14시</span><span class="n-date">2026.03.14</span></a>
+      </div>
+    </div>
+
+    <!-- 운영시간 -->
+    <div>
+      <div class="notice-col-head">
+        <span class="nc-title">운영시간</span>
+      </div>
+      <table class="hours-table">
+        <tr><td>자료실 (1F~3F)</td><td>평일 09:00 ~ 21:00</td></tr>
+        <tr><td></td><td>토요일 09:00 ~ 17:00</td></tr>
+        <tr class="closed"><td></td><td>일요일 · 공휴일 휴관</td></tr>
+        <tr><td>열람실 (4F)</td><td>평일 06:00 ~ 24:00</td></tr>
+        <tr><td></td><td>토요일 06:00 ~ 24:00</td></tr>
+        <tr><td></td><td>일요일 06:00 ~ 24:00</td></tr>
+        <tr class="closed"><td></td><td>공휴일 휴관</td></tr>
+        <tr><td>무인 반납기</td><td>24시간 이용 가능</td></tr>
+      </table>
+      <p class="hours-note">※ 방학 및 시험 기간 운영시간은 별도 공지를 확인하세요.</p>
+    </div>
+  </div>
+</div>
+
+<!-- 특별 컬렉션 -->
+<div class="coll-wrap">
+  <div class="coll-inner">
+    <div class="sec-hd"><span class="sec-title">특별 컬렉션</span></div>
+    <div class="coll-grid">
+      <div class="coll-card"><img src="https://images.unsplash.com/photo-1519682337058-a94d519337bc?w=400&q=80" alt="전자책"><div class="coll-ov"><div class="coll-tag">E-Resource</div><div class="coll-name">전자책 · E-Book</div><div class="coll-desc">소장 구독 중인 전자책 및 이러닝 콘텐츠</div></div></div>
+      <div class="coll-card"><img src="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=400&q=80" alt="학술정보"><div class="coll-ov"><div class="coll-tag">Curation</div><div class="coll-name">학술정보 큐레이션</div><div class="coll-desc">분야별 추천 학술자료 및 DB</div></div></div>
+      <div class="coll-card"><img src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?w=400&q=80" alt="귀중서고"><div class="coll-ov"><div class="coll-tag">Archive</div><div class="coll-name">귀중서고 견학</div><div class="coll-desc">숨겨진 희귀 자료를 만나보세요</div></div></div>
+      <div class="coll-card"><img src="https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=400&q=80" alt="신착도서"><div class="coll-ov"><div class="coll-tag">New Arrival</div><div class="coll-name">이달의 신착 도서</div><div class="coll-desc">5월 신규 입고 250권</div></div></div>
+      <div class="coll-card"><img src="https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?w=400&q=80" alt="논문"><div class="coll-ov"><div class="coll-tag">Research</div><div class="coll-name">학위논문 컬렉션</div><div class="coll-desc">동양미래대 졸업 학위논문 아카이브</div></div></div>
+      <div class="coll-card"><img src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=400&q=80" alt="기부"><div class="coll-ov"><div class="coll-tag">Community</div><div class="coll-name">기부 · 기증 도서</div><div class="coll-desc">도서관 기부/기증 통합 안내</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- 신착/인기/베스트 + 유튜브 -->
+<div class="books-wrap">
+  <div class="books-inner">
+    <div>
+      <div class="books-tab-row">
+        <div class="btabs">
+          <button class="btab on" data-t="new">신착도서</button>
+          <button class="btab" data-t="popular">인기도서</button>
+          <button class="btab" data-t="best">베스트대출</button>
         </div>
+        <a class="sec-more" href="pages/recommend.html">전체보기 +</a>
+      </div>
+      <div class="books-grid" id="bGrid"></div>
+    </div>
 
-        <!-- 금주의 추천 도서 -->
-        <div class="week-wrap">
-            <div class="week-inner">
-                <div class="sec-hd">
-                    <span class="sec-title">금주의 추천 도서</span>
-                    <a class="sec-more" href="pages/recommend.html">전체 추천 목록 &rsaquo;</a>
-                </div>
-                <div class="week-grid">
-                    <!-- 메인 카드 -->
-                    <div class="wk-main">
-                        <div class="wk-top">
-                            <img class="wk-cover" id="wc0" src="" alt="도둑맞은 집중력" style="background:#163d73">
-                            <div class="wk-meta">
-                                <div class="wk-badge">이번 주 추천 #1</div>
-                                <div class="wk-title">도둑맞은 집중력</div>
-                                <div class="wk-author">요한 하리 (Johann Hari)</div>
-                                <div class="wk-tags"><span class="wk-tag">사회과학</span><span class="wk-tag">자기계발</span><span class="wk-tag">미디어비평</span></div>
-                            </div>
-                        </div>
-                        <div class="wk-body">
-                            <p class="wk-desc">스마트폰과 SNS가 지배하는 시대, 우리의 집중력은 왜 무너졌을까? 세계 정상의 전문가들을 직접 인터뷰하며 집중력 위기의 진짜 원인을 파헤친 화제의 책.</p>
-                            <div class="wk-foot">
-                                <div class="avail"><div class="avail-dot"></div>대출 가능</div>
-                                <button class="btn-primary">대출 예약</button>
-                            </div>
-                        </div>
-                    </div>
+    <!-- 유튜브: iframe 실제 영상 -->
+    <div class="yt-panel">
+      <div class="yt-head">
+        <svg width="20" height="14" viewBox="0 0 20 14"><rect width="20" height="14" fill="#FF0000"/><path d="M8 4l5 3-5 3V4z" fill="white"/></svg>
+        Youtube
+      </div>
+      <div class="yt-iframe-wrap">
+        <iframe
+          src="https://www.youtube-nocookie.com/embed/da22FRL6U88?rel=0&modestbranding=1"
+          title="동양미래대학교 도서관"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen>
+        </iframe>
+      </div>
+      <div class="yt-cap">
+        동양미래대학교 도서관 공식 채널
+        <div class="yt-cap-sub">도서관 이용 팁 · 행사 영상 · 학습법</div>
+      </div>
+    </div>
+  </div>
+</div>
 
-                    <!-- 사이드 2 -->
-                    <div class="wk-side">
-                        <div class="wk-side-top">
-                            <img class="wk-side-cover" id="wc1" src="" alt="파친코" style="background:#5c2a0a">
-                            <div>
-                                <div class="wk-side-rank">이번 주 2위</div>
-                                <div class="wk-side-title">파친코</div>
-                                <div class="wk-side-author">이민진 (Min Jin Lee)</div>
-                            </div>
-                        </div>
-                        <div class="wk-side-body">
-                            <p class="wk-side-desc">4대에 걸친 재일 조선인 가족의 파란만장한 역사를 담은 대서사 소설.</p>
-                            <div class="wk-tags2"><span class="wtag">소설</span><span class="wtag">역사</span></div>
-                        </div>
-                        <div class="wk-side-foot">
-                            <div class="avail" style="font-size:11.5px;"><div class="avail-dot"></div>대출 가능</div>
-                            <button class="btn-primary">대출 예약</button>
-                        </div>
-                    </div>
+<!-- 금주의 추천 도서 -->
+<div class="week-wrap">
+  <div class="week-inner">
+    <div class="sec-hd">
+      <span class="sec-title">금주의 추천 도서</span>
+      <a class="sec-more" href="pages/recommend.html">전체 추천 목록 &rsaquo;</a>
+    </div>
+    <div class="week-grid">
 
-                    <!-- 사이드 3 -->
-                    <div class="wk-side">
-                        <div class="wk-side-top">
-                            <img class="wk-side-cover" id="wc2" src="" alt="사피엔스" style="background:#0a3d2a">
-                            <div>
-                                <div class="wk-side-rank">이번 주 3위</div>
-                                <div class="wk-side-title">사피엔스</div>
-                                <div class="wk-side-author">유발 하라리 (Yuval Noah Harari)</div>
-                            </div>
-                        </div>
-                        <div class="wk-side-body">
-                            <p class="wk-side-desc">인류 역사 전체를 꿰뚫는 거대한 서사. 호모 사피엔스가 어떻게 지구를 지배했는지 탐구한 세계적 베스트셀러.</p>
-                            <div class="wk-tags2"><span class="wtag">역사</span><span class="wtag">인문</span></div>
-                        </div>
-                        <div class="wk-side-foot">
-                            <div class="avail" style="font-size:11.5px;"><div class="avail-dot"></div>대출 가능</div>
-                            <button class="btn-primary">대출 예약</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+      <!-- 메인 카드 -->
+      <div class="wk-main">
+        <div class="wk-top">
+          <img class="wk-cover" id="wc0" src="" alt="도둑맞은 집중력" style="background:#163d73">
+          <div class="wk-meta">
+            <div class="wk-badge">이번 주 추천 #1</div>
+            <div class="wk-title">도둑맞은 집중력</div>
+            <div class="wk-author">요한 하리 (Johann Hari)</div>
+            <div class="wk-tags"><span class="wk-tag">사회과학</span><span class="wk-tag">자기계발</span><span class="wk-tag">미디어비평</span></div>
+          </div>
         </div>
-
-        <!-- 관심 분야별 추천 -->
-        <div class="genre-wrap">
-            <div class="genre-inner">
-                <div class="sec-hd">
-                    <span class="sec-title">관심 분야별 추천</span>
-                    <a class="sec-more" href="pages/recommend.html">더 많은 추천 &rsaquo;</a>
-                </div>
-                <div class="genre-filter" id="gTabs">
-                    <button class="gtab on" data-g="all">전체</button>
-                    <button class="gtab" data-g="novel">소설 · 문학</button>
-                    <button class="gtab" data-g="self">자기계발</button>
-                    <button class="gtab" data-g="biz">경영 · 경제</button>
-                    <button class="gtab" data-g="sci">과학 · 기술</button>
-                    <button class="gtab" data-g="art">예술 · 디자인</button>
-                    <button class="gtab" data-g="hist">역사 · 인문</button>
-                    <button class="gtab" data-g="it">IT · 공학</button>
-                </div>
-                <div class="genre-grid" id="gGrid"></div>
-            </div>
+        <div class="wk-body">
+          <p class="wk-desc">스마트폰과 SNS가 지배하는 시대, 우리의 집중력은 왜 무너졌을까? 세계 정상의 전문가들을 직접 인터뷰하며 집중력 위기의 진짜 원인을 파헤친 화제의 책.</p>
+          <div class="wk-foot">
+            <div class="avail"><div class="avail-dot"></div>대출 가능</div>
+            <button class="btn-primary">대출 예약</button>
+          </div>
         </div>
+      </div>
 
-        <!-- 배너 2026 -->
-        <div class="banner">
-            <div class="banner-inner">
-                <div>
-                    <div class="banner-sub">Reading Challenge 2026</div>
-                    <div class="banner-h">올해 목표 독서량, <em>도서관과 함께</em> 달성하세요</div>
-                </div>
-                <button class="btn-primary" style="padding:12px 26px;font-size:14px;">독서 기록 시작하기</button>
-            </div>
+      <!-- 사이드 2 -->
+      <div class="wk-side">
+        <div class="wk-side-top">
+          <img class="wk-side-cover" id="wc1" src="" alt="파친코" style="background:#5c2a0a">
+          <div>
+            <div class="wk-side-rank">이번 주 2위</div>
+            <div class="wk-side-title">파친코</div>
+            <div class="wk-side-author">이민진 (Min Jin Lee)</div>
+          </div>
         </div>
+        <div class="wk-side-body">
+          <p class="wk-side-desc">4대에 걸친 재일 조선인 가족의 파란만장한 역사를 담은 대서사 소설.</p>
+          <div class="wk-tags2"><span class="wtag">소설</span><span class="wtag">역사</span></div>
+        </div>
+        <div class="wk-side-foot">
+          <div class="avail" style="font-size:11.5px;"><div class="avail-dot"></div>대출 가능</div>
+          <button class="btn-primary">대출 예약</button>
+        </div>
+      </div>
 
-        <div id="footer-placeholder"></div>
+      <!-- 사이드 3 -->
+      <div class="wk-side">
+        <div class="wk-side-top">
+          <img class="wk-side-cover" id="wc2" src="" alt="사피엔스" style="background:#0a3d2a">
+          <div>
+            <div class="wk-side-rank">이번 주 3위</div>
+            <div class="wk-side-title">사피엔스</div>
+            <div class="wk-side-author">유발 하라리 (Yuval Noah Harari)</div>
+          </div>
+        </div>
+        <div class="wk-side-body">
+          <p class="wk-side-desc">인류 역사 전체를 꿰뚫는 거대한 서사. 호모 사피엔스가 어떻게 지구를 지배했는지 탐구한 세계적 베스트셀러.</p>
+          <div class="wk-tags2"><span class="wtag">역사</span><span class="wtag">인문</span></div>
+        </div>
+        <div class="wk-side-foot">
+          <div class="avail" style="font-size:11.5px;"><div class="avail-dot"></div>대출 가능</div>
+          <button class="btn-primary">대출 예약</button>
+        </div>
+      </div>
 
-        <script src="js/main.js"></script>
-        <script src="js/books.js"></script>
-        <script src="js/index.js"></script>
-        <script>
-        /* 개관시간 모달 — 외부(오버레이) 클릭 시 닫기 + 영상 정지 */
-        document.getElementById('hoursModal').addEventListener('click', function(e) {
-        if (e.target === this) {
-            this.classList.remove('show');
-            var v = document.getElementById('hoursVideo');
-            if (v) { v.pause(); v.currentTime = 0; }
-        }
-        });
-        /* 닫기 버튼도 영상 정지 */
-        document.querySelector('#hoursModal > div > button').addEventListener('click', function() {
-        var v = document.getElementById('hoursVideo');
-        if (v) { v.pause(); v.currentTime = 0; }
-        });
-        </script>
-    </body>
+    </div>
+  </div>
+</div>
+
+<!-- 관심 분야별 추천 -->
+<div class="genre-wrap">
+  <div class="genre-inner">
+    <div class="sec-hd">
+      <span class="sec-title">관심 분야별 추천</span>
+      <a class="sec-more" href="pages/recommend.html">더 많은 추천 &rsaquo;</a>
+    </div>
+    <div class="genre-filter" id="gTabs">
+      <button class="gtab on" data-g="all">전체</button>
+      <button class="gtab" data-g="novel">소설 · 문학</button>
+      <button class="gtab" data-g="self">자기계발</button>
+      <button class="gtab" data-g="biz">경영 · 경제</button>
+      <button class="gtab" data-g="sci">과학 · 기술</button>
+      <button class="gtab" data-g="art">예술 · 디자인</button>
+      <button class="gtab" data-g="hist">역사 · 인문</button>
+      <button class="gtab" data-g="it">IT · 공학</button>
+    </div>
+    <div class="genre-grid" id="gGrid"></div>
+  </div>
+</div>
+
+<!-- 배너 2026 -->
+<div class="banner">
+  <div class="banner-inner">
+    <div>
+      <div class="banner-sub">Reading Challenge 2026</div>
+      <div class="banner-h">올해 목표 독서량, <em>도서관과 함께</em> 달성하세요</div>
+    </div>
+    <a href="pages/reading.html" class="btn-primary" style="padding:12px 26px;font-size:14px;display:inline-block;">독서 기록 시작하기</a>
+  </div>
+</div>
+
+<div id="footer-placeholder"></div>
+
+<script src="js/main.js"></script>
+<script src="js/books.js"></script>
+<script src="js/index.js"></script>
+<script>
+/* 개관시간 모달 — 외부(오버레이) 클릭 시 닫기 + 영상 정지 */
+document.getElementById('hoursModal').addEventListener('click', function(e) {
+  if (e.target === this) {
+    this.classList.remove('show');
+    var v = document.getElementById('hoursVideo');
+    if (v) { v.pause(); v.currentTime = 0; }
+  }
+});
+/* 닫기 버튼도 영상 정지 */
+document.querySelector('#hoursModal > div > button').addEventListener('click', function() {
+  var v = document.getElementById('hoursVideo');
+  if (v) { v.pause(); v.currentTime = 0; }
+});
+</script>
+</body>
 </html>

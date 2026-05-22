@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>독서 챌린지 — 동양미래대학교 도서관</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=IBM+Plex+Sans+KR:wght@300;400;500;600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<style>
+/* ── 페이지 히어로 ── */
+.page-hero {
+  background: var(--blue-dk);
+  padding: 2.75rem 2rem 3rem;
+  position: relative;
+  overflow: hidden;
+}
+.page-hero::before {
+  content:'';
+  position:absolute; inset:0;
+  background: repeating-linear-gradient(
+    45deg, transparent, transparent 40px,
+    rgba(255,255,255,.025) 40px, rgba(255,255,255,.025) 41px
+  );
+}
+.page-hero-inner { max-width:1280px; margin:0 auto; position:relative; z-index:1; }
+.page-hero-bc { font-size:12.5px; color:rgba(255,255,255,.45); display:flex; align-items:center; gap:6px; margin-bottom:.75rem; }
+.page-hero-bc a { color:rgba(255,255,255,.45); transition:color .2s; }
+.page-hero-bc a:hover { color:rgba(255,255,255,.8); }
+.page-hero-title { font-size:2rem; font-weight:700; color:white; letter-spacing:-.6px; margin-bottom:.4rem; }
+.page-hero-sub { font-size:14.5px; color:rgba(255,255,255,.6); font-weight:300; letter-spacing:-.1px; }
+
+.page-content { max-width:1280px; margin:0 auto; padding:3rem 2rem 4rem; }
+
+/* ════════════════════════════════════════
+   목표 설정 섹션
+════════════════════════════════════════ */
+.goal-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+/* 공통 카드 */
+.goal-card {
+  background: white;
+  border: 1px solid var(--border);
+  padding: 2rem 2rem 1.75rem;
+}
+.goal-card-title {
+  font-size: 11px; font-weight:700; letter-spacing:.8px;
+  text-transform: uppercase; color: var(--text3);
+  margin-bottom: 1.25rem;
+  padding-bottom: .6rem;
+  border-bottom: 1px solid var(--border);
+}
+
+/* 캘린더 */
+.cal-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 1rem;
+}
+.cal-month-label {
+  font-size: 16px; font-weight: 700; color: var(--text); letter-spacing: -.3px;
+}
+.cal-nav {
+  background: none; border: 1px solid var(--border);
+  width: 28px; height: 28px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; color: var(--text2);
+  transition: all .15s; font-size: 14px;
+}
+.cal-nav:hover { background: var(--blue-dk); color: white; border-color: var(--blue-dk); }
+.cal-grid { display: grid; grid-template-columns: repeat(7,1fr); gap: 2px; }
+.cal-day-name {
+  text-align: center; font-size: 11px; font-weight: 700;
+  color: var(--text3); padding: 4px 0; letter-spacing: .3px;
+}
+.cal-day-name.sun { color: #c00; }
+.cal-day-name.sat { color: var(--blue); }
+.cal-day {
+  aspect-ratio: 1;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; color: var(--text2);
+  cursor: pointer; border: 1px solid transparent;
+  transition: all .15s; border-radius: 0;
+  background: none; font-family: 'DM Sans', sans-serif;
+  font-weight: 400;
+}
+.cal-day:hover:not(.empty):not(.past) { background: var(--blue-lt); color: var(--blue); }
+.cal-day.today { font-weight: 700; color: var(--blue-dk); border-color: var(--blue-dk); }
+.cal-day.selected { background: var(--blue-dk); color: white; border-color: var(--blue-dk); font-weight: 700; }
+.cal-day.past { color: var(--border); cursor: not-allowed; }
+.cal-day.empty { cursor: default; }
+.cal-day.sun-col { color: #e06060; }
+.cal-day.sat-col { color: var(--blue); }
+.cal-day.selected.sun-col,
+.cal-day.selected.sat-col { color: white; }
+
+.cal-selected-info {
+  margin-top: 1rem; padding: .875rem 1rem;
+  background: var(--bg); border-left: 3px solid var(--blue);
+  font-size: 13.5px; color: var(--text2);
+}
+.cal-selected-info strong { color: var(--blue-dk); font-weight: 700; }
+.cal-selected-info .days-left {
+  font-size: 22px; font-weight: 700; color: var(--blue-dk);
+  font-family: 'DM Sans', sans-serif; display: block; margin-top: .25rem;
+}
+
+/* 목표 권수 설정 */
+.goal-count-area { }
+.goal-display {
+  text-align: center;
+  padding: 1.25rem 0 1rem;
+}
+.goal-num {
+  font-size: 72px; font-weight: 700; color: var(--blue-dk);
+  font-family: 'DM Sans', sans-serif; line-height: 1;
+  display: block;
+}
+.goal-unit {
+  font-size: 16px; color: var(--text3); font-weight: 400;
+  margin-top: .25rem; display: block; letter-spacing: -.1px;
+}
+.goal-slider-wrap { padding: 0 .5rem; margin-bottom: 1.25rem; }
+.goal-slider {
+  width: 100%; height: 4px;
+  -webkit-appearance: none; appearance: none;
+  background: linear-gradient(to right, var(--blue-dk) 0%, var(--blue-dk) var(--pct, 25%), var(--border) var(--pct, 25%));
+  outline: none; cursor: pointer;
+}
+.goal-slider::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 20px; height: 20px;
+  border-radius: 50%; background: var(--blue-dk);
+  border: 3px solid white;
+  box-shadow: 0 2px 8px rgba(13,78,155,.3); cursor: pointer;
+}
+.goal-presets {
+  display: flex; gap: 6px; flex-wrap: wrap;
+}
+.preset-btn {
+  flex: 1; min-width: 0;
+  padding: 7px 0; font-size: 13px; font-weight: 600;
+  border: 1.5px solid var(--border); background: white;
+  color: var(--text2); cursor: pointer; font-family: inherit;
+  transition: all .15s; letter-spacing: -.1px;
+}
+.preset-btn:hover { border-color: var(--blue); color: var(--blue); }
+.preset-btn.on { background: var(--blue-dk); border-color: var(--blue-dk); color: white; }
+
+/* 추천 독서량 배너 */
+.suggest-banner {
+  background: var(--blue-dk);
+  color: white;
+  padding: 1.1rem 1.5rem;
+  margin-top: 1.25rem;
+  display: flex; align-items: center; gap: 1rem;
+}
+.suggest-icon { font-size: 22px; flex-shrink: 0; }
+.suggest-text { font-size: 13.5px; line-height: 1.7; }
+.suggest-text strong { font-size: 17px; font-weight: 700; font-family: 'DM Sans', sans-serif; }
+
+/* 진행 바 */
+.progress-section { margin-bottom: 3rem; }
+.progress-header {
+  display: flex; align-items: flex-end; justify-content: space-between;
+  margin-bottom: 1rem;
+}
+.progress-label { font-size: 15px; font-weight: 700; color: var(--text); letter-spacing: -.3px; }
+.progress-count { font-size: 13px; color: var(--text3); }
+.progress-count span { font-weight: 700; color: var(--blue-dk); font-family: 'DM Sans', sans-serif; font-size: 15px; }
+.progress-bar-wrap {
+  height: 10px; background: var(--bg2); position: relative;
+}
+.progress-bar-fill {
+  height: 100%; background: var(--blue-dk);
+  transition: width .5s ease; width: 0%;
+}
+.progress-ticks {
+  display: flex; justify-content: space-between;
+  margin-top: .4rem;
+}
+.progress-tick { font-size: 11px; color: var(--text3); font-family: 'DM Sans', sans-serif; }
+
+/* ════════════════════════════════════════
+   난이도 탭 + 책 카드
+════════════════════════════════════════ */
+.level-section { }
+.level-sec-head {
+  margin-bottom: 1.75rem;
+}
+.level-sec-title {
+  font-size: 1.4rem; font-weight: 700; color: var(--text);
+  letter-spacing: -.4px; margin-bottom: .35rem;
+}
+.level-sec-sub {
+  font-size: 13.5px; color: var(--text3);
+}
+.level-tabs {
+  display: flex; gap: 0;
+  border-bottom: 2px solid var(--text);
+  margin-bottom: 2rem;
+}
+.level-tab {
+  padding: 9px 28px;
+  font-size: 14.5px; font-weight: 500; color: var(--text3);
+  border-bottom: 2.5px solid transparent;
+  margin-bottom: -2px; cursor: pointer;
+  font-family: inherit; background: none; border-top: none; border-left: none; border-right: none;
+  transition: all .2s; letter-spacing: -.2px;
+  display: flex; align-items: center; gap: 8px;
+}
+.level-tab .badge-lv {
+  font-size: 10px; font-weight: 700; padding: 2px 7px; letter-spacing: .3px;
+}
+.level-tab.on { color: var(--text); border-bottom-color: #c00; font-weight: 700; }
+.level-tab:hover:not(.on) { color: var(--text); }
+.lv-easy  .badge-lv { background: #e6f7ed; color: #107840; }
+.lv-mid   .badge-lv { background: #fff3cd; color: #856404; }
+.lv-hard  .badge-lv { background: #fde8e8; color: #a01010; }
+.level-tab.on .badge-lv { opacity: 1; }
+
+.level-panel { display: none; }
+.level-panel.on { display: block; }
+
+/* 책 카드 (5열) */
+.reading-books-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1.5rem;
+}
+.rb-card {
+  background: white;
+  border: 1px solid var(--border);
+  transition: box-shadow .25s, transform .25s;
+  cursor: pointer;
+}
+.rb-card:hover {
+  box-shadow: 0 8px 28px rgba(13,78,155,.1);
+  transform: translateY(-4px);
+  border-color: var(--blue-bd);
+}
+.rb-cover {
+  width: 100%; aspect-ratio: 2/3;
+  overflow: hidden; background: var(--bg2);
+  position: relative;
+}
+.rb-cover img { width:100%; height:100%; object-fit:cover; display:block; }
+.rb-cover-ph {
+  width:100%; height:100%;
+  display:flex; align-items:center; justify-content:center;
+  font-size:12px; text-align:center; padding:12px;
+  color:rgba(255,255,255,.88); font-weight:600; line-height:1.5;
+}
+.rb-body { padding: 1rem 1rem .875rem; }
+.rb-title {
+  font-size: 14px; font-weight: 700; color: var(--text);
+  margin-bottom: 4px; letter-spacing: -.2px; line-height: 1.4;
+}
+.rb-author { font-size: 12px; color: var(--text3); margin-bottom: .75rem; }
+.rb-check {
+  display: flex; align-items: center; gap: 8px;
+  padding-top: .75rem; border-top: 1px solid var(--border);
+  cursor: pointer;
+}
+.rb-check input { width: 15px; height: 15px; cursor: pointer; accent-color: var(--blue-dk); }
+.rb-check label { font-size: 12.5px; color: var(--text2); cursor: pointer; font-weight: 500; }
+.rb-check input:checked + label { color: var(--blue-dk); font-weight: 700; }
+
+/* 읽은 책 체크 완료 표시 */
+.rb-card.done { border-color: var(--blue-bd); }
+.rb-card.done .rb-cover::after {
+  content: '✓';
+  position: absolute; inset: 0;
+  background: rgba(13,78,155,.55);
+  color: white; font-size: 48px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+</style>
+</head>
+<body>
+
+<div id="header-placeholder"></div>
+
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <div class="page-hero-bc">
+      <a href="../index.html">홈</a><span>&rsaquo;</span><span>독서 챌린지</span>
+    </div>
+    <div class="page-hero-title">Reading Challenge 2026</div>
+    <div class="page-hero-sub">목표를 설정하고, 나만의 독서 여정을 시작하세요.</div>
+  </div>
+</div>
+
+<div class="page-content">
+
+  <!-- ══════════════════════════════════
+       목표 설정
+  ══════════════════════════════════ -->
+  <div class="goal-section">
+
+    <!-- 목표 달성일 캘린더 -->
+    <div class="goal-card">
+      <div class="goal-card-title">목표 달성일 설정</div>
+      <div class="cal-header">
+        <button class="cal-nav" id="calPrev">&#8249;</button>
+        <div class="cal-month-label" id="calMonthLabel"></div>
+        <button class="cal-nav" id="calNext">&#8250;</button>
+      </div>
+      <div class="cal-grid" id="calGrid"></div>
+      <div class="cal-selected-info" id="calInfo">
+        달성일을 선택하세요.
+      </div>
+    </div>
+
+    <!-- 목표 권수 -->
+    <div class="goal-card">
+      <div class="goal-card-title">목표 독서량 설정</div>
+      <div class="goal-count-area">
+        <div class="goal-display">
+          <span class="goal-num" id="goalNum">12</span>
+          <span class="goal-unit">권 / 2026년</span>
+        </div>
+        <div class="goal-slider-wrap">
+          <input class="goal-slider" type="range" id="goalSlider" min="1" max="52" value="12">
+        </div>
+        <div class="goal-presets">
+          <button class="preset-btn" data-v="6">6권</button>
+          <button class="preset-btn on" data-v="12">12권</button>
+          <button class="preset-btn" data-v="24">24권</button>
+          <button class="preset-btn" data-v="36">36권</button>
+          <button class="preset-btn" data-v="52">52권</button>
+        </div>
+        <div class="suggest-banner" id="suggestBanner">
+          <div class="suggest-icon">💡</div>
+          <div class="suggest-text" id="suggestText"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 진행 상황 -->
+  <div class="progress-section">
+    <div class="progress-header">
+      <div class="progress-label">독서 진행 현황</div>
+      <div class="progress-count">
+        <span id="doneCount">0</span> / <span id="totalCount">12</span>권 완료
+      </div>
+    </div>
+    <div class="progress-bar-wrap">
+      <div class="progress-bar-fill" id="progressFill"></div>
+    </div>
+    <div class="progress-ticks">
+      <span class="progress-tick">0</span>
+      <span class="progress-tick" id="qtr1Label"></span>
+      <span class="progress-tick" id="qtr2Label"></span>
+      <span class="progress-tick" id="qtr3Label"></span>
+      <span class="progress-tick" id="totalLabel">12</span>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════
+       난이도별 추천 도서
+  ══════════════════════════════════ -->
+  <div class="level-section">
+    <div class="level-sec-head">
+      <div class="level-sec-title">난이도별 추천 도서</div>
+      <div class="level-sec-sub">독서 경험에 맞는 난이도를 선택해 지금 바로 읽어보세요.</div>
+    </div>
+
+    <div class="level-tabs">
+      <button class="level-tab lv-easy on" data-lv="easy">
+        <span class="badge-lv">초급</span>입문 독자를 위한 추천
+      </button>
+      <button class="level-tab lv-mid" data-lv="mid">
+        <span class="badge-lv">중급</span>꾸준한 독자를 위한 추천
+      </button>
+      <button class="level-tab lv-hard" data-lv="hard">
+        <span class="badge-lv">고급</span>심화 독자를 위한 추천
+      </button>
+    </div>
+
+    <!-- 초급 -->
+    <div class="level-panel on" id="panel-easy">
+      <div class="reading-books-grid" id="grid-easy"></div>
+    </div>
+
+    <!-- 중급 -->
+    <div class="level-panel" id="panel-mid">
+      <div class="reading-books-grid" id="grid-mid"></div>
+    </div>
+
+    <!-- 고급 -->
+    <div class="level-panel" id="panel-hard">
+      <div class="reading-books-grid" id="grid-hard"></div>
+    </div>
+
+  </div>
+
+</div>
+
+<div id="footer-placeholder"></div>
+<script src="../js/main.js"></script>
+<script src="../js/books.js"></script>
+<script>
+renderHeader();
+renderFooter();
+
+/* ══════════════════════════════════════════════
+   책 데이터
+══════════════════════════════════════════════ */
+const LEVEL_BOOKS = {
+  easy: [
+    { t:'도련님',        a:'나쓰메 소세키',                  img:'botchan.jpg',     q:'Botchan Natsume Soseki',           bg:'#1a3d2a' },
+    { t:'미움받을 용기', a:'이치로 기시미 · 고가 후미히로', img:'courage.jpg',     q:'Courage to Be Disliked Kishimi',   bg:'#163d73' },
+    { t:'위험한 과학책', a:'란달 먼로',                       img:'whatif.jpg',      q:'What If Randall Munroe',           bg:'#2a1a0a' },
+    { t:'방구석 미술관', a:'조원재',                          img:'armchair_art.jpg',bg:'#0a2a3d' },
+    { t:'경제학 콘서트', a:'팀 하포드',                       img:'undercover.jpg',  q:'Undercover Economist Tim Harford', bg:'#1a3d0a' },
+  ],
+  mid: [
+    { t:'노르웨이의 숲',      a:'무라카미 하루키',  img:'norwegian.jpg',   q:'Norwegian Wood Haruki Murakami',    bg:'#1a0a3d' },
+    { t:'사피엔스',           a:'유발 하라리',      img:'sapiens.jpg',     q:'Sapiens Yuval Noah Harari',         bg:'#0a3d2a' },
+    { t:'코스모스',           a:'칼 세이건',        img:'cosmos.jpg',      q:'Cosmos Carl Sagan',                 bg:'#0a1a3d' },
+    { t:'생각에 관한 생각',   a:'대니얼 카너먼',    img:'think.jpg',       q:'Thinking Fast Slow Kahneman',       bg:'#3d0a2a' },
+    { t:'불안',               a:'알랭 드 보통',     img:'anxiety.jpg',     q:'Status Anxiety Alain de Botton',   bg:'#2a2a0a' },
+  ],
+  hard: [
+    { t:'차라투스트라는 이렇게 말했다', a:'프리드리히 니체',           img:'zarathustra.jpg', q:'Thus Spoke Zarathustra Nietzsche',       bg:'#0a0a2a' },
+    { t:'비전의 충돌',                  a:'토머스 소웰',                img:'conflict.jpg',    q:'Conflict of Visions Thomas Sowell',      bg:'#2a0a0a' },
+    { t:'봄눈',                         a:'미시마 유키오',              img:'spring_snow.jpg', q:'Spring Snow Mishima Yukio',              bg:'#0a2a1a' },
+    { t:'미래의 시공간',                a:'킵 손 · 스티븐 호킹 외',    img:'spacetime.jpg',   q:'The Future of Spacetime Kip Thorne',     bg:'#1a1a3d' },
+    { t:'죽음에 이르는 병',             a:'쇠렌 키르케고르',            img:'sickness.jpg',    q:'Sickness Unto Death Kierkegaard',        bg:'#1a0a2a' },
+  ],
+};
+
+/* 체크 상태 */
+const checked = { easy:{}, mid:{}, hard:{} };
+
+function renderLevelGrid(lv) {
+  const grid = document.getElementById(`grid-${lv}`);
+  const books = LEVEL_BOOKS[lv];
+  grid.innerHTML = books.map((b, i) => `
+    <div class="rb-card ${checked[lv][i] ? 'done' : ''}" id="rbc-${lv}-${i}">
+      <div class="rb-cover">
+        <div class="rb-cover-ph" id="rbph-${lv}-${i}" style="background:${b.bg}">${b.t}</div>
+      </div>
+      <div class="rb-body">
+        <div class="rb-title">${b.t}</div>
+        <div class="rb-author">${b.a}</div>
+        <div class="rb-check">
+          <input type="checkbox" id="chk-${lv}-${i}" ${checked[lv][i] ? 'checked' : ''}
+            onchange="toggleCheck('${lv}',${i})">
+          <label for="chk-${lv}-${i}">읽었어요</label>
+        </div>
+      </div>
+    </div>`).join('');
+
+  books.forEach((b, i) => {
+    const el = document.getElementById(`rbph-${lv}-${i}`);
+    const src = b.img ? (BOOKS_ROOT + 'images/books/' + b.img) : null;
+    loadCover(el, src, b.q);
+  });
+}
+
+['easy','mid','hard'].forEach(lv => renderLevelGrid(lv));
+
+/* 체크 토글 */
+function toggleCheck(lv, i) {
+  const chk = document.getElementById(`chk-${lv}-${i}`);
+  checked[lv][i] = chk.checked;
+  document.getElementById(`rbc-${lv}-${i}`).classList.toggle('done', chk.checked);
+  updateProgress();
+}
+
+/* 레벨 탭 전환 */
+document.querySelectorAll('.level-tab').forEach(btn =>
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.level-tab').forEach(b => b.classList.remove('on'));
+    document.querySelectorAll('.level-panel').forEach(p => p.classList.remove('on'));
+    btn.classList.add('on');
+    document.getElementById('panel-' + btn.dataset.lv).classList.add('on');
+  })
+);
+
+/* ══════════════════════════════════════════════
+   진행 현황 업데이트
+══════════════════════════════════════════════ */
+function updateProgress() {
+  const done  = ['easy','mid','hard'].reduce((s, lv) =>
+    s + Object.values(checked[lv]).filter(Boolean).length, 0
+  );
+  const total = +document.getElementById('goalNum').textContent || 12;
+  const pct   = Math.min(100, Math.round(done / total * 100));
+
+  document.getElementById('doneCount').textContent  = done;
+  document.getElementById('totalCount').textContent = total;
+  document.getElementById('progressFill').style.width = pct + '%';
+
+  const q = Math.round(total / 4);
+  document.getElementById('qtr1Label').textContent = q;
+  document.getElementById('qtr2Label').textContent = q * 2;
+  document.getElementById('qtr3Label').textContent = q * 3;
+  document.getElementById('totalLabel').textContent = total;
+}
+
+/* ══════════════════════════════════════════════
+   목표 슬라이더
+══════════════════════════════════════════════ */
+const slider = document.getElementById('goalSlider');
+slider.addEventListener('input', () => {
+  const v = +slider.value;
+  document.getElementById('goalNum').textContent = v;
+  /* 슬라이더 채우기 색상 */
+  slider.style.setProperty('--pct', ((v - 1) / 51 * 100).toFixed(1) + '%');
+  /* 프리셋 버튼 on 상태 */
+  document.querySelectorAll('.preset-btn').forEach(b => b.classList.toggle('on', +b.dataset.v === v));
+  updateProgress();
+  updateSuggest();
+});
+
+document.querySelectorAll('.preset-btn').forEach(btn =>
+  btn.addEventListener('click', () => {
+    const v = +btn.dataset.v;
+    slider.value = v;
+    slider.dispatchEvent(new Event('input'));
+  })
+);
+
+/* ══════════════════════════════════════════════
+   캘린더
+══════════════════════════════════════════════ */
+const TODAY     = new Date();
+TODAY.setHours(0,0,0,0);
+const YEAR_END  = new Date(2026, 11, 31);
+
+let calYear  = TODAY.getFullYear();
+let calMonth = TODAY.getMonth();   /* 0-based */
+let selectedDate = null;
+
+const MONTH_KR = ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'];
+const DAY_KR   = ['일','월','화','수','목','금','토'];
+
+function buildCal() {
+  const lbl  = document.getElementById('calMonthLabel');
+  const grid = document.getElementById('calGrid');
+
+  lbl.textContent = `${calYear}년 ${MONTH_KR[calMonth]}`;
+
+  /* 요일 헤더 */
+  const header = DAY_KR.map((d, i) =>
+    `<div class="cal-day-name ${i===0?'sun':i===6?'sat':''}">${d}</div>`
+  ).join('');
+
+  /* 날짜 셀 */
+  const first   = new Date(calYear, calMonth, 1).getDay();  /* 시작 요일 */
+  const lastDay = new Date(calYear, calMonth + 1, 0).getDate();
+
+  let cells = '';
+  for (let e = 0; e < first; e++)
+    cells += `<button class="cal-day empty" disabled></button>`;
+
+  for (let d = 1; d <= lastDay; d++) {
+    const date = new Date(calYear, calMonth, d);
+    const isPast    = date < TODAY;
+    const isToday   = date.getTime() === TODAY.getTime();
+    const isSel     = selectedDate && date.getTime() === selectedDate.getTime();
+    const outOfRange = date > YEAR_END;
+    const dow = date.getDay();
+    let cls = 'cal-day';
+    if (isPast || outOfRange) cls += ' past';
+    if (isToday)  cls += ' today';
+    if (isSel)    cls += ' selected';
+    if (dow === 0) cls += ' sun-col';
+    if (dow === 6) cls += ' sat-col';
+    const disabled = isPast || outOfRange ? 'disabled' : '';
+    cells += `<button class="${cls}" data-d="${calYear}-${calMonth+1}-${d}" ${disabled}>${d}</button>`;
+  }
+
+  grid.innerHTML = header + cells;
+
+  /* 날짜 클릭 */
+  grid.querySelectorAll('.cal-day:not(.empty):not(.past)').forEach(btn =>
+    btn.addEventListener('click', () => {
+      const [y, m, d] = btn.dataset.d.split('-').map(Number);
+      selectedDate = new Date(y, m - 1, d);
+      buildCal();
+      updateCalInfo();
+      updateSuggest();
+    })
+  );
+}
+
+/* 이전/다음 달 */
+document.getElementById('calPrev').addEventListener('click', () => {
+  calMonth--;
+  if (calMonth < 0) { calMonth = 11; calYear--; }
+  /* 2026년 전으로 안 가게 */
+  if (calYear < 2026) { calYear = 2026; calMonth = 0; }
+  buildCal();
+});
+document.getElementById('calNext').addEventListener('click', () => {
+  calMonth++;
+  if (calMonth > 11) { calMonth = 0; calYear++; }
+  /* 2026년 이후로 안 가게 */
+  if (calYear > 2026) { calYear = 2026; calMonth = 11; }
+  buildCal();
+});
+
+function updateCalInfo() {
+  const info = document.getElementById('calInfo');
+  if (!selectedDate) { info.innerHTML = '달성일을 선택하세요.'; return; }
+
+  const diff = Math.ceil((selectedDate - TODAY) / (1000 * 60 * 60 * 24));
+  const y = selectedDate.getFullYear();
+  const m = selectedDate.getMonth() + 1;
+  const d = selectedDate.getDate();
+  const dow = DAY_KR[selectedDate.getDay()];
+
+  if (diff <= 0) {
+    info.innerHTML = '오늘 이후의 날짜를 선택해주세요.';
+    return;
+  }
+
+  info.innerHTML = `
+    목표 달성일 <strong>${y}년 ${m}월 ${d}일 (${dow})</strong>
+    <span class="days-left">D-${diff} <span style="font-size:16px;font-weight:400;color:var(--text3);">남았습니다</span></span>`;
+}
+
+/* ══════════════════════════════════════════════
+   추천 독서량
+══════════════════════════════════════════════ */
+function updateSuggest() {
+  const textEl = document.getElementById('suggestText');
+  const goal   = +slider.value;
+
+  if (!selectedDate || selectedDate <= TODAY) {
+    textEl.innerHTML = `목표일을 선택하면 추천 독서 페이스를 알려드립니다.`;
+    return;
+  }
+
+  const diffDays  = Math.ceil((selectedDate - TODAY) / (1000 * 60 * 60 * 24));
+  const diffWeeks = (diffDays / 7).toFixed(1);
+  const perWeek   = (goal / diffDays * 7).toFixed(2);
+  const perMonth  = (goal / diffDays * 30).toFixed(1);
+
+  let pace = '';
+  if (+perWeek >= 1)      pace = `<strong>주 ${(+perWeek).toFixed(1)}권</strong>씩`;
+  else if (+perMonth >= 1) pace = `<strong>월 ${perMonth}권</strong>씩`;
+  else                     pace = `<strong>약 ${diffDays}일에 1권</strong>씩`;
+
+  textEl.innerHTML =
+    `${diffDays}일(${diffWeeks}주) 안에 <strong>${goal}권</strong>을 읽으려면<br>
+     ${pace} 읽으면 됩니다.`;
+}
+
+/* 초기 실행 */
+/* 2026년으로 고정 */
+calYear  = 2026;
+calMonth = TODAY.getFullYear() === 2026 ? TODAY.getMonth() : 0;
+buildCal();
+updateCalInfo();
+updateSuggest();
+updateProgress();
+
+/* 슬라이더 초기 채우기 */
+slider.style.setProperty('--pct', ((12 - 1) / 51 * 100).toFixed(1) + '%');
+</script>
+</body>
+</html>
