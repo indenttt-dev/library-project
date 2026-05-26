@@ -26,22 +26,9 @@
             justify-content: flex-start;
         }
 
-        /* 두 이미지를 가로로 나란히 정렬하는 상자 */
-        .logo-wrapper {
-            display: flex;
-            align-items: center;
-            gap: 12px; /* 마크와 이름 이미지 사이의 간격 */
-        }
-
-        /* 왼쪽 마크 이미지 크기 */
-        .dmu-mark {
-            height: 40px; 
-            width: auto;
-        }
-
-        /* 오른쪽 학교 이름 이미지 크기 */
-        .dmu-name {
-            height: 32px; /* 마크 크기와 밸런스가 맞게 살짝 조절 */
+        /* 로고 이미지 크기 및 비율 조절 */
+        .dmu-logo {
+            height: 40px; /* 메인 화면과 비슷하게 높이 정렬 */
             width: auto;
         }
 
@@ -71,7 +58,7 @@
             font-weight: bold;
         }
 
-        /* 입력창 디자인 */
+        /* 입력창 디자인 (input 태그 활용 요구사항 반영) */
         .input-group {
             margin-bottom: 15px;
         }
@@ -134,10 +121,7 @@
 <body>
 
     <header class="header">
-        <div class="logo-wrapper">
-            <img src="images/dmu-logo1.jpg" alt="동양미래대학교 마크" class="dmu-mark">
-            <img src="images/dmu-10gp2.jpg" alt="동양미래대학교 이름" class="dmu-name">
-        </div>
+        <img src="images/logo.jpg" alt="동양미래대학교 로고" class="dmu-logo">
     </header>
 
     <main class="main-content">
