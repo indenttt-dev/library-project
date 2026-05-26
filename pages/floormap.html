@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="ko">
     <head>
         <meta charset="UTF-8">
@@ -15,9 +14,7 @@
             .page-hero-bc { font-size: 12.5px; color: rgba(255,255,255,.45); display: flex; align-items: center; gap: 6px; }
             .page-hero-bc a { color: rgba(255,255,255,.45); transition: color .2s; }
             .page-hero-bc a:hover { color: rgba(255,255,255,.8); }
-
             .page-content { max-width: 1280px; margin: 0 auto; padding: 2.5rem 2rem; }
-
             /* 층 탭 — 세로 버튼 */
             .floor-layout {
                 display: grid;
@@ -40,12 +37,10 @@
             .floor-tab-btn.on { background: var(--blue-dk); border-color: var(--blue-dk); color: white; }
             .floor-tab-btn .fl-num { display: block; font-size: 20px; font-weight: 700; line-height: 1.1; }
             .floor-tab-btn .fl-label { display: block; font-size: 10px; font-weight: 500; margin-top: 2px; opacity: .75; }
-
             /* 층 콘텐츠 */
             .floor-content { border: 1px solid var(--border); background: white; }
             .floor-panel { display: none; }
             .floor-panel.on { display: block; }
-
             .floor-content-header {
                 padding: 1.25rem 1.75rem;
                 border-bottom: 1px solid var(--border);
@@ -56,9 +51,8 @@
                 letter-spacing: -0.4px; margin-bottom: .3rem;
             }
             .floor-content-header .fl-subtitle {
-            font-size: 13px; color: var(--blue); font-weight: 600; letter-spacing: -0.1px;
+                font-size: 13px; color: var(--blue); font-weight: 600; letter-spacing: -0.1px;
             }
-
             .floor-body {
                 display: grid;
                 grid-template-columns: 1fr 340px;
@@ -75,7 +69,6 @@
                 object-fit: contain;
                 display: block;
             }
-
             .floor-info-area { padding: 1.75rem; }
             .floor-desc {
                 font-size: 13.5px; color: var(--text2);
@@ -99,43 +92,52 @@
         </style>
     </head>
     <body>
-        <div id="header-placeholder"></div>
+        <div id="header-placeholder">
+        </div>
         <div class="page-hero">
             <div class="page-hero-inner">
                 <div class="page-hero-title">층별 안내도</div>
                 <div class="page-hero-bc">
-                    <a href="../index.html">홈</a><span>&rsaquo;</span>
-                    <span>시설이용</span><span>&rsaquo;</span>
+                    <a href="../index.html">홈</a>
+                    <span>&rsaquo;</span>
+                    <span>시설이용</span>
+                    <span>&rsaquo;</span>
                     <span>층별 안내도</span>
                 </div>
             </div>
         </div>
-
         <div class="page-content">
-            <div class="sec-hd"><span class="sec-title">층별 안내도</span></div>
+            <div class="sec-hd">
+                <span class="sec-title">층별 안내도</span>
+            </div>
             <div class="floor-layout">
                 <!-- 층 탭 버튼 -->
                 <div class="floor-tabs">
                     <button class="floor-tab-btn" data-f="6" onclick="showFloor(6, this)">
-                        <span class="fl-num">6F</span><span class="fl-label">인문사회</span>
+                        <span class="fl-num">6F</span>
+                        <span class="fl-label">인문사회</span>
                     </button>
                     <button class="floor-tab-btn" data-f="5" onclick="showFloor(5, this)">
-                        <span class="fl-num">5F</span><span class="fl-label">미래나래</span>
+                        <span class="fl-num">5F</span>
+                        <span class="fl-label">미래나래</span>
                     </button>
                     <button class="floor-tab-btn" data-f="4" onclick="showFloor(4, this)">
-                        <span class="fl-num">4F</span><span class="fl-label">미래나래</span>
+                        <span class="fl-num">4F</span>
+                        <span class="fl-label">미래나래</span>
                     </button>
                     <button class="floor-tab-btn" data-f="3" onclick="showFloor(3, this)">
-                        <span class="fl-num">3F</span><span class="fl-label">과학기술</span>
+                        <span class="fl-num">3F</span>
+                        <span class="fl-label">과학기술</span>
                     </button>
                     <button class="floor-tab-btn" data-f="2" onclick="showFloor(2, this)">
-                        <span class="fl-num">2F</span><span class="fl-label">어문학</span>
+                        <span class="fl-num">2F</span>
+                        <span class="fl-label">어문학</span>
                     </button>
                     <button class="floor-tab-btn on" data-f="1" onclick="showFloor(1, this)">
-                        <span class="fl-num">1F</span><span class="fl-label">D_Study</span>
+                        <span class="fl-num">1F</span>
+                        <span class="fl-label">D_Study</span>
                     </button>
                 </div>
-
                 <!-- 층 콘텐츠 -->
                 <div class="floor-content">
                     <!-- 1F -->
@@ -160,7 +162,6 @@
                             </div>
                         </div>
                     </div>
-
                     <!-- 2F -->
                     <div class="floor-panel" id="floor-2">
                         <div class="floor-content-header">
@@ -195,42 +196,40 @@
                             </div>
                         </div>
                     </div>
-
                     <!-- 3F -->
                     <div class="floor-panel" id="floor-3">
                         <div class="floor-content-header">
-                        <div class="fl-main-title">3F · 과학기술자료실</div>
-                        <div class="fl-subtitle">공학 · 기술과학 · 전산 분야</div>
+                            <div class="fl-main-title">3F · 과학기술자료실</div>
+                            <div class="fl-subtitle">공학 · 기술과학 · 전산 분야</div>
                         </div>
                         <div class="floor-body">
-                        <div class="floor-map-area">
-                            <img class="floor-map-img" src="../images/floor_3f.png" alt="3층 도면">
-                        </div>
-                        <div class="floor-info-area">
-                            <p class="floor-desc">과학기술자료실은 도서관 3층에 위치하고 있으며 기술과학분야의 단행본, 참고도서, 연속간행물 등을 소장하고 있습니다.</p>
-                            <div class="floor-spaces">
-                                <div class="floor-spaces-title">주요 공간</div>
-                                <div class="space-item">
-                                    <div class="space-name">공학 · 공업일반 자료실</div>
-                                    <div class="space-desc">기술과학 · 의학 · 농학 분야 도서</div>
-                                </div>
-                                <div class="space-item">
-                                    <div class="space-name">건축 · 기계 · 전기전자 자료실</div>
-                                    <div class="space-desc">전공 단행본 및 참고도서 소장</div>
-                                </div>
-                                <div class="space-item">
-                                    <div class="space-name">전산공학 자료실</div>
-                                    <div class="space-desc">컴퓨터 · 소프트웨어 분야 자료</div>
-                                </div>
-                                <div class="space-item">
-                                    <div class="space-name">스터디룸</div>
-                                    <div class="space-desc">스터디룸 1 · 2 · 3호 (예약 이용)</div>
+                            <div class="floor-map-area">
+                                <img class="floor-map-img" src="../images/floor_3f.png" alt="3층 도면">
+                            </div>
+                            <div class="floor-info-area">
+                                <p class="floor-desc">과학기술자료실은 도서관 3층에 위치하고 있으며 기술과학분야의 단행본, 참고도서, 연속간행물 등을 소장하고 있습니다.</p>
+                                <div class="floor-spaces">
+                                    <div class="floor-spaces-title">주요 공간</div>
+                                    <div class="space-item">
+                                        <div class="space-name">공학 · 공업일반 자료실</div>
+                                        <div class="space-desc">기술과학 · 의학 · 농학 분야 도서</div>
+                                    </div>
+                                    <div class="space-item">
+                                        <div class="space-name">건축 · 기계 · 전기전자 자료실</div>
+                                        <div class="space-desc">전공 단행본 및 참고도서 소장</div>
+                                    </div>
+                                    <div class="space-item">
+                                        <div class="space-name">전산공학 자료실</div>
+                                        <div class="space-desc">컴퓨터 · 소프트웨어 분야 자료</div>
+                                    </div>
+                                    <div class="space-item">
+                                        <div class="space-name">스터디룸</div>
+                                        <div class="space-desc">스터디룸 1 · 2 · 3호 (예약 이용)</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        </div>
                     </div>
-
                     <!-- 4F -->
                     <div class="floor-panel" id="floor-4">
                         <div class="floor-content-header">
@@ -265,7 +264,6 @@
                             </div>
                         </div>
                     </div>
-
                     <!-- 5F -->
                     <div class="floor-panel" id="floor-5">
                         <div class="floor-content-header">
@@ -300,7 +298,6 @@
                             </div>
                         </div>
                     </div>
-
                     <!-- 6F -->
                     <div class="floor-panel" id="floor-6">
                         <div class="floor-content-header">
@@ -335,22 +332,24 @@
                             </div>
                         </div>
                     </div>
-
-                </div><!-- /.floor-content -->
-            </div><!-- /.floor-layout -->
+                </div>
+                <!-- /.floor-content -->
+            </div>
+            <!-- /.floor-layout -->
         </div>
+        <div id="footer-placeholder">
+        </div>
+        <script src="../js/main.js">
 
-        <div id="footer-placeholder"></div>
-        <script src="../js/main.js"></script>
+        </script>
         <script>
             renderHeader('시설이용');
             renderFooter();
-
             function showFloor(num, btn) {
-            document.querySelectorAll('.floor-tab-btn').forEach(b => b.classList.remove('on'));
-            document.querySelectorAll('.floor-panel').forEach(p => p.classList.remove('on'));
-            btn.classList.add('on');
-            document.getElementById('floor-' + num).classList.add('on');
+                document.querySelectorAll('.floor-tab-btn').forEach(b => b.classList.remove('on'));
+                document.querySelectorAll('.floor-panel').forEach(p => p.classList.remove('on'));
+                btn.classList.add('on');
+                document.getElementById('floor-' + num).classList.add('on');
             }
         </script>
     </body>
