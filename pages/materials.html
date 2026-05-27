@@ -443,7 +443,9 @@
                 <div class="page-hero-bc">
                     <a href="../index.html">홈</a>
                     <span>&rsaquo;</span>
-                    <span>자료이용</span>
+                    <span>자료 이용</span>
+                    <span>&rsaquo;</span>
+                    <span id="materialCurrentCrumb">도서 대출 · 반납</span>
                 </div>
             </div>
         </div>
@@ -851,6 +853,11 @@
                                         request: 'tab-request',
                                         new: 'tab-new'
                                     };
+                                    const MATERIAL_LABELS = {
+                                        loan: '도서 대출 · 반납',
+                                        request: '도서 구입 신청',
+                                        new: '신작 도서 안내'
+                                    };
                                     function switchMaterialTab(key, updateHash = true) {
                                         const nextKey = MATERIAL_PANELS[key] ? key : 'loan';
                                         document.querySelectorAll('#matTabs .tab-btn').forEach(btn => {
@@ -860,6 +867,7 @@
                                             document.getElementById(id).style.display = 'none';
                                     });
                                     document.getElementById(MATERIAL_PANELS[nextKey]).style.display = 'block';
+                                    document.getElementById('materialCurrentCrumb').textContent = MATERIAL_LABELS[nextKey];
                                     if (updateHash) {
                                         history.replaceState(null, '', `#${nextKey}`);
                                     }

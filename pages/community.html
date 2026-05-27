@@ -112,6 +112,8 @@
                     <a href="../index.html">홈</a>
                     <span>&rsaquo;</span>
                     <span>커뮤니티</span>
+                    <span>&rsaquo;</span>
+                    <span id="communityCurrentCrumb">공지사항</span>
                 </div>
             </div>
         </div>
@@ -227,6 +229,10 @@
                                 <script>
                                     renderHeader('커뮤니티');
                                     renderFooter();
+                                    const COMMUNITY_LABELS = {
+                                        notice: '공지사항',
+                                        faq: 'F&Q'
+                                    };
                                     /* URL hash로 탭 자동 이동 (#notice 또는 #faq) */
                                     (function() {
                                             const hash = location.hash.replace('#', '');
@@ -242,6 +248,7 @@
                                                     btn.classList.add('on');
                                                     document.getElementById('tab-notice').style.display = btn.dataset.key === 'notice' ? 'block' : 'none';
                                                     document.getElementById('tab-faq').style.display    = btn.dataset.key === 'faq'    ? 'block' : 'none';
+                                                    document.getElementById('communityCurrentCrumb').textContent = COMMUNITY_LABELS[btn.dataset.key];
                                             });
                                     });
                                     /* ── 공지사항 데이터 ── */

@@ -54,7 +54,7 @@
             /* 베스트 순위 */
             .best-list { margin-top:1.25rem; }
             .best-row { display:flex; align-items:center; gap:1rem; padding:.85rem 0; border-bottom:1px solid #e8e8e8; cursor:pointer; transition:background .12s; }
-            .best-row:first-child { border-top:2px solid var(--text); }
+            .best-row:first-child { border-top:none; }
             .best-row:hover { background:var(--bg); }
             .best-rank { width:32px; flex-shrink:0; font-size:18px; font-weight:700; color:var(--blue-dk); text-align:center; }
             .best-rank.top3 { color:#c00; }
@@ -75,6 +75,8 @@
                     <a href="../index.html">홈</a>
                     <span>&rsaquo;</span>
                     <span>추천 도서</span>
+                    <span>&rsaquo;</span>
+                    <span id="recommendCurrentCrumb">금주의 추천 도서</span>
                 </div>
             </div>
         </div>
@@ -148,12 +150,19 @@
             renderFooter();
             /* ── 메인 탭 전환 ── */
             const PANELS = { week:'tab-week', genre:'tab-genre', curator:'tab-curator', best:'tab-best' };
+            const RECOMMEND_LABELS = {
+                week: '금주의 추천 도서',
+                genre: '장르별 추천',
+                curator: '사서 추천 도서',
+                best: '베스트 대출'
+            };
             document.querySelectorAll('#recTabs .tab-btn').forEach(btn =>
                 btn.addEventListener('click', () => {
                         document.querySelectorAll('#recTabs .tab-btn').forEach(x => x.classList.remove('on'));
                         btn.classList.add('on');
                         Object.values(PANELS).forEach(id => document.getElementById(id).style.display = 'none');
                         document.getElementById(PANELS[btn.dataset.key]).style.display = 'block';
+                        document.getElementById('recommendCurrentCrumb').textContent = RECOMMEND_LABELS[btn.dataset.key];
                 })
             );
             /* ── hash 자동 탭 이동 ── */

@@ -6,21 +6,22 @@ const ROOT = (() => location.pathname.includes('/pages/') ? '../' : './')();
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 헤더
-activeNav: '자료이용'|'추천 도서'|'시설이용'|'커뮤니티'|'나의공간'
+activeNav: '자료 이용'|'추천 도서'|'시설 이용'|'커뮤니티'|'나의 공간'
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 function renderHeader(activeNav) {
 
     /* 탭 정의 — 순서대로 나열 */
-    const NAV_LABELS = ['자료이용', '추천 도서', '시설이용', '커뮤니티', '나의공간'];
+    const NAV_LABELS = ['자료 이용', '추천 도서', '시설 이용', '커뮤니티', '나의 공간'];
+    const activeLabel = activeNav === '자료이용' ? '자료 이용' : activeNav === '시설이용' ? '시설 이용' : activeNav === '나의공간' ? '나의 공간' : activeNav;
 
     /* 메가 드롭다운: 탭 순서와 1:1 대응하는 컬럼들
     각 탭 버튼 아래쪽에 해당 컬럼이 오도록 flex 배치 */
     const MEGA_COLS = [
-        /* 자료이용 */
+        /* 자료 이용 */
         {
-            title: '자료이용',
+            title: '자료 이용',
             links: [
-                ['통합 자료 검색', ROOT + 'pages/materials.html'],
+                ['통합 자료 검색', '#'],
                 ['도서 대출 · 반납', ROOT + 'pages/materials.html#loan'],
                 ['도서 구입 신청', ROOT + 'pages/materials.html#request'],
                 ['신작 도서 안내', ROOT + 'pages/materials.html#new'],
@@ -36,9 +37,9 @@ function renderHeader(activeNav) {
         ['베스트 대출',       ROOT + 'pages/recommend.html#best'],
     ]
 },
-/* 시설이용 */
+/* 시설 이용 */
 {
-    title: '시설이용',
+    title: '시설 이용',
     links: [
         ['시설 예약',   ROOT + 'pages/facility.html'],
         ['층별 안내도', ROOT + 'pages/floormap.html'],
@@ -52,16 +53,16 @@ function renderHeader(activeNav) {
         ['F&Q',      ROOT + 'pages/community.html#faq'],
     ]
 },
-/* 나의공간 — 내정보 + 이용현황을 하나의 컬럼에 표시 */
+/* 나의 공간 — 내정보 + 이용현황을 하나의 컬럼에 표시 */
 {
-    title: '나의공간',
+    title: '나의 공간',
     links: [
         ['— 내정보', ''],          /* 소제목 역할 (링크 없음) */
-        ['내 서재', '#'],
-        ['이용자 정보 관리', '#'],
+        ['내 서재', ROOT + 'pages/mypage.html#library'],
+        ['이용자 정보 관리', ROOT + 'pages/mypage.html#info'],
         ['— 이용현황', ''],        /* 소제목 역할 */
-        ['자료 대출 · 예약 현황', '#'],
-        ['자료구입 신청 현황', '#'],
+        ['자료 대출 · 예약 현황', ROOT + 'pages/mypage.html#borrow'],
+        ['자료구입 신청 현황', ROOT + 'pages/mypage.html#request'],
     ]
 },
 ];
@@ -77,8 +78,15 @@ return `<div class="mega-col"><div class="mega-col-title">${col.title}</div>${li
 }).join('');
 
 /* nav 버튼 HTML */
+const NAV_LINKS = {
+    '자료 이용': ROOT + 'pages/materials.html',
+    '추천 도서': ROOT + 'pages/recommend.html',
+    '시설 이용': ROOT + 'pages/facility.html',
+    '커뮤니티': ROOT + 'pages/community.html',
+    '나의 공간': ROOT + 'pages/mypage.html'
+};
 const navBtnsHTML = NAV_LABELS.map(label =>
-    `<div class="nav-item"><a href="#" ${label === activeNav ? 'class="active"' : ''}>${label}</a></div>`
+    `<div class="nav-item"><a href="${NAV_LINKS[label] || '#'}" ${label === activeLabel ? 'class="active"' : ''}>${label}</a></div>`
 ).join('');
 
 document.getElementById('header-placeholder').outerHTML = `
@@ -134,6 +142,12 @@ document.querySelectorAll('.mega-panel a').forEach(a => {
             const btn = document.querySelector(`#matTabs .tab-btn[data-key="${hash}"]`);
             if (btn) { e.preventDefault(); btn.click(); }
         }
+        if (location.href.includes('mypage.html') && typeof loadMainTab === 'function') {
+            if (['library', 'info', 'borrow', 'request'].includes(hash)) {
+                e.preventDefault();
+                loadMainTab(hash);
+            }
+        }
 });
 });
 }
@@ -154,7 +168,7 @@ function renderFooter() {
 </div>
 </div>
 <div>
-<div class="f-col-tit">자료이용</div>
+<div class="f-col-tit">자료 이용</div>
 <ul class="f-links">
 <li><a href="${ROOT}pages/materials.html">통합 자료 검색</a></li>
 <li><a href="${ROOT}pages/materials.html#loan">도서 대출 · 반납</a></li>
@@ -172,7 +186,7 @@ function renderFooter() {
 </ul>
 </div>
 <div>
-<div class="f-col-tit">시설이용 · 커뮤니티</div>
+<div class="f-col-tit">시설 이용 · 커뮤니티</div>
 <ul class="f-links">
 <li><a href="${ROOT}pages/facility.html">시설 예약</a></li>
 <li><a href="${ROOT}pages/floormap.html">층별 안내도</a></li>
