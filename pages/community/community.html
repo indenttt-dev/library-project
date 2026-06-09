@@ -6,101 +6,9 @@
         <title>커뮤니티 — 동양미래대학교 도서관</title>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=IBM+Plex+Sans+KR:wght@300;400;500;600&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="../css/style.css">
-        <style>
-            /* ── 페이지 헤더 ── */
-            .page-hero { background: var(--blue-dk); padding: 2.5rem 2rem; }
-            .page-hero-inner { max-width: 1280px; margin: 0 auto; }
-            .page-hero-title { font-size: 1.6rem; font-weight: 700; color: white; letter-spacing: -0.5px; margin-bottom: .35rem; }
-            .page-hero-bc { font-size: 12.5px; color: rgba(255,255,255,.45); display: flex; align-items: center; gap: 6px; }
-            .page-hero-bc a { color: rgba(255,255,255,.45); transition: color .2s; }
-            .page-hero-bc a:hover { color: rgba(255,255,255,.8); }
-            .page-content { max-width: 1280px; margin: 0 auto; padding: 2.5rem 2rem; }
-            /* ── 탭 (style.css의 .tab-row / .tab-btn 공용) ── */
-            /* ── 공지사항 테이블 ── */
-            .notice-table {
-                width: 100%; border-collapse: collapse;
-                margin-top: 1.25rem; font-size: 13.5px;
-            }
-            .notice-table thead th {
-                padding: 0.75rem 1rem;
-                background: var(--bg);
-                border-top: 2px solid var(--text);
-                border-bottom: 2px solid var(--text);
-                font-weight: 700; color: var(--text);
-                text-align: left; letter-spacing: -0.2px;
-            }
-            .notice-table thead th.center { text-align: center; }
-            .notice-table tbody td {
-                padding: 0.72rem 1rem;
-                border-bottom: 1px solid #e8e8e8;
-                color: var(--text); letter-spacing: -0.15px;
-            }
-            .notice-table tbody tr:last-child td { border-bottom: none; }
-            .notice-table tbody tr:hover td { background: var(--bg); cursor: pointer; }
-            .notice-table .td-no   { width: 70px; text-align: center; color: var(--text3); font-size: 12.5px; }
-            .notice-table .td-date { width: 110px; text-align: center; color: var(--text3); font-size: 12.5px; }
-            .notice-table .td-title { }
-            .notice-table .td-title:hover { color: var(--blue); }
-            /* ── 페이지네이션 ── */
-            .pagination {
-                display: flex; justify-content: center;
-                align-items: center; gap: 4px; margin-top: 1.75rem;
-            }
-            .pag-btn {
-                width: 34px; height: 34px;
-                border: 1px solid var(--border); background: white;
-                font-size: 13.5px; color: var(--text2);
-                display: flex; align-items: center; justify-content: center;
-                cursor: pointer; font-family: inherit;
-                transition: all .15s; font-weight: 500;
-            }
-            .pag-btn.on { background: var(--blue-dk); border-color: var(--blue-dk); color: white; font-weight: 700; }
-            .pag-btn:hover:not(.on) { border-color: var(--blue); color: var(--blue); }
-            .pag-arrow { font-size: 15px; color: var(--text3); }
-            /* ── F&Q 아코디언 ── */
-            .faq-list { margin-top: 1.25rem; }
-            .faq-item {
-                border-bottom: 1px solid #e8e8e8;
-            }
-            .faq-item:first-child { border-top: 2px solid var(--text); }
-            .faq-q {
-                display: flex; align-items: center; justify-content: space-between;
-                padding: 1.1rem 0.5rem;
-                cursor: pointer;
-                user-select: none;
-                transition: color .15s;
-                gap: 1rem;
-            }
-            .faq-q:hover { color: var(--blue); }
-            .faq-q-text {
-                font-size: 14.5px; font-weight: 600;
-                color: inherit; letter-spacing: -0.3px; line-height: 1.45;
-                display: flex; align-items: flex-start; gap: 0.75rem;
-            }
-            .faq-q-icon {
-                flex-shrink: 0;
-                font-size: 14px; font-weight: 700;
-                color: var(--blue); width: 20px;
-            }
-            .faq-arrow {
-                flex-shrink: 0;
-                width: 20px; height: 20px;
-                display: flex; align-items: center; justify-content: center;
-                color: var(--text3); transition: transform .25s;
-            }
-            .faq-item.open .faq-arrow { transform: rotate(180deg); color: var(--blue); }
-            .faq-a {
-                display: none;
-                padding: 0 0.5rem 1.1rem 2.5rem;
-                font-size: 13.5px; color: var(--text2);
-                line-height: 1.8; letter-spacing: -0.15px;
-                background: var(--bg);
-                border-left: 3px solid var(--blue);
-                margin-left: 0.5rem;
-            }
-            .faq-item.open .faq-a { display: block; }
-        </style>
+        <link rel="stylesheet" href="../../css/common.css">
+        <link rel="stylesheet" href="../../css/nav.css">
+        <link rel="stylesheet" href="./community.css">
     </head>
     <body>
         <div id="header-placeholder">
@@ -109,7 +17,7 @@
             <div class="page-hero-inner">
                 <div class="page-hero-title">커뮤니티</div>
                 <div class="page-hero-bc">
-                    <a href="../index.html">홈</a>
+                    <a href="../../index.html">홈</a>
                     <span>&rsaquo;</span>
                     <span>커뮤니티</span>
                     <span>&rsaquo;</span>
@@ -223,7 +131,7 @@
                                 </div>
                                 <div id="footer-placeholder">
                                 </div>
-                                <script src="../js/main.js">
+                                <script src="../../js/main.js">
 
                                 </script>
                                 <script>

@@ -6,90 +6,9 @@
         <title>층별 안내도 — 동양미래대학교 도서관</title>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=IBM+Plex+Sans+KR:wght@300;400;500;600&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="../css/style.css">
-        <style>
-            .page-hero { background: var(--blue-dk); padding: 2.5rem 2rem; }
-            .page-hero-inner { max-width: 1280px; margin: 0 auto; }
-            .page-hero-title { font-size: 1.6rem; font-weight: 700; color: white; letter-spacing: -0.5px; margin-bottom: .35rem; }
-            .page-hero-bc { font-size: 12.5px; color: rgba(255,255,255,.45); display: flex; align-items: center; gap: 6px; }
-            .page-hero-bc a { color: rgba(255,255,255,.45); transition: color .2s; }
-            .page-hero-bc a:hover { color: rgba(255,255,255,.8); }
-            .page-content { max-width: 1280px; margin: 0 auto; padding: 2.5rem 2rem; }
-            /* 층 탭 — 세로 버튼 */
-            .floor-layout {
-                display: grid;
-                grid-template-columns: 110px 1fr;
-                gap: 1.75rem;
-                margin-top: 1.5rem;
-            }
-            .floor-tabs {
-                display: flex; flex-direction: column; gap: 4px;
-            }
-            .floor-tab-btn {
-                padding: 12px 0;
-                font-size: 14px; font-weight: 700;
-                color: var(--text2); border: 1px solid var(--border);
-                background: white; cursor: pointer; font-family: inherit;
-                transition: all .15s; letter-spacing: -0.2px;
-                text-align: center;
-            }
-            .floor-tab-btn:hover { border-color: var(--blue); color: var(--blue); background: var(--blue-lt); }
-            .floor-tab-btn.on { background: var(--blue-dk); border-color: var(--blue-dk); color: white; }
-            .floor-tab-btn .fl-num { display: block; font-size: 20px; font-weight: 700; line-height: 1.1; }
-            .floor-tab-btn .fl-label { display: block; font-size: 10px; font-weight: 500; margin-top: 2px; opacity: .75; }
-            /* 층 콘텐츠 */
-            .floor-content { border: 1px solid var(--border); background: white; }
-            .floor-panel { display: none; }
-            .floor-panel.on { display: block; }
-            .floor-content-header {
-                padding: 1.25rem 1.75rem;
-                border-bottom: 1px solid var(--border);
-                background: var(--bg);
-            }
-            .floor-content-header .fl-main-title {
-                font-size: 1.2rem; font-weight: 700; color: var(--text);
-                letter-spacing: -0.4px; margin-bottom: .3rem;
-            }
-            .floor-content-header .fl-subtitle {
-                font-size: 13px; color: var(--blue); font-weight: 600; letter-spacing: -0.1px;
-            }
-            .floor-body {
-                display: grid;
-                grid-template-columns: 1fr 340px;
-                gap: 0;
-            }
-            .floor-map-area {
-                padding: 1.75rem;
-                border-right: 1px solid var(--border);
-                display: flex; align-items: center; justify-content: center;
-                background: #fafafa; min-height: 320px;
-            }
-            .floor-map-img {
-                max-width: 100%; max-height: 380px;
-                object-fit: contain;
-                display: block;
-            }
-            .floor-info-area { padding: 1.75rem; }
-            .floor-desc {
-                font-size: 13.5px; color: var(--text2);
-                line-height: 1.85; margin-bottom: 1.25rem;
-                letter-spacing: -0.1px;
-            }
-            .floor-spaces { }
-            .floor-spaces-title {
-                font-size: 11px; font-weight: 700; text-transform: uppercase;
-                letter-spacing: 0.5px; color: var(--text3);
-                padding-bottom: .4rem; border-bottom: 1px solid var(--border); margin-bottom: .75rem;
-            }
-            .space-item {
-                padding: .55rem 0;
-                border-bottom: 1px solid #f0f0f0;
-                font-size: 13px;
-            }
-            .space-item:last-child { border-bottom: none; }
-            .space-name { font-weight: 600; color: var(--text); letter-spacing: -0.2px; }
-            .space-desc { color: var(--text3); font-size: 12px; margin-top: 2px; line-height: 1.5; }
-        </style>
+        <link rel="stylesheet" href="../../css/common.css">
+        <link rel="stylesheet" href="../../css/nav.css">
+        <link rel="stylesheet" href="./floormap.css">
     </head>
     <body>
         <div id="header-placeholder">
@@ -98,7 +17,7 @@
             <div class="page-hero-inner">
                 <div class="page-hero-title">층별 안내도</div>
                 <div class="page-hero-bc">
-                    <a href="../index.html">홈</a>
+                    <a href="../../index.html">홈</a>
                     <span>&rsaquo;</span>
                     <span>시설이용</span>
                     <span>&rsaquo;</span>
@@ -148,7 +67,7 @@
                         </div>
                         <div class="floor-body">
                             <div class="floor-map-area">
-                                <img class="floor-map-img" src="../images/floor_1f.png" alt="1층 도면">
+                                <img class="floor-map-img" src="../../images/floor_1f.png" alt="1층 도면">
                             </div>
                             <div class="floor-info-area">
                                 <p class="floor-desc">도서관 1층에 D_Study가 위치하고 있으며 본교 학생은 누구나 자유롭게 이용할 수 있습니다.</p>
@@ -170,7 +89,7 @@
                         </div>
                         <div class="floor-body">
                             <div class="floor-map-area">
-                                <img class="floor-map-img" src="../images/floor_2f.png" alt="2층 도면">
+                                <img class="floor-map-img" src="../../images/floor_2f.png" alt="2층 도면">
                             </div>
                             <div class="floor-info-area">
                                 <p class="floor-desc">어문학자료실은 도서관 2층에 위치하고 있으며 순수과학, 예술, 어학, 문학 분야의 단행본, 참고도서, 정기간행물과 신문 등을 소장하고 있습니다.</p>
@@ -204,7 +123,7 @@
                         </div>
                         <div class="floor-body">
                             <div class="floor-map-area">
-                                <img class="floor-map-img" src="../images/floor_3f.png" alt="3층 도면">
+                                <img class="floor-map-img" src="../../images/floor_3f.png" alt="3층 도면">
                             </div>
                             <div class="floor-info-area">
                                 <p class="floor-desc">과학기술자료실은 도서관 3층에 위치하고 있으며 기술과학분야의 단행본, 참고도서, 연속간행물 등을 소장하고 있습니다.</p>
@@ -238,7 +157,7 @@
                         </div>
                         <div class="floor-body">
                             <div class="floor-map-area">
-                                <img class="floor-map-img" src="../images/floor_4f.png" alt="4층 도면">
+                                <img class="floor-map-img" src="../../images/floor_4f.png" alt="4층 도면">
                             </div>
                             <div class="floor-info-area">
                                 <p class="floor-desc">학생들을 맞이하는 웰컴센터, 웰컴 라운지, 오픈 미팅바, 디지털 충전 등이 준비되어 있습니다.</p>
@@ -272,7 +191,7 @@
                         </div>
                         <div class="floor-body">
                             <div class="floor-map-area">
-                                <img class="floor-map-img" src="../images/floor_5f.png" alt="5층 도면">
+                                <img class="floor-map-img" src="../../images/floor_5f.png" alt="5층 도면">
                             </div>
                             <div class="floor-info-area">
                                 <p class="floor-desc">도서관 5층에 위치하고 있으며 PC 28대, 노트북 전용좌석 15석, 신간도서, Byul Byul Play, 프린트 서비스를 이용할 수 있습니다.</p>
@@ -306,7 +225,7 @@
                         </div>
                         <div class="floor-body">
                             <div class="floor-map-area">
-                                <img class="floor-map-img" src="../images/floor_6f.png" alt="6층 도면">
+                                <img class="floor-map-img" src="../../images/floor_6f.png" alt="6층 도면">
                             </div>
                             <div class="floor-info-area">
                                 <p class="floor-desc">인문사회자료실은 도서관 6층에 위치하고 있으며 인문학 사회과학분야인 철학, 종교, 역사류 등 단행본 참고도서 연속간행물 논문집을 소장하고 있습니다.</p>
@@ -339,7 +258,7 @@
         </div>
         <div id="footer-placeholder">
         </div>
-        <script src="../js/main.js">
+        <script src="../../js/main.js">
 
         </script>
         <script>

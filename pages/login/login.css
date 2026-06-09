@@ -1,11 +1,4 @@
-<!DOCTYPE html>
-<html lang="ko">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>동양미래대학교 도서관 - 로그인</title>
-        <style>
-            body {
+body {
                 margin: 0;
                 padding: 0;
                 font-family: 'Arial', sans-serif;
@@ -94,32 +87,3 @@
             .btn-submit:hover {
                 background-color: #003366;
             }
-        </style>
-    </head>
-    <body>
-        <header class="header">
-            <img src="../images/logo.jpg" alt="동양미래대학교 로고" class="dmu-logo">
-        </header>
-        <main class="main-content">
-            <div class="login-container">
-                <h2>도서관 로그인</h2>
-                <form action="#" method="POST">
-                    <div class="input-group">
-                        <input type="text" name="username" placeholder="학번 또는 사번" required>
-                    </div>
-                    <div class="input-group">
-                        <input type="password" name="password" placeholder="비밀번호" required>
-                    </div>
-                    <div class="options-bar">
-                        <div>
-                            <input type="checkbox" id="remember-me" name="remember">
-                            <label for="remember-me">로그인 유지</label>
-                        </div>
-                        <a href="#">비밀번호 찾기</a>
-                    </div>
-                    <button type="submit" class="btn-submit">로그인</button>
-                </form>
-            </div>
-        </main>
-    </body>
-</html>

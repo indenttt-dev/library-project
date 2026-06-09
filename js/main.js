@@ -2,7 +2,7 @@
 동양미래대학교 도서관 — 공통 JS  (main.js)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
-const ROOT = (() => location.pathname.includes('/pages/') ? '../' : './')();
+const ROOT = (() => location.pathname.includes('/pages/') ? '../../' : './')();
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 헤더
@@ -22,35 +22,35 @@ function renderHeader(activeNav) {
             title: '자료 이용',
             links: [
                 ['통합 자료 검색', '#'],
-                ['도서 대출 · 반납', ROOT + 'pages/materials.html#loan'],
-                ['도서 구입 신청', ROOT + 'pages/materials.html#request'],
-                ['신작 도서 안내', ROOT + 'pages/materials.html#new'],
+                ['도서 대출 · 반납', ROOT + 'pages/materials/materials.html#loan'],
+                ['도서 구입 신청', ROOT + 'pages/materials/materials.html#request'],
+                ['신작 도서 안내', ROOT + 'pages/materials/materials.html#new'],
             ]
     },
 /* 추천 도서 */
 {
     title: '추천 도서',
     links: [
-        ['금주의 추천 도서', ROOT + 'pages/recommend.html#week'],
-        ['장르별 추천',       ROOT + 'pages/recommend.html#genre'],
-        ['사서 추천 도서',    ROOT + 'pages/recommend.html#curator'],
-        ['베스트 대출',       ROOT + 'pages/recommend.html#best'],
+        ['금주의 추천 도서', ROOT + 'pages/recommend/recommend.html#week'],
+        ['장르별 추천',       ROOT + 'pages/recommend/recommend.html#genre'],
+        ['사서 추천 도서',    ROOT + 'pages/recommend/recommend.html#curator'],
+        ['베스트 대출',       ROOT + 'pages/recommend/recommend.html#best'],
     ]
 },
 /* 시설 이용 */
 {
     title: '시설 이용',
     links: [
-        ['시설 예약',   ROOT + 'pages/facility.html'],
-        ['층별 안내도', ROOT + 'pages/floormap.html'],
+        ['시설 예약',   ROOT + 'pages/facility/facility.html'],
+        ['층별 안내도', ROOT + 'pages/facility/floormap.html'],
     ]
 },
 /* 커뮤니티 */
 {
     title: '커뮤니티',
     links: [
-        ['공지사항', ROOT + 'pages/community.html#notice'],
-        ['F&Q',      ROOT + 'pages/community.html#faq'],
+        ['공지사항', ROOT + 'pages/community/community.html#notice'],
+        ['F&Q',      ROOT + 'pages/community/community.html#faq'],
     ]
 },
 /* 나의 공간 — 내정보 + 이용현황을 하나의 컬럼에 표시 */
@@ -58,11 +58,11 @@ function renderHeader(activeNav) {
     title: '나의 공간',
     links: [
         ['— 내정보', ''],          /* 소제목 역할 (링크 없음) */
-        ['내 서재', ROOT + 'pages/mypage.html#library'],
-        ['이용자 정보 관리', ROOT + 'pages/mypage.html#info'],
+        ['내 서재', ROOT + 'pages/mypage/mypage.html#library'],
+        ['이용자 정보 관리', ROOT + 'pages/mypage/mypage.html#info'],
         ['— 이용현황', ''],        /* 소제목 역할 */
-        ['자료 대출 · 예약 현황', ROOT + 'pages/mypage.html#borrow'],
-        ['자료구입 신청 현황', ROOT + 'pages/mypage.html#request'],
+        ['자료 대출 · 예약 현황', ROOT + 'pages/mypage/mypage.html#borrow'],
+        ['자료구입 신청 현황', ROOT + 'pages/mypage/mypage.html#request'],
     ]
 },
 ];
@@ -79,11 +79,11 @@ return `<div class="mega-col"><div class="mega-col-title">${col.title}</div>${li
 
 /* nav 버튼 HTML */
 const NAV_LINKS = {
-    '자료 이용': ROOT + 'pages/materials.html',
-    '추천 도서': ROOT + 'pages/recommend.html',
-    '시설 이용': ROOT + 'pages/facility.html',
-    '커뮤니티': ROOT + 'pages/community.html',
-    '나의 공간': ROOT + 'pages/mypage.html'
+    '자료 이용': ROOT + 'pages/materials/materials.html',
+    '추천 도서': ROOT + 'pages/recommend/recommend.html',
+    '시설 이용': ROOT + 'pages/facility/facility.html',
+    '커뮤니티': ROOT + 'pages/community/community.html',
+    '나의 공간': ROOT + 'pages/mypage/mypage.html'
 };
 const navBtnsHTML = NAV_LABELS.map(label =>
     `<div class="nav-item"><a href="${NAV_LINKS[label] || '#'}" ${label === activeLabel ? 'class="active"' : ''}>${label}</a></div>`
@@ -97,7 +97,7 @@ document.getElementById('header-placeholder').outerHTML = `
 <span class="logo-lib-label">도서관</span>
 </a>
 <div class="header-utils">
-<a class="btn-login" href="${ROOT}pages/login.html">LOGIN</a>
+<a class="btn-login" href="${ROOT}pages/login/login.html">LOGIN</a>
 <button class="icon-btn" aria-label="검색">
 <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
 <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
@@ -170,28 +170,28 @@ function renderFooter() {
 <div>
 <div class="f-col-tit">자료 이용</div>
 <ul class="f-links">
-<li><a href="${ROOT}pages/materials.html">통합 자료 검색</a></li>
-<li><a href="${ROOT}pages/materials.html#loan">도서 대출 · 반납</a></li>
-<li><a href="${ROOT}pages/materials.html#request">도서 구입 신청</a></li>
-<li><a href="${ROOT}pages/materials.html#new">신작 도서 안내</a></li>
+<li><a href="${ROOT}pages/materials/materials.html">통합 자료 검색</a></li>
+<li><a href="${ROOT}pages/materials/materials.html#loan">도서 대출 · 반납</a></li>
+<li><a href="${ROOT}pages/materials/materials.html#request">도서 구입 신청</a></li>
+<li><a href="${ROOT}pages/materials/materials.html#new">신작 도서 안내</a></li>
 </ul>
 </div>
 <div>
 <div class="f-col-tit">추천 도서</div>
 <ul class="f-links">
-<li><a href="${ROOT}pages/recommend.html#week">금주의 추천 도서</a></li>
-<li><a href="${ROOT}pages/recommend.html#genre">장르별 추천</a></li>
-<li><a href="${ROOT}pages/recommend.html#curator">사서 추천 도서</a></li>
-<li><a href="${ROOT}pages/recommend.html#best">베스트 대출</a></li>
+<li><a href="${ROOT}pages/recommend/recommend.html#week">금주의 추천 도서</a></li>
+<li><a href="${ROOT}pages/recommend/recommend.html#genre">장르별 추천</a></li>
+<li><a href="${ROOT}pages/recommend/recommend.html#curator">사서 추천 도서</a></li>
+<li><a href="${ROOT}pages/recommend/recommend.html#best">베스트 대출</a></li>
 </ul>
 </div>
 <div>
 <div class="f-col-tit">시설 이용 · 커뮤니티</div>
 <ul class="f-links">
-<li><a href="${ROOT}pages/facility.html">시설 예약</a></li>
-<li><a href="${ROOT}pages/floormap.html">층별 안내도</a></li>
-<li><a href="${ROOT}pages/community.html#notice">공지사항</a></li>
-<li><a href="${ROOT}pages/community.html#faq">F&amp;Q</a></li>
+<li><a href="${ROOT}pages/facility/facility.html">시설 예약</a></li>
+<li><a href="${ROOT}pages/facility/floormap.html">층별 안내도</a></li>
+<li><a href="${ROOT}pages/community/community.html#notice">공지사항</a></li>
+<li><a href="${ROOT}pages/community/community.html#faq">F&amp;Q</a></li>
 </ul>
 </div>
 </div>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>독서 챌린지 — 동양미래대학교 도서관</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=IBM+Plex+Sans+KR:wght@300;400;500;600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="../../css/common.css">
+        <link rel="stylesheet" href="../../css/nav.css">
+        <link rel="stylesheet" href="./reading.css">
+    </head>
+    <body>
+        <div id="header-placeholder">
+        </div>
+        <div class="page-hero">
+            <div class="page-hero-inner">
+                <div class="page-hero-bc">
+                    <a href="../../index.html">홈</a>
+                    <span>&rsaquo;</span>
+                    <span>독서 챌린지</span>
+                </div>
+                <div class="page-hero-title">Reading Challenge 2026</div>
+                <div class="page-hero-sub">목표를 설정하고, 나만의 독서 여정을 시작하세요.</div>
+            </div>
+        </div>
+        <div class="page-content">
+            <!-- ══════════════════════════════════
+            목표 설정
+            ══════════════════════════════════ -->
+            <div class="goal-section">
+                <!-- 목표 달성일 캘린더 -->
+                <div class="goal-card">
+                    <div class="goal-card-title">목표 달성일 설정</div>
+                    <div class="cal-header">
+                        <button class="cal-nav" id="calPrev">&#8249;</button>
+                        <div class="cal-month-label" id="calMonthLabel">
+                        </div>
+                        <button class="cal-nav" id="calNext">&#8250;</button>
+                    </div>
+                    <div class="cal-grid" id="calGrid">
+                    </div>
+                    <div class="cal-selected-info" id="calInfo">
+                        달성일을 선택하세요.
+                    </div>
+                </div>
+                <!-- 목표 권수 -->
+                <div class="goal-card">
+                    <div class="goal-card-title">목표 독서량 설정</div>
+                    <div class="goal-count-area">
+                        <div class="goal-display">
+                            <span class="goal-num" id="goalNum">12</span>
+                            <span class="goal-unit">권 / 2026년</span>
+                        </div>
+                        <div class="goal-slider-wrap">
+                            <input class="goal-slider" type="range" id="goalSlider" min="1" max="52" value="12">
+                        </div>
+                        <div class="goal-presets">
+                            <button class="preset-btn" data-v="6">6권</button>
+                            <button class="preset-btn on" data-v="12">12권</button>
+                            <button class="preset-btn" data-v="24">24권</button>
+                            <button class="preset-btn" data-v="36">36권</button>
+                            <button class="preset-btn" data-v="52">52권</button>
+                        </div>
+                        <div class="suggest-banner" id="suggestBanner">
+                            <div class="suggest-icon">💡</div>
+                            <div class="suggest-text" id="suggestText">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 진행 상황 -->
+            <div class="progress-section">
+                <div class="progress-header">
+                    <div class="progress-label">독서 진행 현황</div>
+                    <div class="progress-count">
+                        <span id="doneCount">0</span> / <span id="totalCount">12</span>권 완료
+                    </div>
+                </div>
+                <div class="progress-bar-wrap">
+                    <div class="progress-bar-fill" id="progressFill">
+                    </div>
+                </div>
+                <div class="progress-ticks">
+                    <span class="progress-tick">0</span>
+                    <span class="progress-tick" id="qtr1Label">
+                    </span>
+                    <span class="progress-tick" id="qtr2Label">
+                    </span>
+                    <span class="progress-tick" id="qtr3Label">
+                    </span>
+                    <span class="progress-tick" id="totalLabel">12</span>
+                </div>
+            </div>
+            <!-- ══════════════════════════════════
+            난이도별 추천 도서
+            ══════════════════════════════════ -->
+            <div class="level-section">
+                <div class="level-sec-head">
+                    <div class="level-sec-title">난이도별 추천 도서</div>
+                    <div class="level-sec-sub">독서 경험에 맞는 난이도를 선택해 지금 바로 읽어보세요.</div>
+                </div>
+                <div class="level-tabs">
+                    <button class="level-tab lv-easy on" data-lv="easy">
+                        <span class="badge-lv">초급</span>입문 독자를 위한 추천
+                    </button>
+                    <button class="level-tab lv-mid" data-lv="mid">
+                        <span class="badge-lv">중급</span>꾸준한 독자를 위한 추천
+                    </button>
+                    <button class="level-tab lv-hard" data-lv="hard">
+                        <span class="badge-lv">고급</span>심화 독자를 위한 추천
+                    </button>
+                </div>
+                <!-- 초급 -->
+                <div class="level-panel on" id="panel-easy">
+                    <div class="reading-books-grid" id="grid-easy">
+                    </div>
+                </div>
+                <!-- 중급 -->
+                <div class="level-panel" id="panel-mid">
+                    <div class="reading-books-grid" id="grid-mid">
+                    </div>
+                </div>
+                <!-- 고급 -->
+                <div class="level-panel" id="panel-hard">
+                    <div class="reading-books-grid" id="grid-hard">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="footer-placeholder">
+        </div>
+        <script src="../../js/main.js">
+
+        </script>
+        <script src="../../js/books.js">
+
+        </script>
+        <script src="./reading.js"></script>
+    </body>
+</html>
