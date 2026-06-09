@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>시설 예약 — 동양미래대학교 도서관</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=IBM+Plex+Sans+KR:wght@300;400;500;600&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="../../css/common.css">
+        <link rel="stylesheet" href="../../css/nav.css">
+        <link rel="stylesheet" href="./facility.css">
+    </head>
+    <body>
+        <div id="header-placeholder">
+        </div>
+        <div class="page-hero">
+            <div class="page-hero-inner">
+                <div class="page-hero-title">시설 예약</div>
+                <div class="page-hero-bc">
+                    <a href="../../index.html">홈</a>
+                    <span>&rsaquo;</span>
+                    <span>시설이용</span>
+                    <span>&rsaquo;</span>
+                    <span>시설 예약</span>
+                </div>
+            </div>
+        </div>
+        <div class="page-content">
+            <div class="tab-row" id="facTabs">
+                <button class="tab-btn on"  data-key="reserve">시설 예약</button>
+                <button class="tab-btn"     data-key="history">신청내역</button>
+            </div>
+            <!-- ════════ 시설 예약 ════════ -->
+            <div id="tab-reserve">
+                <div class="reserve-layout">
+                    <!-- 룸 선택 -->
+                    <div class="room-panel">
+                        <div class="room-group">
+                            <div class="room-group-title">D_Study (그룹스터디) · 1F</div>
+                            <button class="room-btn selected" data-floor="1" data-room="1" onclick="selectRoom(this)">1층 스터디룸 1</button>
+                            <button class="room-btn" data-floor="1" data-room="2" onclick="selectRoom(this)">1층 스터디룸 2</button>
+                            <button class="room-btn" data-floor="1" data-room="3" onclick="selectRoom(this)">1층 스터디룸 3</button>
+                            <button class="room-btn" data-floor="1" data-room="4" onclick="selectRoom(this)">1층 스터디룸 4</button>
+                            <button class="room-btn" data-floor="1" data-room="5" onclick="selectRoom(this)">1층 스터디룸 5</button>
+                        </div>
+                        <div class="room-group">
+                            <div class="room-group-title">스터디룸 · 2F</div>
+                            <button class="room-btn" data-floor="2" data-room="1" onclick="selectRoom(this)">2층 스터디룸 1</button>
+                            <button class="room-btn" data-floor="2" data-room="2" onclick="selectRoom(this)">2층 스터디룸 2</button>
+                            <button class="room-btn" data-floor="2" data-room="3" onclick="selectRoom(this)">2층 스터디룸 3</button>
+                        </div>
+                        <div class="room-group">
+                            <div class="room-group-title">스터디룸 · 3F</div>
+                            <button class="room-btn" data-floor="3" data-room="1" onclick="selectRoom(this)">3층 스터디룸 1</button>
+                            <button class="room-btn" data-floor="3" data-room="2" onclick="selectRoom(this)">3층 스터디룸 2</button>
+                            <button class="room-btn" data-floor="3" data-room="3" onclick="selectRoom(this)">3층 스터디룸 3</button>
+                        </div>
+                        <div class="room-group">
+                            <div class="room-group-title">스터디룸 · 4F</div>
+                            <button class="room-btn" data-floor="4" data-room="0" onclick="selectRoom(this)">4층 스터디룸 0</button>
+                            <button class="room-btn" data-floor="4" data-room="1" onclick="selectRoom(this)">4층 스터디룸 1</button>
+                            <button class="room-btn" data-floor="4" data-room="2" onclick="selectRoom(this)">4층 스터디룸 2</button>
+                            <button class="room-btn" data-floor="4" data-room="3" onclick="selectRoom(this)">4층 스터디룸 3</button>
+                            <button class="room-btn" data-floor="4" data-room="4" onclick="selectRoom(this)">4층 스터디룸 4</button>
+                        </div>
+                        <div class="room-group">
+                            <div class="room-group-title">스터디룸 · 5F</div>
+                            <button class="room-btn" data-floor="5" data-room="1" onclick="selectRoom(this)">5층 스터디룸 1</button>
+                            <button class="room-btn" data-floor="5" data-room="2" onclick="selectRoom(this)">5층 스터디룸 2</button>
+                            <button class="room-btn" data-floor="5" data-room="3" onclick="selectRoom(this)">5층 스터디룸 3</button>
+                        </div>
+                    </div>
+                    <!-- 예약 패널 -->
+                    <div class="booking-panel">
+                        <div class="booking-header">
+                            <div class="booking-room-name" id="bookingRoomName">1층 스터디룸 1 (D_Study)</div>
+                            <div style="font-size:12px;color:var(--text3);">시간 슬롯을 선택 후 예약하세요</div>
+                        </div>
+                        <div class="booking-date-row">
+                            <div class="date-label">예약 날짜</div>
+                            <input class="date-input" type="date" id="bookingDate">
+                        </div>
+                        <div class="timetable-wrap">
+                            <table class="timetable" id="timetable">
+                                <thead id="ttHead">
+                                </thead>
+                                <tbody id="ttBody">
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="legend">
+                            <div class="legend-item">
+                                <div class="legend-dot ld-avail">
+                                </div>예약 가능</div>
+                                <div class="legend-item">
+                                    <div class="legend-dot ld-selected">
+                                    </div>선택됨</div>
+                                    <div class="legend-item">
+                                        <div class="legend-dot ld-reserved">
+                                        </div>예약됨</div>
+                                    </div>
+                                    <div class="booking-footer">
+                                        <div class="selected-info" id="selInfo">선택된 시간대 없음</div>
+                                        <button class="btn-primary" onclick="openModal()">예약 신청</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- ════════ 신청내역 ════════ -->
+                        <div id="tab-history" style="display:none;">
+                            <table class="history-table" id="historyTable">
+                                <thead>
+                                    <tr>
+                                        <th class="c" style="width:50px;">번호</th>
+                                        <th>시설명</th>
+                                        <th class="c" style="width:110px;">예약일</th>
+                                        <th class="c" style="width:150px;">예약 시간</th>
+                                        <th class="c" style="width:80px;">상태</th>
+                                        <th class="c" style="width:80px;">관리</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="historyTbody">
+                                    <tr>
+                                        <td colspan="6" style="text-align:center;padding:2.5rem;color:var(--text3);font-size:13.5px;">신청 내역이 없습니다.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- 예약 확인 모달 -->
+                    <div class="modal-overlay" id="modalOverlay">
+                        <div class="modal">
+                            <div class="modal-title">예약 신청 확인</div>
+                            <div class="modal-info" id="modalInfo">
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn-outline" onclick="closeModal()">취소</button>
+                                <button class="btn-primary" onclick="confirmReserve()">예약 신청</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="footer-placeholder">
+                    </div>
+                    <script src="../../js/main.js">
+
+                    </script>
+        <script src="./facility.js"></script>
+                </body>
+            </html>

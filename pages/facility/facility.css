@@ -1,0 +1,142 @@
+.page-hero { background: var(--blue-dk); padding: 2.5rem 2rem; }
+            .page-hero-inner { max-width: 1280px; margin: 0 auto; }
+            .page-hero-title { font-size: 1.6rem; font-weight: 700; color: white; letter-spacing: -0.5px; margin-bottom: .35rem; }
+            .page-hero-bc { font-size: 12.5px; color: rgba(255,255,255,.45); display: flex; align-items: center; gap: 6px; }
+            .page-hero-bc a { color: rgba(255,255,255,.45); transition: color .2s; }
+            .page-hero-bc a:hover { color: rgba(255,255,255,.8); }
+            .page-content { max-width: 1280px; margin: 0 auto; padding: 2.5rem 2rem; }
+            /* 예약 레이아웃 */
+            .reserve-layout {
+                display: grid;
+                grid-template-columns: 260px 1fr;
+                gap: 1.75rem;
+                margin-top: 1.5rem;
+            }
+            /* 왼쪽: 룸 선택 패널 */
+            .room-panel { }
+            .room-group-title {
+                font-size: 11px; font-weight: 700; text-transform: uppercase;
+                letter-spacing: 0.6px; color: var(--text3);
+                padding: 0.5rem 0; border-bottom: 1px solid var(--border);
+                margin-bottom: 0.5rem;
+            }
+            .room-btn {
+                display: block; width: 100%;
+                padding: 9px 12px; text-align: left;
+                font-size: 13.5px; font-weight: 500; color: var(--text2);
+                border: 1px solid transparent; background: none;
+                cursor: pointer; transition: all .15s;
+                letter-spacing: -0.2px; font-family: inherit;
+                margin-bottom: 3px;
+            }
+            .room-btn:hover { background: var(--blue-lt); color: var(--blue); }
+            .room-btn.selected { background: var(--blue-dk); color: white; border-color: var(--blue-dk); }
+            .room-group { margin-bottom: 1.25rem; }
+            /* 오른쪽: 예약 패널 */
+            .booking-panel {
+                border: 1px solid var(--border);
+                background: white;
+            }
+            .booking-header {
+                padding: 1.1rem 1.5rem;
+                border-bottom: 1px solid var(--border);
+                background: var(--bg);
+                display: flex; align-items: center; justify-content: space-between;
+            }
+            .booking-room-name { font-size: 16px; font-weight: 700; color: var(--text); letter-spacing: -0.3px; }
+            .booking-date-row {
+                padding: 1rem 1.5rem;
+                border-bottom: 1px solid var(--border);
+                display: flex; align-items: center; gap: 1rem;
+            }
+            .date-label { font-size: 13px; color: var(--text2); font-weight: 500; flex-shrink: 0; }
+            .date-input {
+                border: 1px solid var(--border); padding: 6px 12px;
+                font-size: 13.5px; font-family: inherit; color: var(--text);
+                outline: none; cursor: pointer;
+            }
+            .date-input:focus { border-color: var(--blue); }
+            /* 시간표 그리드 */
+            .timetable-wrap { padding: 1.25rem 1.5rem; overflow-x: auto; }
+            .timetable {
+                width: 100%; border-collapse: collapse;
+                min-width: 600px;
+            }
+            .timetable th {
+                padding: 8px 10px; font-size: 12px; font-weight: 700;
+                color: var(--text2); background: var(--bg);
+                border: 1px solid var(--border); text-align: center;
+                white-space: nowrap; letter-spacing: -0.1px;
+            }
+            .timetable td {
+                padding: 0; border: 1px solid var(--border);
+                text-align: center; height: 44px;
+            }
+            .slot-btn {
+                width: 100%; height: 100%;
+                font-size: 12px; font-weight: 500; font-family: inherit;
+                cursor: pointer; transition: all .15s; border: none;
+                background: white; color: var(--text2);
+            }
+            .slot-btn:hover { background: var(--blue-lt); color: var(--blue); }
+            .slot-btn.available { background: white; color: var(--text2); }
+            .slot-btn.selected  { background: var(--blue); color: white; }
+            .slot-btn.reserved  { background: var(--bg2); color: var(--text3); cursor: not-allowed; font-weight: 400; }
+            /* 범례 */
+            .legend {
+                padding: .75rem 1.5rem 1rem;
+                display: flex; gap: 1.25rem; align-items: center;
+            }
+            .legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--text2); }
+            .legend-dot { width: 14px; height: 14px; border: 1px solid var(--border); flex-shrink: 0; }
+            .legend-dot.ld-avail    { background: white; }
+            .legend-dot.ld-selected { background: var(--blue); border-color: var(--blue); }
+            .legend-dot.ld-reserved { background: var(--bg2); }
+            /* 신청 버튼 */
+            .booking-footer {
+                padding: 1rem 1.5rem;
+                border-top: 1px solid var(--border);
+                background: var(--bg);
+                display: flex; align-items: center; justify-content: space-between;
+            }
+            .selected-info { font-size: 13px; color: var(--text2); }
+            .selected-info strong { color: var(--blue); font-weight: 700; }
+            /* 신청내역 테이블 */
+            .history-table { width: 100%; border-collapse: collapse; margin-top: 1.25rem; font-size: 13.5px; }
+            .history-table thead th {
+                padding: .72rem 1rem; background: var(--bg);
+                border-top: 2px solid var(--text); border-bottom: 2px solid var(--text);
+                font-weight: 700; text-align: left; letter-spacing: -0.2px;
+            }
+            .history-table thead th.c { text-align: center; }
+            .history-table tbody td {
+                padding: .7rem 1rem; border-bottom: 1px solid #e8e8e8;
+                color: var(--text); letter-spacing: -0.15px;
+            }
+            .history-table tbody tr:last-child td { border-bottom: none; }
+            .status-badge { font-size: 11px; font-weight: 700; padding: 2px 8px; }
+            .sb-ok     { background: #E8F6EF; color: #107840; }
+            .sb-cancel { background: #FEF0F0; color: #a01010; }
+            .btn-cancel-sm {
+                font-size: 12px; padding: 4px 12px;
+                border: 1px solid var(--border); background: white;
+                color: var(--text2); cursor: pointer; font-family: inherit;
+                transition: all .15s;
+            }
+            .btn-cancel-sm:hover { border-color: #c00; color: #c00; }
+            /* 모달 */
+            .modal-overlay {
+                display: none; position: fixed; inset: 0;
+                background: rgba(0,0,0,.45); z-index: 1000;
+                align-items: center; justify-content: center;
+            }
+            .modal-overlay.show { display: flex; }
+            .modal {
+                background: white; padding: 2rem;
+                width: 400px; max-width: 90vw;
+                box-shadow: 0 8px 40px rgba(0,0,0,.2);
+            }
+            .modal-title { font-size: 16px; font-weight: 700; margin-bottom: 1.25rem; letter-spacing: -0.3px; }
+            .modal-info  { font-size: 13.5px; color: var(--text2); line-height: 1.9; margin-bottom: 1.5rem; }
+            .modal-info strong { color: var(--text); font-weight: 600; }
+            .modal-footer { display: flex; gap: 8px; justify-content: flex-end; }
