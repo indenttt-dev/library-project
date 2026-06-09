@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>추천 도서 — 동양미래대학교 도서관</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=IBM+Plex+Sans+KR:wght@300;400;500;600&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="../../css/common.css">
+        <link rel="stylesheet" href="../../css/nav.css">
+        <link rel="stylesheet" href="./recommend.css">
+    </head>
+    <body>
+        <div id="header-placeholder">
+        </div>
+        <div class="page-hero">
+            <div class="page-hero-inner">
+                <div class="page-hero-title">추천 도서</div>
+                <div class="page-hero-bc">
+                    <a href="../../index.html">홈</a>
+                    <span>&rsaquo;</span>
+                    <span>추천 도서</span>
+                    <span>&rsaquo;</span>
+                    <span id="recommendCurrentCrumb">금주의 추천 도서</span>
+                </div>
+            </div>
+        </div>
+        <div class="page-content">
+            <div class="tab-row" id="recTabs">
+                <button class="tab-btn on"  data-key="week">금주의 추천 도서</button>
+                <button class="tab-btn" data-key="genre">장르별 추천</button>
+                <button class="tab-btn" data-key="curator">사서 추천 도서</button>
+                <button class="tab-btn" data-key="best">베스트 대출</button>
+            </div>
+            <!-- 금주의 추천 -->
+            <div id="tab-week">
+                <div class="sec-hd">
+                    <span class="sec-title">이번 주 추천 도서</span>
+                </div>
+                <div class="week-featured">
+                    <div class="wf-cover">
+                        <div class="wf-cover-ph" id="wf-main" style="background:#163d73">도둑맞은 집중력</div>
+                    </div>
+                    <div id="wf-info">
+                    </div>
+                </div>
+                <div class="sec-hd">
+                    <span class="sec-title" style="font-size:1.1rem;">이번 주 추천 더보기</span>
+                </div>
+                <div class="books-grid-6" id="weekGrid">
+                </div>
+            </div>
+            <!-- 장르별 추천 -->
+            <div id="tab-genre" style="display:none;">
+                <div class="genre-filter" id="genreTabs">
+                    <button class="gtab on" data-g="all">전체</button>
+                    <button class="gtab" data-g="novel">소설 · 문학</button>
+                    <button class="gtab" data-g="self">자기계발</button>
+                    <button class="gtab" data-g="biz">경영 · 경제</button>
+                    <button class="gtab" data-g="sci">과학 · 기술</button>
+                    <button class="gtab" data-g="art">예술 · 디자인</button>
+                    <button class="gtab" data-g="hist">역사 · 인문</button>
+                    <button class="gtab" data-g="it">IT · 공학</button>
+                </div>
+                <div class="books-grid-6" id="genreGrid">
+                </div>
+            </div>
+            <!-- 사서 추천 -->
+            <div id="tab-curator" style="display:none;">
+                <div class="sec-hd">
+                    <span class="sec-title">사서 추천 도서</span>
+                </div>
+                <div class="curator-grid" id="curatorGrid">
+                </div>
+            </div>
+            <!-- 베스트 대출 -->
+            <div id="tab-best" style="display:none;">
+                <div class="sec-hd">
+                    <span class="sec-title">베스트 대출 Top 10</span>
+                </div>
+                <div class="best-list" id="bestList">
+                </div>
+            </div>
+        </div>
+        <div id="footer-placeholder">
+        </div>
+        <script src="../../js/main.js">
+
+        </script>
+        <script src="../../js/books.js">
+
+        </script>
+        <script src="./recommend.js"></script>
+    </body>
+</html>

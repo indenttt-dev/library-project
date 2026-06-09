@@ -1,4 +1,4 @@
-﻿# library-project
+# library-project
 
 ## 브랜치 전략
 
@@ -23,6 +23,64 @@
 - `js/` 공통 스크립트 수정: 여러 페이지 공통 작업인 경우 `refactor/common-js` 브랜치 사용
 - `images/` 이미지 추가 및 교체: 관련 기능 브랜치에서 함께 수정
 
+
+## 폴더 구조
+
+```text
+library-project/
+├─ index.html
+├─ index.css
+├─ index.js
+├─ css/
+│  ├─ common.css
+│  └─ nav.css
+├─ js/
+│  ├─ main.js
+│  └─ books.js
+├─ pages/
+│  ├─ materials/
+│  │  ├─ materials.html
+│  │  └─ materials.css
+│  ├─ recommend/
+│  │  ├─ recommend.html
+│  │  ├─ recommend.css
+│  │  └─ recommend.js
+│  ├─ reading/
+│  │  ├─ reading.html
+│  │  ├─ reading.css
+│  │  └─ reading.js
+│  ├─ facility/
+│  │  ├─ facility.html
+│  │  ├─ floormap.html
+│  │  ├─ facility.css
+│  │  ├─ floormap.css
+│  │  └─ facility.js
+│  ├─ community/
+│  │  ├─ community.html
+│  │  └─ community.css
+│  ├─ mypage/
+│  │  ├─ mypage.html
+│  │  └─ mypage.css
+│  └─ login/
+│     ├─ login.html
+│     └─ login.css
+├─ images/
+│  ├─ books/
+│  ├─ floor_1f.png
+│  ├─ floor_2f.png
+│  ├─ floor_3f.png
+│  ├─ floor_4f.png
+│  ├─ floor_5f.png
+│  ├─ floor_6f.png
+│  ├─ hours_video.mp4
+│  ├─ logo.jpg
+│  └─ logo2.png
+└─ README.md
+```
+
+공통 스타일은 `css/common.css`, 네비게이션 스타일은 `css/nav.css`에서 관리합니다.
+각 페이지에서만 사용하는 CSS와 JS는 해당 HTML 파일과 같은 폴더에 배치했습니다.
+`index.html`은 사이트 첫 진입 파일이므로 루트에 유지합니다.
 ## 작업 절차
 
 1. 작업 전 `develop` 브랜치를 최신화합니다.

@@ -17,7 +17,7 @@ img 값이 없거나 파일이 없으면 Open Library API로 자동 대체.
 
 /* ROOT 경로 자동 감지 (index.html / pages/*.html 모두 대응) */
 const BOOKS_ROOT = (() =>
-    location.pathname.includes('/pages/') ? '../' : './'
+    location.pathname.includes('/pages/') ? '../../' : './'
 )();
 
 /* ───────────────────────────────────────────────────────────
